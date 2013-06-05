@@ -1,0 +1,34 @@
+/**
+ *  Theme Name:     iA³
+ *  Theme URI:      http://informationarchitects.jp/ia3/
+ *  Description:    A simple HTML5 WordPress theme based on Information Architects' website.
+ *  Version:        1.2.1
+ *  Author:         Information Architects
+ *  Author URI:     http://informationarchitects.jp/en/
+ *  Tags:           monochrome, fixed width, simple, typographic, html5
+ */
+ 
+	@font-face {
+	font-family: Ernestine;
+	src: url("fonts/ErnestineWebPro.woff") format("woff");
+	}
+	
+	@font-face {
+	font-family: ErnestineItalic;
+	src: url("fonts/ErnestineWebPro-Italic.woff") format("woff");
+	}
+	
+	@font-face {
+	font-family: ErnestineDemi;
+	src: url("fonts/ErnestineWebPro-Demibold.woff") format("woff");
+	}
+	
+	@font-face {
+	font-family: ErnestineBold;
+	src: url("fonts/ErnestineWebPro-Bold.woff") format("woff");
+	}
+	
+	@font-face {
+	font-family: ErnestineLight;
+	src: url("fonts/ErnestineWebPro-Light.woff") format("woff");
+	}

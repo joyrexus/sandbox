@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Ernestine</title>
+<style>
+  @import url("style.css");
+  body { 
+    margin: 40px;
+    font-family: Ernestine; 
+    font-size: 124px;
+    color: #333;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased; 
+  }
+</style>
+
+<div style="font-family: ErnestineBold">
+  2 + 5 = 10
+</div>
+
+<div style="font-family: ErnestineDemi">
+  2 + 5 = 10
+</div>
+
+<div style="font-family: Ernestine">
+  2 + 5 = 10
+</div>
+
+<div style="font-family: ErnestineItalic">
+  2 + 5 = 10
+</div>
+
+<div style="font-family: ErnestineLight">
+  2 + 5 = 10
+</div>
+
+<div style="font-family: ErnestineItalic">
+  0 1 2 3 4
+  <br>
+  5 6 7 8 9
+</div>
+
