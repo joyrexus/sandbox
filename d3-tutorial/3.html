@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="lib/d3.v3.min.js"></script>
+<script src="lib/coffee-script.js"></script>
+<style>
+  body {
+    margin: 30px;
+    font-family: "Helvetica Neue";
+  }
+  .person {
+    font-weight: 100;
+    font-size: 75px;
+    color: #333;
+  }
+</style>
+<body>
+<script type="text/coffeescript">
+  people = [ 
+    { "age": 40, "name": "Dick" },
+    { "age": 45, "name": "Bill" },
+    { "age": 37, "name": "Mary" },
+    { "age": 24, "name": "Jane" }
+  ]
+
+  d3.select("body").selectAll("div")
+    .data(people)
+    .enter()
+    .append("div")
+    .attr("class", "person")
+    .style("color", (d) -> "steelblue" if d.age > 40)
+    .text((d) -> "#{d.name} is #{d.age} years old")
+
+</script>
+
