@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  body { margin: 50px; }
+  pre { 
+    font-family: Menlo;
+    font-size: 30px;
+    color: #555;
+  }
+  svg {
+    margin-left: 50px;
+  }
+</style>
+<body>
+  <div class="item">
+    <pre> 
+    line
+      x1 = 0    y1 = 0
+      x2 = 100  y2 = 100
+    </pre>
+    <svg width="200" height="200">
+      <line x1="0" y1="0" x2="100" y2="100" stroke-width="4" stroke="steelblue" />
+    </svg>
+  </div>
+  <div class="item">
+    <pre> 
+      M   0   0 
+      L 100 100
+    </pre>
+    <svg width="200" height="200">
+      <path d="M 0 0 L 100 100" stroke-width="4" stroke="steelblue" />
+    </svg>
+  </div>
+  <div class="item">
+    <pre> 
+      M   0   0 
+      L 100 100, 
+        200   0, 
+    </pre>
+    <svg width="200" height="200">
+      <path d="M 0 0 L 100 100, 200 0" stroke-width="4" stroke="steelblue" fill="none" />
+    </svg>
+  </div>
+  <div class="item">
+    <pre> 
+      M   5   5 
+      L 100 100, 
+        200   5, 
+          5   5
+    </pre>
+    <svg width="200" height="200">
+      <path d="M 5 5 L 100 100, 200 5, 5 5" stroke-width="4" stroke="steelblue" fill="none" />
+    </svg>
+  </div>
