@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  body { margin: 50px; }
+  pre { 
+    float: right;
+    font-family: Menlo;
+    font-size: 20px;
+    color: #555;
+  }
+  svg {
+    margin-left: 50px;
+  }
+  .item {
+    width: 800px;
+  }
+  comment { color: #999; }
+</style>
+<body>
+  <div class="item">
+    <pre>&nbsp
+    </pre>
+    <svg width="300" height="200">
+      <rect x="0" y="0" width="300" height="200" fill="none" stroke="grey" stroke-width="4"/>
+      <rect x="5" y="5" width="200" height="150" fill="aliceblue" stroke="steelblue" stroke-width="6"/>
+      <line x1="5" y1="5" x2="200" y2="155" stroke-width="6" stroke="steelblue" />
+    </svg>
+  </div>
+  <div class="item">
+    <pre>
+      translate(10 20)
+    </pre>
+    <svg width="300" height="200">
+      <rect x="0" y="0" width="300" height="200" fill="none" stroke="grey" stroke-width="4"/>
+      <g transform="translate(10 20)">
+        <rect x="5" y="5" width="200" height="150" fill="aliceblue" stroke="steelblue" stroke-width="6"/>
+        <line x1="5" y1="5" x2="200" y2="155" stroke-width="6" stroke="steelblue" />
+      </g>
+    </svg>
+  </div>
+  <div class="item">
+    <pre>
+             <comment>deg,  cx,  cy</comment>
+      rotate( 45, 150, 100 )
+    </pre>
+    <svg width="300" height="200">
+      <g transform="rotate(45, 150, 100)">
+        <rect x="5" y="5" width="200" height="150" fill="aliceblue" stroke="steelblue" stroke-width="6"/>
+        <line x1="5" y1="5" x2="200" y2="155" stroke-width="6" stroke="steelblue" />
+      </g>
+      <rect x="0" y="0" width="300" height="200" fill="none" stroke="grey" stroke-width="4"/>
+    </svg>
+  </div>
+  <div class="item">
+    <pre>
+      scale(1.3)
+    </pre>
+    <svg width="300" height="200">
+      <g transform="rotate(45, 150, 100), scale(1.3)">
+        <rect x="5" y="5" width="200" height="150" fill="aliceblue" stroke="steelblue" stroke-width="6"/>
+        <line x1="5" y1="5" x2="200" y2="155" stroke-width="6" stroke="steelblue" />
+      </g>
+      <rect x="0" y="0" width="300" height="200" fill="none" stroke="grey" stroke-width="4"/>
+    </svg>
+  </div>
+  <div class="item">
+    <pre>
+    use xlink:href="#orbit" 
+
+      rotate(30 100 100)
+      rotate(60 100 100)
+      rotate(90 100 100)
+    </pre>
+    <svg width="300" height="200">
+      <g stroke="steelblue" stroke-width="3" fill="rgb(240, 248, 255)">
+        <ellipse id="orbit" cx="100" cy="100" rx="75" ry="40" />
+        <use xlink:href="#orbit" transform="rotate(30 100 100)" stroke-width="4" fill="rgb(240, 248, 245)" />
+        <use xlink:href="#orbit" transform="rotate(60 100 100)" stroke-width="5" fill="rgb(240, 248, 235)" />
+        <use xlink:href="#orbit" transform="rotate(90 100 100)" stroke-width="6" fill="rgb(240, 248, 225)" />
+      </g>
+      <rect x="0" y="0" width="300" height="200" fill="none" stroke="grey" stroke-width="4"/>
+    </svg>
+  </div>
