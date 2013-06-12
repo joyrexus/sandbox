@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="lib/d3.v3.min.js"></script>
+<script src="lib/coffee-script.js"></script>
+<style>
+  body {
+    margin: 30px;
+    font-family: "Helvetica Neue";
+  }
+  .bar {
+    display: inline-block;
+    width: 50px;
+    height: 75px;
+    margin: 2px;
+    background-color: teal;
+  }
+  #graph {
+    width: 400px;
+    height: 800px;
+  }
+  div.spacer {
+    display: inline-block;
+    width: 0px;
+    height: 400px;
+  }
+</style>
+<body>
+  <div id="graph">
+    <div class="spacer">
+  </div>
+
+<script type="text/coffeescript">
+  people = [ 
+    { "age": 40, "name": "Dick" },
+    { "age": 45, "name": "Bill" },
+    { "age": 37, "name": "Mary" },
+    { "age": 24, "name": "Jane" }
+  ]
+
+  bars = d3.select("#graph").selectAll("div.bar")
+      .data(people)
+      .enter()
+      .append("div")
+      .attr("class", "bar")
+      .style("height", (d, i) -> (i + 1) * 100 + 'px')    # set height by index
+
+  bars
+    .transition()
+    .duration(2000) # 2 secs
+      .style("height", (d) -> d.age * 5 + 'px')         # set height by age
+
+  d3.select("#graph").selectAll("div.bar")
+    .data(people[0..2])
+    .exit()
+    .transition()
+    .duration(3000) # 2 secs
+      .style('opacity', 0)
+      .remove()
+
+</script>
+

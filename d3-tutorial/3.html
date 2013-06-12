@@ -14,6 +14,8 @@
   }
 </style>
 <body>
+  <div id="info"></div>
+
 <script type="text/coffeescript">
   people = [ 
     { "age": 40, "name": "Dick" },
@@ -22,7 +24,7 @@
     { "age": 24, "name": "Jane" }
   ]
 
-  d3.select("body").selectAll("div")
+  d3.select("#info").selectAll("div")
     .data(people)
     .enter()
     .append("div")
