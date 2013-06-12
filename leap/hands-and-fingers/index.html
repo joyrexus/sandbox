@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="http://joyrexus.spc.uchicago.edu/resources/leap.min.js"></script>
+<script src="http://joyrexus.spc.uchicago.edu/resources/coffee-script.js"></script>
+<style>
+  body {
+    font-family: 'Helvetica Neue';
+    font-weight: 100;
+    color: #555; 
+  }
+  .counts {
+    display: block;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .split {
+    text-align: center;
+    font-size: 400px;
+    float: left;
+    width: 50%;
+  }
+  .label {
+    font-size: 100px;
+  }
+</style>
+<body>
+  <div class="counts">
+    <div class="split">
+      <div id="hands"></div>
+      <div class="label">hands</div>
+    </div>
+    <div class="split">
+      <div id="fingers"></div>
+      <div class="label">fingers</div>
+    </div>
+  </div>
+
+<script type="text/coffeescript">
+  checkLibrary = -> alert "leap.min.js missing!" unless Leap?
+  window.onload = checkLibrary
+  $ = (id) -> document.getElementById id
+  options = enableGestures: false
+
+  render = (frame) -> 
+    $('hands').innerText = frame.hands.length
+    $('fingers').innerText = frame.fingers.length
+
+  Leap.loop options, render
+</script>
