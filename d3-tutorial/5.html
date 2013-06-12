@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="lib/d3.v3.min.js"></script>
+<script src="lib/coffee-script.js"></script>
+<style>
+  body {
+    margin: 30px;
+    font-family: "Helvetica Neue";
+  }
+  .bar {
+    display: inline-block;
+    width: 50px;
+    height: 75px;
+    margin: 2px;
+    background-color: teal;
+  }
+  #graph {
+    width: 450px;
+    height: 450px;
+  }
+  div.spacer {
+    display: inline-block;
+    height: 300px;
+  }
+</style>
+<body>
+  <div id="graph">
+    <div class="spacer">
+  </div>
+
+<script type="text/coffeescript">
+  data = 
+    start: [
+      { "age": 40, "name": "Dick" },
+      { "age": 45, "name": "Bill" },
+      { "age": 37, "name": "Mary" },
+      { "age": 24, "name": "Jane" }
+      { "age": 15, "name": "Jane" }
+    ]
+    stop: [ 
+      { "age": 22, "name": "Dick" },
+      { "age": 24, "name": "Bill" },
+      { "age": 11, "name": "Mary" },
+      { "age": 35, "name": "Jane" }
+    ]
+
+  bars = d3.select("#graph").selectAll("div.bar")
+    .data(data.start)
+    .enter()
+    .append("div")
+    .attr("class", "bar")
+    .style("height", (d) -> d.age * 5 + 'px')         # set height by age
+
+  bars
+    .data(data.stop)
+    .transition()
+    .duration(2000) # 2 secs
+      .style("height", (d) -> d.age * 5 + 'px')       # set height by age
+
+  bars
+    .data(data.stop)
+    .exit()
+    .transition()
+    .duration(3000) # 3 sec fadeout of extra bar
+      .style('opacity', 0)
+      .remove()
+</script>

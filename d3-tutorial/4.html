@@ -15,13 +15,13 @@
     background-color: teal;
   }
   #graph {
-    width: 400px;
+    width: 450px;
     height: 800px;
   }
   div.spacer {
     display: inline-block;
     width: 0px;
-    height: 400px;
+    height: 450px;
   }
 </style>
 <body>
@@ -49,7 +49,7 @@
     .duration(2000) # 2 secs
       .style("height", (d) -> d.age * 5 + 'px')         # set height by age
 
-  d3.select("#graph").selectAll("div.bar")
+  bars
     .data(people[0..2])
     .exit()
     .transition()
