@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  body {
+    font-family: "Helvetica Neue";
+    font-size: 150px;
+    font-weight: 100;
+  }
+  #container { 
+    /* static state */
+    width: 400px; 
+    height: 200px; 
+    position: relative; 
+    border: 2px solid #ccc; 
+  }
+  .container   { 
+    /* overall animation container */
+    height: 0; 
+    overflow: hidden;
+    -webkit-transition-property: height;
+    -webkit-transition-duration: 1.75s; 
+    -webkit-perspective: 1000px; 
+    -webkit-transform-style: preserve-3d; 
+  }
+  .fold { 
+    /* animated fold */
+    height: 200px; 
+    padding: 25px;
+    color: aliceblue;
+    background: steelblue;
+    -webkit-transition-property: all; 
+    -webkit-transition-duration: 1.75s;
+    -webkit-transform: rotateX(-90deg);
+    -webkit-transform-origin: top; 
+  }
+
+  /* hover states to trigger animations */
+  #container:hover .container { height: 200px; }
+  #container:hover .fold { 
+    -webkit-transform: rotateX(0deg); 
+    -moz-transform: rotateX(0deg); 
+    -o-transform: rotateX(0deg); 
+    transform: rotateX(0deg); 
+    height: 200px;
+  }
+
+</style>
+<body>
+  <div id="container">
+    <div class="container">
+      <div class="fold">
+        Hello!
+      </div>
+    </div>
+  </div>
