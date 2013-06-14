@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  body { margin: 50px; }
+  pre { 
+    float: right;
+    font-family: Menlo;
+    font-size: 20px;
+    color: #555;
+  }
+  svg {
+    margin-left: 50px;
+  }
+  .item {
+    width: 800px;
+  }
+  comment { color: #999; }
+</style>
+<body>
+  <div class="item">
+    <pre>
+    stroke = "rgba(70, 130, 180, <b>.5</b>)"
+    fill   = "rgba(240, 248, 255, <b>.5</b>)"
+    </pre>
+    <svg width="300" height="200">
+      <circle cx="75" cy="75" r="44" 
+        stroke="rgba(70, 130, 180, 1.0)" stroke-width="6" 
+        fill="rgba(240, 248, 255, 1.0)" />
+      <circle cx="125" cy="75" r="44" 
+        stroke="rgba(70, 130, 180, 0.5)" stroke-width="6"
+        fill="rgba(240, 248, 255, 0.5)" />
+      <rect x="0" y="0" width="300" height="200" 
+        stroke="grey" stroke-width="4"
+        fill="none" />
+    </svg>
+  </div>
+  <div class="item">
+    <pre>
+    opacity = "0.5"
+    </pre>
+    <svg width="300" height="200">
+      <circle cx="75" cy="75" r="44" 
+        stroke="steelblue" stroke-width="6" 
+        fill="aliceblue" />
+      <circle cx="125" cy="75" r="44" 
+        stroke="steelblue" stroke-width="6" 
+        fill="aliceblue"
+        opacity="0.5" />
+      <rect x="0" y="0" width="300" height="200" 
+        stroke="grey" stroke-width="4"
+        fill="none" />
+    </svg>
+  </div>
