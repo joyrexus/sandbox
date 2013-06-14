@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="lib/d3.v3.min.js"></script>
+<script src="lib/coffee-script.js"></script>
+<style>
+  body {
+    margin: 30px;
+    font-family: "Helvetica Neue";
+  }
+  .bubble {
+    stroke-width: "6px"; 
+    stroke: "rgba(70, 130, 180, 0.5)";
+    fill: "rgba(240, 248, 255, 0.5)";
+  }
+</style>
+<body>
+  <div id="viz"></div>
+
+<script type="text/coffeescript">
+  width = 500 
+  height = 300
+
+  data = 
+    start: [
+      { "age": 40, "name": "Dick" },
+      { "age": 45, "name": "Bill" },
+      { "age": 37, "name": "Mary" },
+      { "age": 24, "name": "Jane" }
+      { "age": 15, "name": "Jane" }
+    ]
+    stop: [ 
+      { "age": 22, "name": "Dick" },
+      { "age": 24, "name": "Bill" },
+      { "age": 11, "name": "Mary" },
+      { "age": 35, "name": "Jane" }
+    ]
+
+  render = (cx, cy, r) ->
+
+    svg = d3.select("#viz").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .style("margin", "10px")
+
+    svg.append("rect")
+      .attr("fill", "none")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("width", width)
+      .attr("height", height)
+      .attr("stroke", "#CCC")
+      .attr("stroke-width", 2)
+
+    circles = svg.selectAll("circle")
+      .data(data.start)
+      .enter()
+      .append("circle")
+      .attr("cx", cx)
+      .attr("cy", cy)
+      .attr("r", r)
+      .attr("stroke-width", 6)
+      .attr("stroke", "rgba(70, 130, 180, 0.5)")
+      .attr("fill", "rgba(240, 248, 255, 0.5)")
+
+    circles
+      .data(data.stop)
+      .transition()
+      .duration(2000) # 2 secs
+        .attr("cy", cy)
+        .attr("r", r)
+
+    circles
+      .data(data.stop)
+      .exit()
+      .transition()
+      .duration(3000) # 3 sec fadeout of extra bar
+        .style('opacity', 0)
+        .remove()
+
+
+  cx = (d, i) -> (i * 70) + 50
+  cy = height / 2
+  r  = (d) -> d.age
+
+  render cx, cy, r
+
+
+  cy = (d) -> d.age * 3 + 50
+  r  = 30
+
+  render cx, cy, r
+
+
+</script>
