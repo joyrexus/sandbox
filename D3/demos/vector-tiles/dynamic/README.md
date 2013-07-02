@@ -1,0 +1,1 @@
+Adapting [d3.geo.tile](https://github.com/d3/d3-plugins/tree/master/geo/tile) to show [OpenStreetMap vector tiles](http://openstreetmap.us/~migurski/vector-datasource/). See also the [static example](/mbostock/5616813).
