@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="lib/svg.js"></script>
+<body>
+  <div id="canvas"></div>
+
+<script>
+  var draw = SVG('canvas').size(300, 300);
+
+  var style = { 
+    fill: "none",
+    stroke: "#999",
+    'stroke-width': 2
+  };
+  var rect = draw.rect(300, 300)
+    .attr(style);
+
+  var style = { 
+    fill: 'none', 
+    stroke: 'steelblue',
+    'stroke-width': 4
+  };
+
+  // polyline('x,y x,y x,y')
+  draw.polyline('0,0 100,50 50,100, 300,200').attr(style);
+
+  var path = [[150,0], [100,50], [200,300]];
+
+  // polyline([[x,y], [x,y], [x,y]])
+  var polyline = draw.polyline(path)
+    .fill('none')
+    .stroke({ color: '#555', width: 3 });
+</script>
