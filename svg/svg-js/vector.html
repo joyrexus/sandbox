@@ -7,13 +7,13 @@
   <div id="canvas"></div>
 
 <script type="text/coffeescript">
-  draw = SVG('canvas').size(300, 300)
+  viz = SVG('canvas').size(300, 300)
   style =
     fill: "none"
     stroke: "#999"
     'stroke-width': 2
 
-  rect = draw.rect(300, 300)
+  rect = viz.rect(300, 300)
     .attr(style)
 
   style =
@@ -21,7 +21,7 @@
     stroke: 'steelblue'
     'stroke-width': 4
 
-  line = draw.line(0,0, 300,200)  # (x1, y1) and (x2, y2)
+  line = viz.line(0,0, 300,200)  # (x1, y1) and (x2, y2)
     .attr(style)
 
     style = 
@@ -29,21 +29,25 @@
       color: '#555'
       opacity: 0.6
 
-  line = draw.line(150,0, 200,300).stroke(style)
+  line = viz.line(150,0, 200,300).stroke(style)
 
-  draw.vector = (A, B) ->
-    draw.line(A.x,A.y, B.x, B.y).stroke(style)
+  class Point
+    constructor: (@x, @y) ->
+
+  class Vector
+    constructor: (@origin, @end) ->
+
+  A = new Point 40, 0
+  B = new Point 200, 300
+  V = new Vector A, B
+
+  viz.vector = (v) ->
+    viz.line(v.origin.x, v.origin.y, v.end.x, v.end.y)
+      .stroke(style)
+    # viz.line(A.x,A.y, B.x,B.y).stroke(style)
 
   style.color = 'orange'
 
-  A =
-    x: 20
-    y: 0
-
-  B = 
-    x: 200
-    y: 300
-
-  draw.vector(A, B)
+  viz.vector(V)
 </script>
 
