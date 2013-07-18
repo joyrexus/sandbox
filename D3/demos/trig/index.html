@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+  margin:0;
+  padding:0;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+circle.circ {
+    fill:none;
+    stroke:#888;
+}
+
+path.tri {
+    fill:#ffecbf;
+    stroke:#222;
+    stroke-width:1;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+var width = 640,
+    height = 300;
+
+var x = d3.scale.linear()
+    .domain([-1, 1])
+    .range([-130, 130]);
+
+var y = d3.scale.linear()
+    .domain([1, -1])
+    .range([130, -130]);
+
+var d2r = Math.PI / 180;
+
+var line = d3.svg.line()
+    .x(function(d) { return x(d[0]); })
+    .y(function(d) { return y(d[1]); })
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + 320 + "," + 150 + ")");
+
+var circle = svg.append("circle")
+    .attr('class', 'circ')
+    .attr("r", 130);
+
+var tri = svg.append("path")
+    .attr('class', 'tri')
+    .datum([
+        [0, 0],
+        [1, 0],
+        [1, 0],
+        [0, 0]])
+    .attr('d', line);
+
+svg.append("circle")
+    .attr('class', 'center')
+    .attr("r", 2);
+
+var hypot = svg.append("text")
+    .text('1');
+
+var opp = svg.append("text")
+    .text('1');
+
+var adj = svg.append("text")
+    .text('1');
+
+d3.select('body').on('mousemove', function() {
+    var a = Math.atan2(
+        d3.event.y - 150,
+        d3.event.x - 320)
+
+    hypot
+        .attr('transform', function() {
+            return 'translate(' + [x(Math.cos(a + 0.1)) / 2, y(Math.sin(a + 0.1)) / 2] + ')';
+        });
+
+    opp
+        .text(function() { return (-Math.sin(a)).toFixed(2); })
+        .attr('transform', function() {
+            return 'translate(' + [x(Math.cos(a)) + 2, y(Math.sin(a)) / 2] + ')';
+        });
+
+    adj
+        .text(function() { return (Math.cos(a)).toFixed(2); })
+        .attr('transform', function() {
+            return 'translate(' + [x(Math.cos(a)) / 2, 10] + ')';
+        });
+
+    tri
+        .datum([
+            [0, 0],
+            [Math.cos(a), 0],
+            [Math.cos(a), Math.sin(a)],
+            [0, 0]])
+        .attr('d', line);
+})
+
+</script>
