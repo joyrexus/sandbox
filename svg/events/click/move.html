@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/coffee-script.js"></script>
+<style>
+  #target {
+    fill: aliceblue;
+    stroke: steelblue;
+    stroke-width: 6;
+  }
+</style>
+<body>
+  <svg id="viz" width="300" height="300">
+    <circle id="target" cx="100" cy="100" r="25" />
+  </svg>
+
+<script type="text/coffeescript">
+
+  $ = (id) -> document.getElementById id
+  rightward = true
+  max = 200
+  min = 100
+
+  move = () -> 
+    x = @.cx.baseVal
+    if rightward
+      if x.value < max
+        x.value += 10
+      else
+        rightward = false
+    else 
+      if x.value > min
+        x.value -= 10
+      else
+        rightward = true
+
+  $('target').addEventListener "click", move, false
+
+</script>
+

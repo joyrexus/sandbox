@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/coffee-script.js"></script>
+<style>
+  #target {
+    fill: aliceblue;
+    stroke: steelblue;
+    stroke-width: 6;
+  }
+</style>
+<body>
+  <svg id="viz" width="300" height="300">
+    <circle id="target" cx="100" cy="100" r="25" />
+  </svg>
+
+<script type="text/coffeescript">
+
+  $ = (id) -> document.getElementById id
+  growing = true
+  max = 90
+  min = 25
+
+  resize = () -> 
+    r = @.r.baseVal
+    if growing 
+      if r.value < max
+        r.value += 10
+      else
+        growing = false
+    else 
+      if r.value > min
+        r.value -= 10
+      else
+        growing = true
+
+  $('target').addEventListener "click", resize, false
+
+</script>
+

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/coffee-script.js"></script>
+<style>
+  #target {
+    fill: aliceblue;
+    stroke: steelblue;
+    stroke-width: 6;
+  }
+</style>
+<body>
+  <svg id="viz" width="300" height="300">
+    <circle id="target" cx="50" cy="50" r="22" />
+  </svg>
+
+<script type="text/coffeescript">
+
+  $ = (id) -> document.getElementById id
+
+  toggle = () -> 
+    @.style.fill = if @.style.fill is '#4682b4' then 'aliceblue' else 'steelblue'
+
+  $('target').addEventListener "click", toggle, false
+
+</script>
+
