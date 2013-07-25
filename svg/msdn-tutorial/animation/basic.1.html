@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  #target {
+    fill: aliceblue;
+    stroke: steelblue;
+    stroke-width: 6;
+  }
+</style>
+<body>
+  <svg width="400px" height="400px" viewBox="0 0 400 400">
+    <!-- 
+    Create a Cartesian coordinate system (with the y-axis flipped) 
+    for the animated square. That is, place the origin at the center 
+    of the 400 x 400 SVG viewport. 
+    --> 
+    <g transform="translate(200, 200)"> 
+      <!-- 
+      A 200 x 200 square with the upper left-hand corner at (-100, -100). 
+      This places the center of the square at the origin (0, 0): 
+      -->  
+      <rect id="target"
+            x="-100" y="-100" 
+            rx="50" ry="50" 
+            width="200" height="200">
+        <animateTransform 
+          attributeType="xml"
+          attributeName="transform" type="rotate"
+          from="0" to="90"
+          begin="0" dur="5s" 
+          fill="freeze"
+        />
+      </rect>
+      
+      <!-- Represents the x-axis. -->
+      <line x1="-200" y1="0" x2="200" y2="0" style="stroke: #999;" /> 
+      
+      <!-- Represents the y-axis (although up is negative and down is positive). -->  
+      <line x1="0" y1="-200" x2="0" y2="200" style="stroke: #999;" /> 
+          
+    </g>
+    <rect x="0" y="0" width="400" height="400" fill="none" stroke="#999" />
+  </svg> 
+

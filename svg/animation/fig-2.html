@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SVG SMIL Animate with Path</title>
+  </head>
+  <body>
+     <svg width="300px" height="100px">
+        <rect x="0" y="0" width="300" height="100" stroke="black" stroke-width="1" />
+        <rect x="0" y="0" width="20" height="50" fill="blue" stroke="black" stroke-width="1">
+            <animateMotion path="M 50,100 Q40,75 90,70Q95,60 95,50Q180,40 170,100Z"
+            dur="3s" repeatCount="indefinite" rotate="auto">
+        </rect>
+    </svg>     
+  </body>
+</html>
