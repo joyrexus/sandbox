@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>SVG SMIL Animate with Path</title>
-  </head>
-  <body>
-      <svg xmlns="http://www.w3.org/2000/svg" width="300px" height="100px">
-        <rect x="0" y="0" width="300" height="100" stroke="black" stroke-width="1" />
-        <circle cx="0" cy="50" r="15" fill="blue" stroke="black" stroke-width="1">
-          <animateMotion path="M 0 0 H 300 Z" dur="3s" repeatCount="indefinite" />
-        </circle>
-      </svg>
-       </rect>
-     </svg>
-  </body>
-</html>
+<style>
+  @import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:200,400,600);
+  body {
+    font-family: "Source Code Pro", sans-serif;
+    margin: 1em auto 4em auto;
+    position: relative;
+    width: 960px;
+    color: #555;
+    background: whiteSmoke;
+  }
+  h1 {
+    font-size: 50px;
+    font-weight: 200;
+    letter-spacing: -6px;
+    margin: .8em 0 .4em 0;
+    -webkit-font-smoothing: antialiased;
+  }
+</style>
+<body>
+  <h1>Animate motion with path</h1>
+  <svg width="300px" height="50px">
+    <rect x="0" y="0" 
+          width="300" 
+          height="50" 
+          fill="#999" />
+    <circle cx="-20" cy="25" r="20" fill="aliceblue" stroke="#777" stroke-width="3">
+      <animateMotion path="M 40 0 H 300 Z" dur="8s" repeatCount="indefinite" />
+    </circle>
+  </svg>
+

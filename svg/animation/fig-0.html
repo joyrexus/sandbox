@@ -1,25 +1,51 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>SVG SMIL Animate with transform</title>
-  </head>
-  <body>
-    <!-- Rotate from 0 to 360 degrees, and move from 60 to 100 in the x direction. -->
-    <!-- Keep doing this until the drawing no longer exists. -->
-    <!-- rect x="0" y="0" width="300" height="100" stroke="black" stroke-width="1" -->
-     <svg width="300px" height="100px">
-       <rect x="0" y="50" width="15" height="34" fill="blue" stroke="black" stroke-width="1" transform="rotation">
+<style>
+  @import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:200,400,600);
+
+  body {
+    font-family: "Source Code Pro", sans-serif;
+    margin: 1em auto 4em auto;
+    position: relative;
+    width: 960px;
+    color: #555;
+    background: whiteSmoke;
+  }
+
+  h1 {
+    font-size: 50px;
+    font-weight: 200;
+    letter-spacing: -6px;
+    margin: .8em 0 .4em 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .grid {
+    fill: aliceblue;
+    stroke: #999; 
+    stroke-width: 1;
+  }
+</style>
+<head>
+  <title>SVG animated transform</title>
+</head>
+<body>
+  <h1>Rotate from 0 to 360 degrees around center point</h1>
+  <svg width="300px" height="300px">
+    <rect class="grid" x="0" y="0" width="300" height="300" />
+    <g transform="rotation">
+      <line class="grid" x1="20" y1="150" x2="150" y2="150" />
+      <rect x="10" y="125" width="20" height="50" fill="steelblue" />
       <animateTransform
             attributeName="transform"
             begin="0s"
-            dur="20s"
+            dur="10s"
             type="rotate"
-            from="0 60 60"
-            to="360 100 60"
+            from="0 150 150"
+            to="360 150 150"
             repeatCount="indefinite" 
-      />
-       </rect>
-     </svg>
-  </body>
-</html>
+        />
+    </g>
+    <circle class="grid" cx="150" cy="150" r="3" />
+  </svg>
 

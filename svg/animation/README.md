@@ -22,7 +22,15 @@ The following example animates the `cx` attribute of a circle. To do so, we add 
 
 EXAMPLE: animating a circle's `cx` attribute
 
-<svg width="300px" height="50px"> <rect x="0" y="0" width="300" height="50" fill="#999" /> <circle cx="-20" cy="25" r="20" fill="aliceblue" stroke="#777" stroke-width="3"> <animate attributeName="cx" from="-20" to="320" dur="5s" repeatCount="indefinite" /> </circle> </svg>
+<svg width="300px" height="50px">
+  <rect x="0" y="0" 
+        width="300" 
+        height="50" 
+        fill="#999" />
+  <circle cx="-20" cy="25" r="20" fill="aliceblue" stroke="#777" stroke-width="3">
+      <animate attributeName="cx" from="-20" to="320" dur="5s" repeatCount="indefinite" />
+  </circle>
+</svg>
 
     <svg width="300px" height="50px">
        <rect x="0" y="0" 
