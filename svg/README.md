@@ -10,6 +10,8 @@ SVG
 
 * [MDN Tutorial](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial?redirectlocale=en-US&redirectslug=SVG%2FTutorial)
 
+* [MSDN Tutorials](http://msdn.microsoft.com/en-us/library/ie/bg124132.aspx#samples_and_tutorials)
+
 
 ## Reference
 
