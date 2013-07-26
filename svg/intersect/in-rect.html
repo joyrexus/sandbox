@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="lib/coffee-script.js"></script>
+<body>
+  <svg width="300" height="300">
+    <rect id="boundary" x="50" y="50" width="200" height="150" fill="#999" /> 
+    <circle id="bug" cx="50" cy="50" r="22" fill="steelblue" />
+  </svg>
+
+<script type="text/coffeescript">
+
+  $ = (id) -> document.getElementById id
+  rightward = true
+  max = 200
+  min = 100
+
+  move = -> 
+    x = @.x.baseVal
+    if rightward
+      if x.value < max
+        x.value += 10
+      else
+        rightward = false
+    else 
+      if x.value > min
+        x.value -= 10
+      else
+        rightward = true
+    intersect $('bug'), $('boundary')
+
+  $('boundary').addEventListener "click", move, false
+
+  intersect = (x, r) ->
+    root = x.ownerSVGElement
+    rect = root.createSVGRect() 
+    rect.x = r.x.baseVal.value
+    rect.y = r.y.baseVal.value
+    rect.width = r.width.baseVal.value
+    rect.height = r.height.baseVal.value
+    console.log root.checkIntersection(x, rect)
+
+</script>
