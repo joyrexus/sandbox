@@ -3,7 +3,7 @@
 <script src="lib/coffee-script.js"></script>
 <body>
   <svg width="300" height="300">
-    <rect id="boundary" x="50" y="50" width="200" height="150" fill="#999" /> 
+    <rect id="box" x="50" y="50" width="200" height="150" fill="#999" /> 
     <circle id="bug" cx="50" cy="50" r="22" fill="steelblue" />
   </svg>
 
@@ -13,6 +13,8 @@
   rightward = true
   max = 200
   min = 100
+  bug = $('bug')
+  box = $('box')
 
   move = -> 
     x = @.x.baseVal
@@ -26,9 +28,9 @@
         x.value -= 10
       else
         rightward = true
-    intersect $('bug'), $('boundary')
+    @.style.fill = "#555" if not intersect(bug, @)
 
-  $('boundary').addEventListener "click", move, false
+  $('box').addEventListener "click", move, false
 
   intersect = (x, r) ->
     root = x.ownerSVGElement
@@ -37,6 +39,6 @@
     rect.y = r.y.baseVal.value
     rect.width = r.width.baseVal.value
     rect.height = r.height.baseVal.value
-    console.log root.checkIntersection(x, rect)
+    root.checkIntersection(x, rect)
 
 </script>
