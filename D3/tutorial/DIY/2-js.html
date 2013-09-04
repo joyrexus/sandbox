@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/d3.v3.min.js"></script>
+<style>
+  body {
+    margin: 80px;
+    font-family: "Helvetica Neue";
+    font-weight: 100;
+    font-size: 400px;
+    color: #333;
+  }
+</style>
+<body>
+  <script>
+    function choice(msg) {
+      var event = d3.dispatch('click');
+      return d3.rebind(function(selection) {
+        selection.append('div').text(msg)
+          .on('click', function() {
+            event.click(msg);
+          });
+      }, event, 'on');
+    }
+
+    d3.select('body').call(choice('hi!')
+      .on('click', function() {
+        alert('you clicked!');
+      }));
+  </script>
+

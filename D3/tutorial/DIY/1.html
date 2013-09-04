@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/d3.v3.min.js"></script>
+<script src="../lib/coffee-script.js"></script>
+<style>
+  body {
+    margin: 80px;
+    font-family: "Helvetica Neue";
+    font-weight: 100;
+    font-size: 400px;
+    color: #333;
+  }
+</style>
+<body>
+  <script type="text/coffeescript">
+    say = (msg) ->
+      (selection) -> selection.append('div').text(msg)
+
+    d3.select('body').call(say 'hi!')
+  </script>
+
