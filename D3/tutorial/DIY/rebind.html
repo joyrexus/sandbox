@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="../lib/d3.v3.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
 <style>
   body {
     margin: 80px;
@@ -12,7 +12,7 @@
 </style>
 <body>
   <script>
-    function choice(msg) {
+    function say(msg) {
       var event = d3.dispatch('click');
       return d3.rebind(function(selection) {
         selection.append('div').text(msg)
@@ -22,9 +22,9 @@
       }, event, 'on');
     }
 
-    d3.select('body').call(choice('hi!')
-      .on('click', function() {
-        alert('you clicked!');
+    d3.select('body').call(say('hi!')
+      .on('click', function(msg) {
+        alert(msg);
       }));
   </script>
 
