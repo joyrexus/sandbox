@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="lib.js"></script>
+<style>
+  @import url(http://fonts.googleapis.com/css?family=Roboto:700,300);
+  body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 1.5em;
+  }
+
+  .g-map path {
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    pointer-events: none;
+  }
+
+  .g-map .g-sector path {
+    fill: orange;
+    fill-opacity: 0;
+    pointer-events: all;
+    -webkit-transition: fill-opacity 250ms linear;
+  }
+
+  .g-map .g-sector :hover,
+  .g-map .g-sector .g-hover {
+    fill-opacity: .25;
+  }
+
+  .g-map .g-country-boundary {
+    fill: none;
+    stroke: #333;
+    stroke-width: 1.5px;
+  }
+
+  .g-map .g-state-boundary {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 1.5px;
+  }
+
+  .g-map .g-sector-boundary {
+    fill: none;
+    stroke: #333;
+    stroke-dasharray: 1,2;
+  }
+
+  .g-map .g-boundary-key rect {
+    fill: white;
+    fill-opacity: .5;
+  }
+
+  .g-map .g-roads {
+    fill: none;
+    stroke: #999;
+    stroke-width: .5px;
+  }
+
+  .g-map text {
+    font-size: 10px;
+    pointer-events: none;
+  }
+
+  .g-map .g-labels,
+  .g-map .g-places {
+    text-anchor: middle;
+  }
+
+  .g-map .g-labels .g-sector-label {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .g-map .g-labels .g-country-label {
+    fill: #333;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .g-map .g-places text {
+    fill: #777;
+  }
+
+  .g-chart {
+    height: 156px;
+  }
+
+  .g-chart-container {
+    margin: 0 40px 40px 40px;
+  }
+
+  .g-chart {
+    position: relative;
+    left: -120px;
+  }
+
+  .g-bar {
+    fill: #a5847a;
+  }
+
+  .g-bar:hover :first-child {
+    fill: orange;
+  }
+
+  .g-bar .g-overlay {
+    fill: none;
+    shape-rendering: crispEdges;
+    pointer-events: all;
+  }
+
+  .g-axis path,
+  .g-baseline .tick-cap,
+  .g-baseline text {
+    display: none;
+  }
+
+  .g-axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .g-y .tick line  {
+    stroke: #000;
+    stroke-dasharray: 1,3;
+    stroke-opacity: .3;
+  }
+
+  .g-y .g-baseline line,
+  .g-y line.tick-cap {
+    stroke-dasharray: none;
+    stroke-opacity: 1;
+  }
+
+  .g-chart text {
+    font-size: 11px;
+  }
+
+  .g-chart-title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2em;
+    margin-bottom: .3em;
+  }
+
+  .g-chart-caption {
+    color: #777;
+    font-weight: 300;
+    font-size: 14px;
+  }
+
+  .storyHeader h1 {
+    font-size: 27px !important;
+    text-align: center;
+    margin-top:15px !important;
+  }
+
+  .g-header {
+    position: relative;
+    height: 16px;
+    margin-top: 8px;
+  }
+
+  .g-header .g-sector {
+    position: absolute;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: #777;
+    white-space: nowrap;
+  }
+
+  .g-chart-tooltip {
+    position: absolute;
+    width: 120px;
+    margin-left: 60px;
+    margin-top: -10px;
+    text-align: center;
+    font-size: 10px;
+    pointer-events: none;
+  }
+</style>
+<body>
+  <div class="g-map"></div>
+  <br clear="all">
+  <div class="g-chart-container">
+    <div class="g-chart-title">There are now more agents along the 1,954 mile-long border than ever before</div>
+    <div class="g-chart-caption">Border agents per sector.</div>
+    <div class="g-header"></div>
+    <div data-key="staffing" class="g-chart">
+      <div class="g-chart-tooltip" style="left: 280.40240397177945px; top: 44.6001415428167px;"></div>
+    </div>
+  </div>
+<script>
+  (function() {
+
+  var width = 970,
+      height = 300;
+
+  var projection = d3.geo.satellite()
+      .distance(1.2)
+      .scale(4000)
+      .rotate([109.5, -23, 19])
+      .center([0, 7.5])
+      .translate([width / 2, height / 2])
+      .tilt(30)
+      .clipAngle(Math.acos(1 / 1.2) * 180 / Math.PI - 1e-6);
+
+  var path = d3.geo.path()
+      .projection(projection);
+
+  var chartMargin = {top: 15, right: 120, bottom: 20, left: 120},
+      chartWidth = 970 - chartMargin.left - chartMargin.right,
+      chartHeight = 150 - chartMargin.top - chartMargin.bottom;
+
+  var x0 = d3.scale.ordinal()
+      .domain(["San Diego", "El Centro", "Yuma", "Tucson", "El Paso", "Big Bend", "Del Rio", "Laredo", "Rio Grande Valley"])
+      .rangeBands([0, chartWidth], .1, 0);
+
+  var x1 = d3.scale.ordinal()
+      .domain(d3.range(2000, 2013))
+      .rangeBands([0, x0.rangeBand()], .1, 0);
+
+  var y = d3.scale.linear()
+      .range([chartHeight, 0]);
+
+  var xAxis = d3.svg.axis()
+      .scale(x1)
+      .orient("bottom");
+
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("right")
+      .ticks(6)
+      .tickPadding(10)
+      .tickSize(-chartWidth);
+
+  var formatPercent = d3.format("%");
+
+  var svg = d3.select(".g-map").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+  d3.selectAll(".g-header").selectAll(".g-sector")
+      .data(x0.domain())
+    .enter().append("div")
+      .attr("class", "g-sector")
+      .style("left", function(d) { return x0(d) + "px"; })
+      .style("width", x0.rangeBand() + "px")
+      .text(function(d) { return d; });
+
+  queue()
+      .defer(d3.json, "data/sectors.json")
+      .defer(d3.csv, "data/staffing.csv")
+      .await(ready);
+
+  function ready(error, topology, data) {
+    var sectors = topology.objects.sectors.geometries;
+
+    data.forEach(function(d) {
+      d.val = +d.val;
+      if (d.type === "got_away_pct") d.val /= 100;
+    });
+
+    sectors.forEach(function(s) {
+      if (s.properties.name === "Marfa") s.properties.name = "Big Bend";
+    });
+
+    var dataByTypeAndSector = d3.nest()
+        .key(function(d) { return d.type; })
+        .key(function(d) { return d.sector; })
+        .entries(data);
+
+    var defs = svg.append("defs");
+
+    defs.append("path")
+        .datum(topojson.object(topology, topology.objects.countries))
+        .attr("id", "g-land")
+        .attr("d", path);
+
+    /*
+    defs.append("filter")
+        .attr("id", "g-blur")
+      .append("feGaussianBlur")
+        .attr("stdDeviation", 8);
+    */
+
+    defs.append("clipPath")
+        .attr("id", "g-clip-land")
+      .append("use")
+        .attr("xlink:href", "#g-land");
+
+    var terrain = svg.append("g")
+        .style("opacity", .5);
+
+    terrain.append("rect")
+        .style("fill", "#74abd4")
+        .attr("width", width)
+        .attr("height", height);
+
+    /*
+    terrain.append("use")
+      .style("filter", "url(#g-blur)")
+      .style("fill", "#fff")
+      .attr("xlink:href", "#g-land");
+    */
+
+    terrain.append("image")
+        .attr("xlink:href", "terrain.jpg")
+        .attr("clip-path", "url(#g-clip-land)")
+        .attr("width", width)
+        .attr("height", height);
+
+    svg.append("g")
+        .attr("class", "g-sector")
+      .selectAll("path")
+        .data(sectors.map(function(s) { return topojson.object(topology, s); }))
+      .enter().append("path")
+        .attr("d", path);
+
+    svg.append("path")
+        .datum(topojson.mesh(topology, topology.objects.countries, function(a, b) { return a !== b; }))
+        .attr("class", "g-state-boundary")
+        .attr("d", path);
+
+    svg.append("path")
+        .datum(topojson.mesh(topology, {type: "GeometryCollection", geometries: sectors}, function(a, b) { return a !== b; }))
+        .attr("class", "g-sector-boundary")
+        .attr("d", path);
+
+    svg.append("path")
+        .datum(topojson.object(topology, topology.objects.roads))
+        .attr("class", "g-roads")
+        .attr("d", path);
+
+    svg.append("path")
+        .datum(topojson.mesh(topology, topology.objects.countries, function(a, b) { return a !== b && a.properties.iso_a2 !== b.properties.iso_a2; }))
+        .attr("class", "g-country-boundary")
+        .attr("d", path);
+
+    var key = svg.append("g")
+        .attr("class", "g-boundary-key")
+        .attr("transform", "translate(0," + height + ")");
+
+    key.append("path")
+        .attr("class", "g-sector-boundary")
+        .attr("d", "M8,-10h22");
+
+    var keyLabel = key.append("text")
+        .attr("dy", ".35em")
+        .attr("x", 36)
+        .attr("y", -10)
+        .text("U.S. Border Patrol sectors");
+
+    key.insert("rect", "*")
+        .attr("y", -20)
+        .attr("height", 20)
+        .attr("width", 44 + keyLabel.node().getComputedTextLength());
+
+    var place = svg.append("g")
+        .attr("class", "g-places")
+      .selectAll("g")
+        .data(topojson.object(topology, topology.objects.places).geometries)
+      .enter().append("g")
+        .attr("transform", function(d) { return "translate(" + projection(d.coordinates) + ")"; });
+
+    place.append("circle")
+        .attr("r", 2);
+
+    place.append("text")
+        .attr("dy", function(d) { return d.properties.iso_a2 === "US" ? "-.5em" : "1.2em"; })
+        .text(function(d) { return d.properties.name; });
+
+    svg.append("g")
+        .attr("class", "g-labels")
+      .selectAll("text")
+        .data(topojson.object(topology, topology.objects.labels).geometries)
+      .enter().append("text")
+        .attr("class", function(d) { return "g-" + d.properties.type + "-label"; })
+        .attr("transform", function(d) { return "translate(" + projection(d.coordinates) + ")"; })
+      .selectAll("tspan")
+        .data(function(d) { return d.id.split("\n").reverse(); })
+      .enter().append("tspan")
+        .attr("x", 0)
+        .attr("dy", function(d, i) { return (.35 - i * 1.4) + "em"; })
+        .text(function(d) { return d; });
+
+    var type = d3.selectAll(".g-chart")
+        .data(dataByTypeAndSector, function(d) { return d ? d.key : this.getAttribute("data-key"); });
+
+    type.append("svg")
+        .attr("width", chartWidth + chartMargin.left + chartMargin.right)
+        .attr("height", chartHeight + chartMargin.top + chartMargin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + chartMargin.left + "," + chartMargin.top + ")");
+
+    type.each(function(d, i) {
+      var type = d3.select(this),
+          svg = type.select("g"),
+          tooltip = type.select(".g-chart-tooltip"),
+          format = d.key === "got_away_pct" ? d3.format(".2p") : d3.format(",d");
+
+      yAxis.tickFormat(format);
+
+      var yy = y.domain([0, d3.max(d.values, function(d) {
+        return d3.max(d.values, function(d) {
+          return d.val;
+        });
+      })]).copy();
+
+      if (!i) {
+        var clip = svg.append("clipPath")
+          .attr("id", "g-clip-sectors");
+
+        clip.selectAll("rect")
+            .data(x0.domain())
+          .enter().append("rect")
+            .attr("x", function(d) { return x0(d) - chartWidth; })
+            .attr("width", x0.rangeBand())
+            .attr("height", chartHeight + 1);
+
+        clip.append("rect")
+            .attr("y", -chartMargin.top)
+            .attr("width", chartMargin.right)
+            .attr("height", chartHeight + chartMargin.top + chartMargin.bottom);
+      }
+
+      var sector = svg.selectAll(".g-sector")
+          .data(d.values)
+        .enter().append("g")
+          .attr("class", "g-sector")
+          .attr("transform", function(d) { return "translate(" + x0(d.key) + ",0)"; });
+
+      var bar = sector.selectAll(".g-bar")
+          .data(function(d) { return d.values; })
+        .enter().append("g")
+          .attr("class", "g-bar")
+          .attr("transform", function(d) { return "translate(" + x1(d.year) + ",0)"; })
+          .on("mouseover", function(d) {
+            var p = this.parentNode.__data__;
+            d3.selectAll(".g-map .g-sector path").classed("g-hover", function(d) { return d.properties.name === p.key; });
+            tooltip.style("left", x0(p.key) + x1(d.year) + "px").style("top", yy(d.val) + "px").text(format(d.val));
+          })
+          .on("mouseout", function() {
+            d3.selectAll(".g-hover").classed("g-hover", false);
+            tooltip.text(null);
+          });
+
+      bar.append("rect")
+          .attr("y", function(d) { return y(d.val); })
+          .attr("width", x1.rangeBand())
+          .attr("height", function(d) { return chartHeight - y(d.val); });
+
+      bar.append("rect")
+          .attr("class", "g-overlay")
+          .attr("width", x1.rangeBand() + 1)
+          .attr("height", chartHeight);
+
+      var tick = svg.append("g")
+          .attr("class", "g-y g-axis")
+          .attr("transform", "translate(" + chartWidth + ",0)")
+          .attr("clip-path", "url(#g-clip-sectors)")
+          .call(yAxis)
+        .selectAll(".tick")
+          .classed("g-baseline", function(d) { return !d; });
+
+      tick.append("line")
+          .attr("class", "tick-cap")
+          .attr("x1", 2)
+          .attr("x2", 6);
+
+      sector.append("g").selectAll("text")
+          .data(d3.extent(d.values[0].values, function(d) { return d.year; }))
+        .enter().append("text")
+          .attr("y", chartHeight + 4)
+          .attr("x", function(d, i) { return x1(d) + i * x1.rangeBand(); })
+          .attr("dy", ".71em")
+          .style("text-anchor", function(d, i) { return i ? "end" : "start"; })
+          .text(function(d) { return "’" + d.substring(2, 4); });
+    });
+  }
+
+  })()
+</script>

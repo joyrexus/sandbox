@@ -1,0 +1,289 @@
+"","sector","val","type","year"
+"1","Big Bend",196,"staffing",2000
+"2","Del Rio",758,"staffing",2000
+"3","El Centro",502,"staffing",2000
+"4","El Paso",1036,"staffing",2000
+"5","Laredo",806,"staffing",2000
+"6","Rio Grande Valley",1368,"staffing",2000
+"7","San Diego",2053,"staffing",2000
+"8","Tucson",1548,"staffing",2000
+"9","Yuma",313,"staffing",2000
+"10","Big Bend",194,"staffing",2001
+"11","Del Rio",893,"staffing",2001
+"12","El Centro",589,"staffing",2001
+"13","El Paso",1086,"staffing",2001
+"14","Laredo",921,"staffing",2001
+"15","Rio Grande Valley",1451,"staffing",2001
+"16","San Diego",2004,"staffing",2001
+"17","Tucson",1686,"staffing",2001
+"18","Yuma",323,"staffing",2001
+"19","Big Bend",253,"staffing",2002
+"20","Del Rio",972,"staffing",2002
+"21","El Centro",683,"staffing",2002
+"22","El Paso",1122,"staffing",2002
+"23","Laredo",969,"staffing",2002
+"24","Rio Grande Valley",1484,"staffing",2002
+"25","San Diego",1807,"staffing",2002
+"26","Tucson",1626,"staffing",2002
+"27","Yuma",323,"staffing",2002
+"28","Big Bend",230,"staffing",2003
+"29","Del Rio",950,"staffing",2003
+"30","El Centro",755,"staffing",2003
+"31","El Paso",1188,"staffing",2003
+"32","Laredo",1025,"staffing",2003
+"33","Rio Grande Valley",1524,"staffing",2003
+"34","San Diego",1972,"staffing",2003
+"35","Tucson",1838,"staffing",2003
+"36","Yuma",358,"staffing",2003
+"37","Big Bend",239,"staffing",2004
+"38","Del Rio",933,"staffing",2004
+"39","El Centro",734,"staffing",2004
+"40","El Paso",1094,"staffing",2004
+"41","Laredo",981,"staffing",2004
+"42","Rio Grande Valley",1439,"staffing",2004
+"43","San Diego",1651,"staffing",2004
+"44","Tucson",2104,"staffing",2004
+"45","Yuma",331,"staffing",2004
+"46","Big Bend",220,"staffing",2005
+"47","Del Rio",907,"staffing",2005
+"48","El Centro",684,"staffing",2005
+"49","El Paso",1330,"staffing",2005
+"50","Laredo",937,"staffing",2005
+"51","Rio Grande Valley",1380,"staffing",2005
+"52","San Diego",1562,"staffing",2005
+"53","Tucson",2324,"staffing",2005
+"54","Yuma",547,"staffing",2005
+"55","Big Bend",246,"staffing",2006
+"56","Del Rio",935,"staffing",2006
+"57","El Centro",713,"staffing",2006
+"58","El Paso",1741,"staffing",2006
+"59","Laredo",926,"staffing",2006
+"60","Rio Grande Valley",1431,"staffing",2006
+"61","San Diego",1671,"staffing",2006
+"62","Tucson",2595,"staffing",2006
+"63","Yuma",774,"staffing",2006
+"64","Big Bend",336,"staffing",2007
+"65","Del Rio",1138,"staffing",2007
+"66","El Centro",894,"staffing",2007
+"67","El Paso",2251,"staffing",2007
+"68","Laredo",1206,"staffing",2007
+"69","Rio Grande Valley",1822,"staffing",2007
+"70","San Diego",2019,"staffing",2007
+"71","Tucson",2806,"staffing",2007
+"72","Yuma",825,"staffing",2007
+"73","Big Bend",421,"staffing",2008
+"74","Del Rio",1427,"staffing",2008
+"75","El Centro",1080,"staffing",2008
+"76","El Paso",2506,"staffing",2008
+"77","Laredo",1636,"staffing",2008
+"78","Rio Grande Valley",2063,"staffing",2008
+"79","San Diego",2328,"staffing",2008
+"80","Tucson",3049,"staffing",2008
+"81","Yuma",932,"staffing",2008
+"82","Big Bend",682,"staffing",2009
+"83","Del Rio",1682,"staffing",2009
+"84","El Centro",1187,"staffing",2009
+"85","El Paso",2712,"staffing",2009
+"86","Laredo",1863,"staffing",2009
+"87","Rio Grande Valley",2422,"staffing",2009
+"88","San Diego",2570,"staffing",2009
+"89","Tucson",3318,"staffing",2009
+"90","Yuma",972,"staffing",2009
+"91","Big Bend",672,"staffing",2010
+"92","Del Rio",1650,"staffing",2010
+"93","El Centro",1181,"staffing",2010
+"94","El Paso",2752,"staffing",2010
+"95","Laredo",1858,"staffing",2010
+"96","Rio Grande Valley",2441,"staffing",2010
+"97","San Diego",2594,"staffing",2010
+"98","Tucson",3353,"staffing",2010
+"99","Yuma",987,"staffing",2010
+"100","Big Bend",667,"staffing",2011
+"101","Del Rio",1626,"staffing",2011
+"102","El Centro",1164,"staffing",2011
+"103","El Paso",2738,"staffing",2011
+"104","Laredo",1871,"staffing",2011
+"105","Rio Grande Valley",2504,"staffing",2011
+"106","San Diego",2669,"staffing",2011
+"107","Tucson",4239,"staffing",2011
+"108","Yuma",969,"staffing",2011
+"109","Big Bend",693,"staffing",2012
+"110","Del Rio",1655,"staffing",2012
+"111","El Centro",1168,"staffing",2012
+"112","El Paso",2718,"staffing",2012
+"113","Laredo",1879,"staffing",2012
+"114","Rio Grande Valley",2546,"staffing",2012
+"115","San Diego",2623,"staffing",2012
+"116","Tucson",4176,"staffing",2012
+"117","Yuma",954,"staffing",2012
+"118","Big Bend",13689,"apprehensions",2000
+"119","Del Rio",157178,"apprehensions",2000
+"120","El Centro",238126,"apprehensions",2000
+"121","El Paso",115696,"apprehensions",2000
+"122","Laredo",108973,"apprehensions",2000
+"123","Rio Grande Valley",133243,"apprehensions",2000
+"124","San Diego",151681,"apprehensions",2000
+"125","Tucson",616346,"apprehensions",2000
+"126","Yuma",108747,"apprehensions",2000
+"127","Big Bend",12087,"apprehensions",2001
+"128","Del Rio",104875,"apprehensions",2001
+"129","El Centro",172852,"apprehensions",2001
+"130","El Paso",112857,"apprehensions",2001
+"131","Laredo",87068,"apprehensions",2001
+"132","Rio Grande Valley",107844,"apprehensions",2001
+"133","San Diego",110075,"apprehensions",2001
+"134","Tucson",449675,"apprehensions",2001
+"135","Yuma",78385,"apprehensions",2001
+"136","Big Bend",11392,"apprehensions",2002
+"137","Del Rio",66985,"apprehensions",2002
+"138","El Centro",108273,"apprehensions",2002
+"139","El Paso",94154,"apprehensions",2002
+"140","Laredo",82095,"apprehensions",2002
+"141","Rio Grande Valley",89927,"apprehensions",2002
+"142","San Diego",100681,"apprehensions",2002
+"143","Tucson",333648,"apprehensions",2002
+"144","Yuma",42654,"apprehensions",2002
+"145","Big Bend",10319,"apprehensions",2003
+"146","Del Rio",50145,"apprehensions",2003
+"147","El Centro",92099,"apprehensions",2003
+"148","El Paso",88816,"apprehensions",2003
+"149","Laredo",70521,"apprehensions",2003
+"150","Rio Grande Valley",77749,"apprehensions",2003
+"151","San Diego",111515,"apprehensions",2003
+"152","Tucson",347263,"apprehensions",2003
+"153","Yuma",56638,"apprehensions",2003
+"154","Big Bend",10530,"apprehensions",2004
+"155","Del Rio",53794,"apprehensions",2004
+"156","El Centro",74467,"apprehensions",2004
+"157","El Paso",104399,"apprehensions",2004
+"158","Laredo",74706,"apprehensions",2004
+"159","Rio Grande Valley",92947,"apprehensions",2004
+"160","San Diego",138608,"apprehensions",2004
+"161","Tucson",491771,"apprehensions",2004
+"162","Yuma",98060,"apprehensions",2004
+"163","Big Bend",10536,"apprehensions",2005
+"164","Del Rio",68506,"apprehensions",2005
+"165","El Centro",55722,"apprehensions",2005
+"166","El Paso",122679,"apprehensions",2005
+"167","Laredo",75346,"apprehensions",2005
+"168","Rio Grande Valley",134186,"apprehensions",2005
+"169","San Diego",126904,"apprehensions",2005
+"170","Tucson",439079,"apprehensions",2005
+"171","Yuma",138438,"apprehensions",2005
+"172","Big Bend",7520,"apprehensions",2006
+"173","Del Rio",42636,"apprehensions",2006
+"174","El Centro",61465,"apprehensions",2006
+"175","El Paso",122256,"apprehensions",2006
+"176","Laredo",74840,"apprehensions",2006
+"177","Rio Grande Valley",110528,"apprehensions",2006
+"178","San Diego",142104,"apprehensions",2006
+"179","Tucson",392074,"apprehensions",2006
+"180","Yuma",118549,"apprehensions",2006
+"181","Big Bend",5536,"apprehensions",2007
+"182","Del Rio",22920,"apprehensions",2007
+"183","El Centro",55883,"apprehensions",2007
+"184","El Paso",75464,"apprehensions",2007
+"185","Laredo",56714,"apprehensions",2007
+"186","Rio Grande Valley",73430,"apprehensions",2007
+"187","San Diego",152460,"apprehensions",2007
+"188","Tucson",378239,"apprehensions",2007
+"189","Yuma",37992,"apprehensions",2007
+"190","Big Bend",5391,"apprehensions",2008
+"191","Del Rio",20761,"apprehensions",2008
+"192","El Centro",40961,"apprehensions",2008
+"193","El Paso",30312,"apprehensions",2008
+"194","Laredo",43658,"apprehensions",2008
+"195","Rio Grande Valley",75473,"apprehensions",2008
+"196","San Diego",162390,"apprehensions",2008
+"197","Tucson",317696,"apprehensions",2008
+"198","Yuma",8363,"apprehensions",2008
+"199","Big Bend",6360,"apprehensions",2009
+"200","Del Rio",17082,"apprehensions",2009
+"201","El Centro",33521,"apprehensions",2009
+"202","El Paso",14999,"apprehensions",2009
+"203","Laredo",40569,"apprehensions",2009
+"204","Rio Grande Valley",60989,"apprehensions",2009
+"205","San Diego",118721,"apprehensions",2009
+"206","Tucson",241673,"apprehensions",2009
+"207","Yuma",6951,"apprehensions",2009
+"208","Big Bend",5288,"apprehensions",2010
+"209","Del Rio",14694,"apprehensions",2010
+"210","El Centro",32562,"apprehensions",2010
+"211","El Paso",12251,"apprehensions",2010
+"212","Laredo",35287,"apprehensions",2010
+"213","Rio Grande Valley",59766,"apprehensions",2010
+"214","San Diego",68565,"apprehensions",2010
+"215","Tucson",212202,"apprehensions",2010
+"216","Yuma",7116,"apprehensions",2010
+"217","Big Bend",4036,"apprehensions",2011
+"218","Del Rio",16144,"apprehensions",2011
+"219","El Centro",30191,"apprehensions",2011
+"220","El Paso",10345,"apprehensions",2011
+"221","Laredo",36053,"apprehensions",2011
+"222","Rio Grande Valley",59243,"apprehensions",2011
+"223","San Diego",42447,"apprehensions",2011
+"224","Tucson",123285,"apprehensions",2011
+"225","Yuma",5833,"apprehensions",2011
+"226","Big Bend",3964,"apprehensions",2012
+"227","Del Rio",21720,"apprehensions",2012
+"228","El Centro",23916,"apprehensions",2012
+"229","El Paso",9678,"apprehensions",2012
+"230","Laredo",44872,"apprehensions",2012
+"231","Rio Grande Valley",97762,"apprehensions",2012
+"232","San Diego",28461,"apprehensions",2012
+"233","Tucson",120000,"apprehensions",2012
+"234","Yuma",6500,"apprehensions",2012
+"235","San Diego",19.5,"got_away_pct",2006
+"236","San Diego",22.6,"got_away_pct",2007
+"237","San Diego",18,"got_away_pct",2008
+"238","San Diego",13.2,"got_away_pct",2009
+"239","San Diego",10.3,"got_away_pct",2010
+"240","San Diego",8.1,"got_away_pct",2011
+"241","El Centro",17.2,"got_away_pct",2006
+"242","El Centro",15.3,"got_away_pct",2007
+"243","El Centro",16.5,"got_away_pct",2008
+"244","El Centro",12.3,"got_away_pct",2009
+"245","El Centro",11.3,"got_away_pct",2010
+"246","El Centro",9.5,"got_away_pct",2011
+"247","Yuma",36.2,"got_away_pct",2006
+"248","Yuma",21.3,"got_away_pct",2007
+"249","Yuma",12.4,"got_away_pct",2008
+"250","Yuma",8.2,"got_away_pct",2009
+"251","Yuma",5.2,"got_away_pct",2010
+"252","Yuma",6.3,"got_away_pct",2011
+"253","Tucson",34.2,"got_away_pct",2006
+"254","Tucson",36.1,"got_away_pct",2007
+"255","Tucson",32.1,"got_away_pct",2008
+"256","Tucson",28.7,"got_away_pct",2009
+"257","Tucson",22.2,"got_away_pct",2010
+"258","Tucson",13.1,"got_away_pct",2011
+"259","El Paso",27.1,"got_away_pct",2006
+"260","El Paso",13.2,"got_away_pct",2007
+"261","El Paso",7.3,"got_away_pct",2008
+"262","El Paso",5.6,"got_away_pct",2009
+"263","El Paso",4.3,"got_away_pct",2010
+"264","El Paso",4.4,"got_away_pct",2011
+"265","Big Bend",13.9,"got_away_pct",2006
+"266","Big Bend",12.4,"got_away_pct",2007
+"267","Big Bend",18.7,"got_away_pct",2008
+"268","Big Bend",26.5,"got_away_pct",2009
+"269","Big Bend",27,"got_away_pct",2010
+"270","Big Bend",32,"got_away_pct",2011
+"271","Del Rio",37,"got_away_pct",2006
+"272","Del Rio",31.4,"got_away_pct",2007
+"273","Del Rio",27.7,"got_away_pct",2008
+"274","Del Rio",17.6,"got_away_pct",2009
+"275","Del Rio",14.1,"got_away_pct",2010
+"276","Del Rio",13.5,"got_away_pct",2011
+"277","Laredo",29.8,"got_away_pct",2006
+"278","Laredo",35.5,"got_away_pct",2007
+"279","Laredo",22.3,"got_away_pct",2008
+"280","Laredo",16.2,"got_away_pct",2009
+"281","Laredo",13.2,"got_away_pct",2010
+"282","Laredo",16,"got_away_pct",2011
+"283","Rio Grande Valley",44.6,"got_away_pct",2006
+"284","Rio Grande Valley",47.4,"got_away_pct",2007
+"285","Rio Grande Valley",42.8,"got_away_pct",2008
+"286","Rio Grande Valley",39.4,"got_away_pct",2009
+"287","Rio Grande Valley",36.7,"got_away_pct",2010
+"288","Rio Grande Valley",29.2,"got_away_pct",2011
