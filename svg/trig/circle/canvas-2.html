@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+  <canvas id="viz" width="200" height="200"></canvas>
+<script>
+  function draw() {
+    var ctx = document.getElementById('viz').getContext('2d');
+    var x          = 100;                 // x coordinate
+    var y          = 100;                 // y coordinate
+    var radius     = 75;                  // arc radius
+    var startAngle = 0;                   // starting point on circle
+    var endAngle   = 2 * Math.PI;         // end point on circle
+    var clockwise  = true                 // clockwise or anticlockwise
+
+    ctx.beginPath();
+    ctx.arc(x, y, radius, startAngle, endAngle, clockwise);
+    ctx.stroke();
+  }
+  draw();
+</script>

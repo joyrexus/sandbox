@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="lib/svg.js"></script>
-<script src="lib/coffee-script.js"></script>
+<script src="../lib/coffee-script.js"></script>
 <style>/* CSS */</style>
 <body>
   <canvas id='c'></canvas>
-
 <script type="text/coffeescript">
   D2R = Math.PI / 180
   deg2rad = (d) -> d * D2R
@@ -22,7 +20,5 @@
   y = (r) -> Math.sin(r) * radius
 
   ticks = (deg2rad(d * 20) for d in [0 .. 18])
-
   ctx.fillRect(x(t), y(t), 5, 5) for t in ticks
-
 </script>

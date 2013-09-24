@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/svg.js"></script>
+<script src="../lib/coffee-script.js"></script>
+<style>/* CSS */</style>
+<body>
+  <div id="viz"></div>
+<script type="text/coffeescript">
+  D2R = Math.PI / 180
+  deg2rad = (d) -> d * D2R
+  $ = (id) -> document.getElementById id
+
+  viz = SVG('viz').size(300, 300)
+  style =
+    fill: "none"
+    stroke: "#999"
+    'stroke-width': 2
+
+  rect = viz.rect(300, 300)
+    .attr(style)
+
+  style =
+    fill: 'aliceblue'
+    stroke: 'steelblue'
+    'stroke-width': 6
+
+  diameter = 200
+  radius = diameter / 2
+
+  circ = viz.circle(diameter)    # diameter
+    .attr(style)
+    .x(50)
+    .y(50)
+
+  style =
+    fill: 'aliceblue'
+    stroke: 'steelblue'
+    'stroke-width': 2
+
+  center =
+    x: 150
+    y: 150
+
+  x = (r) -> center.x + Math.cos(r) * radius
+  y = (r) -> center.y + Math.sin(r) * radius
+
+  ticks = (deg2rad(d * 10) for d in [0 .. 36])
+  viz.line(center.x, center.y, x(t), y(t)).attr(style) for t in ticks
+</script>

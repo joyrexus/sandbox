@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/coffee-script.js"></script>
+<style>
+   canvas { 
+     /* border: 2px solid #000; */
+     float: left; 
+     margin-right: 20px; 
+     margin-bottom: 20px; 
+   }
+</style>
+<body>
+  <canvas id="viz" width="200" height="200"></canvas>
+<script type="text/coffeescript">
+  circle = (x, y, r) ->
+    startAngle = 0
+    endAngle = 2 * Math.PI
+    clockwise = false
+    ctx = document.getElementById('viz').getContext('2d')
+    ctx.beginPath()
+    ctx.arc(x, y, r, startAngle, endAngle, clockwise)
+    ctx.fillStyle = '#ccc'
+    ctx.fill()
+    ctx.lineWidth = 10
+    ctx.strokeStyle = '#222'
+    ctx.stroke()
+
+  x = 100   # x coord
+  y = 100   # y coord
+  radii = ((100 - (20 * i)) for i in [1 .. 5])
+  circle(x, y, r) for r in radii
+</script>

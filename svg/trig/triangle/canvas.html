@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/coffee-script.js"></script>
+<body>
+  <canvas id="viz"></canvas>
+<script type="text/coffeescript">
+  viz = document.getElementById 'viz'
+  viz.width = 200
+  viz.height = 200
+  ctx = viz.getContext '2d'
+  ctx.translate(100, 100)
+
+  circle = (x, y, r) ->
+    startAngle = 0
+    endAngle = 2 * Math.PI
+    clockwise = false
+    ctx.beginPath()
+    ctx.arc(x, y, r, startAngle, endAngle, clockwise)
+    ctx.fillStyle = '#ccc'
+    ctx.fill()
+    ctx.strokeStyle = '#222'
+    ctx.stroke()
+
+  x = 0     # x coord
+  y = 0     # y coord
+  r = 90    # radius
+
+  circle(0, 0, r)
+
+  ctx.beginPath()
+
+  # start at 0°
+  ctx.lineTo(Math.cos(0) * r, Math.sin(0) * r)
+  # to 120°
+  ctx.lineTo(
+      Math.cos((Math.PI * 2) / 3) * r,
+      Math.sin((Math.PI * 2) / 3) * r)
+  # to 240°
+  ctx.lineTo(
+      Math.cos(2 * ((Math.PI * 2) / 3)) * r,
+      Math.sin(2 * ((Math.PI * 2) / 3)) * r)
+  # and back
+  ctx.lineTo(Math.cos(0) * r, Math.sin(0) * r)
+  ctx.stroke()
+</script>
