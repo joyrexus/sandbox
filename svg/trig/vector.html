@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="lib/svg.js"></script>
+<script src="lib/coffee-script.js"></script>
+<style>/* CSS */</style>
+<body>
+  <div id="canvas"></div>
+
+<script type="text/coffeescript">
+  viz = SVG('canvas').size(300, 300)
+  style =
+    fill: "none"
+    stroke: "#999"
+    'stroke-width': 2
+
+  rect = viz.rect(300, 300)
+    .attr(style)
+
+  style =
+    fill: 'aliceblue'
+    stroke: 'steelblue'
+    'stroke-width': 4
+
+  line = viz.line(0,0, 300,200)  # (x1, y1) and (x2, y2)
+    .attr(style)
+
+    style = 
+      width: 6
+      color: '#555'
+      opacity: 0.6
+
+  line = viz.line(150,0, 200,300).stroke(style)
+
+  class Point
+    constructor: (@x, @y) ->
+
+  class Vector
+    constructor: (@origin, @end) ->
+
+  A = new Point 40, 0
+  B = new Point 200, 300
+  V = new Vector A, B
+
+  viz.vector = (v) ->
+    viz.line(v.origin.x, v.origin.y, v.end.x, v.end.y)
+      .stroke(style)
+    # viz.line(A.x,A.y, B.x,B.y).stroke(style)
+
+  style.color = 'orange'
+
+  viz.vector(V)
+</script>
+

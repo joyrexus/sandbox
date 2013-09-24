@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="lib/svg.js"></script>
+<script src="lib/coffee-script.js"></script>
+<style>/* CSS */</style>
+<body>
+  <svg width="300" height="300">
+    <circle cx="150" cy="150" r="100" fill="aliceblue" stroke="steelblue" stroke-width="6"/>
+    <line x1="150" y1="150" x2="150" y2="250" stroke-width="2" stroke="steelblue" />
+  </svg>
+  <div id="viz"></div>
+
+  <script type="text/coffeescript">
+    D2R = Math.PI / 180
+    deg2rad = (d) -> d * D2R
+    $ = (id) -> document.getElementById id
+
+    viz = SVG('viz').size(300, 300)
+    style =
+      fill: "none"
+      stroke: "#999"
+      'stroke-width': 2
+
+    rect = viz.rect(300, 300)
+      .attr(style)
+
+    style =
+      fill: 'aliceblue'
+      stroke: 'steelblue'
+      'stroke-width': 6
+
+    circ = viz.circle(44)    # diameter
+      .attr(style)
+      .x(100)
+      .y(100)
+
+    style =
+      fill: 'aliceblue'
+      stroke: 'steelblue'
+      'stroke-width': 4
+
+    line = viz.line(0,0, 300,200)  # (x1, y1) and (x2, y2)
+      .attr(style)
+
+
+    ###
+    c = $('c')
+    c.width = 300
+    c.height = 300
+    ctx = c.getContext '2d'
+    ctx.translate(150, 150)
+
+    x = (r) -> Math.cos(r) * 100
+    y = (r) -> Math.sin(r) * 100
+
+    ticks = (deg2rad(d * 5) for d in [0 .. 72])
+
+    for t in ticks
+      ctx.fillRect(x(t), y(t), 2, 2)
+    ###
+
+  </script>
