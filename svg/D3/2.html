@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="lib/d3.v3.min.js"></script>
+<script src="lib/coffee-script.js"></script>
+<body>
+  <script type="text/coffeescript">
+    w = 900
+    h = 500
+
+    data = (i * 2 for i in [1 .. 30])
+    copy = data.slice(0)
+    copy.pop()
+    data = data.concat copy.reverse()
+
+    svg = d3.select("body").append("svg")
+            .attr("width", w)
+            .attr("height", h)
+
+    circles = svg.selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+          .attr("cx", (d, i) -> 25 + (i * 15))
+          .attr("cy", (d, i) -> 100 + Math.sin(i/3) * 40)
+          .attr("r", 3)
+          .attr("fill", "aliceblue")
+          .attr("stroke", "steelblue")
+          .attr("stroke-width", 2)
+
+  </script>
+

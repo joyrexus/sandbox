@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="lib/d3.v3.min.js"></script>
+<script src="lib/coffee-script.js"></script>
+<body>
+  <script type="text/coffeescript">
+    D2R = Math.PI / 180
+    w = 500   # width
+    h = 400   # height
+    r = 150   # radius of our resulting circle
+
+    data = (10 * i for i in [0 .. 35])
+
+    svg = d3.select("body").append("svg")
+            .attr("width", w)
+            .attr("height", h)
+
+    circles = svg.selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+          .attr("cx", (d, i) -> w/2 + Math.cos(d * D2R) * r)
+          .attr("cy", (d, i) -> h/2 + Math.sin(d * D2R) * r)
+          .attr("r", 3)
+          .attr("fill", "aliceblue")
+          .attr("stroke", "steelblue")
+          .attr("stroke-width", 2)
+
+  </script>
+

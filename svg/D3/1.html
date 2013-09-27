@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="lib/d3.v3.min.js"></script>
+<script src="lib/coffee-script.js"></script>
+<body>
+  <script type="text/coffeescript">
+    w = 900
+    h = 500
+
+    data = (i * 5 for i in [1 .. 9])
+
+    svg = d3.select("body").append("svg")
+            .attr("width", w)
+            .attr("height", h)
+
+    circles = svg.selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+          .attr("cx", (d, i) -> (25 + i * 50))
+          .attr("cy", (d, i) -> 25 + Math.pow(d, 2) * .2)
+          .attr("r", (d) -> d)
+
+    circles
+      .attr("fill", (d) -> "rgb(240, 248, #{255 - d})")
+      .attr("stroke", (d) -> "rgb(70, 130, #{180 - d})")
+      .attr("stroke-width", (d) -> d/3)
+      
+  </script>
+
