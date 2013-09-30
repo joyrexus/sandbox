@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <script src="lib/svg.js"></script>
+<script src="lib/coffee-script.js"></script>
+<style>
+  rect {
+    fill: none;
+    stroke: #999;
+    stroke-width: 2;
+  }
+  .thick-line {
+    stroke-width: 6;
+    stroke: #555;
+    opacity: 0.6;
+  }
+  .thin-line {
+    stroke-width: 4;
+    stroke: steelblue;
+  }
+</style>
 <body>
   </div>
   <svg width="300" height="300">
-    <line x1="0" y1="0" x2="300" y2="200" 
-      stroke-width="4" stroke="steelblue" />
-    <line x1="150" y1="0" x2="200" y2="300" 
-      stroke-width="6" stroke="#555" opacity="0.6" />
-    <rect x="0" y="0" 
-          width="300" height="300" 
-          fill="none" stroke="#999" stroke-width="2" />
+    <line x1="0" y1="0" x2="300" y2="200" class="thin-line" />
+    <line x1="150" y1="0" x2="200" y2="300" class="thick-line" />
+    <rect x="0" y="0" width="300" height="300" />
   </svg>
   <div id="canvas"></div>
 
-<script>
-  var draw = SVG('canvas').size(300, 300);
+<script type="text/coffeescript">
+  draw = SVG('canvas').size(300, 300)
+  draw.rect(300, 300)
 
-  var style = { 
-    fill: "none",
-    stroke: "#999",
-    'stroke-width': 2
-  };
-  var rect = draw.rect(300, 300)
-    .attr(style);
+  draw.line(0,0, 300,200)   # (x1, y1) and (x2, y2)
+    .attr("class", "thin-line")
 
-  var style = { 
-    fill: 'aliceblue', 
-    stroke: 'steelblue',
-    'stroke-width': 4
-  };
-  var line = draw.line(0,0, 300,200)  // (x1, y1) and (x2, y2)
-    .attr(style);
+  draw.line(150,0, 200,300)
+    .attr("class", "thick-line")
 
-  var style = { width: 6, color: '#555', opacity: 0.6 };
-  var line = draw.line(150,0, 200,300).stroke(style)
+  style = 
+    width: 30 
+    color: "orange"
+    opacity: 0.2
+
+  draw.line(0,300, 300,0).stroke(style)
 </script>

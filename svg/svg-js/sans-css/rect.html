@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <script src="lib/svg.js"></script>
-<script src="lib/coffee-script.js"></script>
 <body>
   </div>
   <svg width="300" height="300">
@@ -14,24 +13,24 @@
   </svg>
   <div id="canvas"></div>
 
-<script type="text/coffeescript">
-  draw = SVG('canvas').size(300, 300)
+<script> 
+  var draw = SVG('canvas').size(300, 300);
 
-  style =
-    fill: "none"
-    stroke: "#999"
+  var style = { 
+    fill: "none",
+    stroke: "#999",
     'stroke-width': 2
+  };
+  var rect = draw.rect(300, 300)
+    .attr(style);
 
-  frame = draw.rect(300, 300).attr(style)
-
-  style = 
-    fill: 'aliceblue'
-    stroke: 'steelblue'
+  var style = { 
+    fill: 'aliceblue', 
+    stroke: 'steelblue',
     'stroke-width': 6
-
-  r = draw.rect(100, 150)   # width, height
+  };
+  var r = draw.rect(100, 150)   // width, height
     .attr(style)
     .x(25)
-    .y(25)
-
+    .y(25);
 </script>

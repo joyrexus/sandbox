@@ -1,36 +1,29 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <script src="lib/svg.js"></script>
+<style>
+  circle, ellipse {
+    fill: aliceblue;
+    stroke: steelblue;
+    stroke-width: 6;
+  }
+  rect {
+    fill: none;
+    stroke: #999;
+    stroke-width: 2;
+  }
+</style>
 <body>
   <svg width="300" height="300">
-    <circle r="22" 
-            cx="50" 
-            cy="50" 
-            fill="aliceblue" stroke="steelblue" stroke-width="6" />
-    <rect x="0" y="0" 
-          width="300" height="300" 
-          fill="none" stroke="#999" stroke-width="2" />
+    <circle r="22" cx="50" cy="50" />
+    <rect x="0" y="0" width="300" height="300" />
   </svg>
-  <div id="canvas"></div>
+  <div id="viz"></div>
 
 <script>
-  var draw = SVG('canvas').size(300, 300);
-
-  var style = { 
-    fill: "none",
-    stroke: "#999",
-    'stroke-width': 2
-  };
-  var rect = draw.rect(300, 300)
-    .attr(style);
-
-  var style = { 
-    fill: 'aliceblue', 
-    stroke: 'steelblue',
-    'stroke-width': 6
-  };
-  var circ = draw.circle(44)  // diameter
-    .attr(style)
-    .x(28)                    // 50 - 22
-    .y(28);                   // origin - radius
+  draw = SVG('viz').size(300, 300);
+  draw.rect(300, 300);
+  draw.circle(44)   // diameter
+    .x(28)          // 50 - 22
+    .y(28);         // origin - radius
 </script>
