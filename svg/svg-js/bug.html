@@ -13,6 +13,11 @@
     stroke-width: 6;
     stroke-opacity: 0.6;
   }
+  #bug {
+    fill: aliceblue;
+    stroke: steelblue;
+    stroke-width: 3;
+  }
 </style>
 <body>
   <div id="canvas"></div>
@@ -25,12 +30,11 @@
     constructor: (@origin, @end) ->
 
   style = defaultStyle = 
-    width: 6
-    opacity: 1.0
+    width: 3
+    opacity: .5
     color: '#555'
 
   draw = SVG('canvas').size(300, 300)
-  draw.rect(300, 300)
 
   vector = (v, style=defaultStyle) ->
     draw.line(v.origin.x, v.origin.y, v.end.x, v.end.y)
@@ -41,13 +45,28 @@
   X = new Vector A, B
   x = vector(X)
 
-  style.color = 'orange'
-  style.opacity = 0.5
+  class Bug
+    style = 
+      fill: "aliceblue"
+      stroke: "steelblue"
+      'stroke-width': 3
 
-  A = new Point 100, 0
-  B = new Point 40, 300
-  Y = new Vector A, B
-  y = vector(Y, style)
+    constructor: (@x, @y, @size=20) ->
+      @viz = draw.circle(@size)
+        .attr("id", "bug")
+        .cx(@x)
+        .cy(@y)
+
+    move: (x, y) ->
+      @x = x
+      @y = y
+      @viz.animate(2000, '-', 500).center(x, y)
+
+  bug = new Bug A.x, A.y
+
+  draw.rect(300, 300)
+
+  bug.move(B.x, B.y)
 
 </script>
 
