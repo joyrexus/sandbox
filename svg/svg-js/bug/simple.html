@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/svg.js"></script>
+<script src="../lib/coffee-script.js"></script>
+<style>
+  rect {
+    fill: none;
+    stroke: #999;
+    stroke-width: 2;
+  }
+  .vector {
+    stroke: #555;
+    stroke-width: 6;
+    stroke-opacity: 0.6;
+  }
+  #bug {
+    fill: aliceblue;
+    stroke: steelblue;
+    stroke-width: 3;
+  }
+</style>
+<body>
+  <div id="canvas"></div>
+
+<script type="text/coffeescript">
+  draw = SVG('canvas').size(300, 300)
+
+  class Point
+    constructor: (@x, @y) ->
+
+  class Vector
+    constructor: (@origin, @end) ->
+
+  class Bug
+    constructor: (@x=0, @y=0, @size=20) ->
+      @viz = draw.circle(@size)
+        .attr("id", "bug")
+        .cx(@x)
+        .cy(@y)
+
+    move: (x, y, next) ->
+      moveTo = (x, y) => 
+        @x = x
+        @y = y
+        @viz.animate(2000, '-').center(x, y)
+      moveTo(x, y).after(next)
+
+    moveTo: (V, next) -> @move V.x, V.y, next
+
+  A = new Point 40, 0
+  B = new Point 200, 300
+  C = new Point 300, 0
+  V = new Vector A, B
+
+  bug = new Bug A.x, A.y
+  thenBack = -> bug.moveTo A
+  bug.moveTo B, thenBack
+
+  draw.rect(300, 300)
+</script>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="lib/svg.js"></script>
-<script src="lib/coffee-script.js"></script>
+<script src="../lib/svg.js"></script>
+<script src="../lib/coffee-script.js"></script>
 <script src="lib/bug.js"></script>
 <style>
   rect {
@@ -28,15 +28,28 @@
 
   A = new Point 40, 0
   B = new Point 200, 300
-  C = new Point 300, 0
-  V = new Vector A, B
+  C = new Point 300, 150
+  X = new Vector A, B
+  Y = new Vector B, C
+  Z = new Vector C, A
 
-  draw.vector(V)
+  x = draw.vector(X)
+  y = draw.vector(Y)
+  z = draw.vector(Z)
+
   draw.rect(300, 300)
   bug = draw.bug(A.x, A.y)
-  # bug.movesTo B, C, A
 
-  thenBack = -> bug.moveTo A
-  bug.moveTo B, thenBack
+  thenToC = -> 
+    x.color "#555"
+    y.color "orange"
+    bug.moveTo C, thenToA
 
+  thenToA = ->
+    y.color "#555"
+    z.color "orange"
+    bug.moveTo A, -> z.color "#555"
+
+  x.color "orange"
+  bug.moveTo B, thenToC
 </script>
