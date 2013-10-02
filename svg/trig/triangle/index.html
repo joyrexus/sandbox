@@ -17,6 +17,11 @@
     stroke-width: 2;
     opacity: 0.5;
   }
+  .point {
+    fill: #777;
+    stroke: aliceblue;
+    stroke-width: 2;
+  }
 </style>
 <body>
   <div id="canvas"></div>
@@ -26,20 +31,7 @@
   deg2rad = (d) -> d * D2R
 
   draw = SVG('canvas').size(300, 300)
-
-  rect = draw.rect(300, 300)
-
-  ###
-  diameter = 200
-  radius = diameter / 2
-
-  disc = draw.circle(diameter)    # diameter
-    .center(150, 150)
-
-  center =
-    x: disc.cx()
-    y: disc.cy()
-  ###
+  draw.rect(300, 300)
 
   class Cursor
     constructor: (@x, @y) ->
@@ -58,7 +50,10 @@
       @disc = draw.circle(@diameter+6).center(@cx, @cy)
       super(@cx, @cy)
 
+    # convert angle in degrees to x coord on unit circle
     _x: (d) -> @cx + Math.cos(deg2rad(-d)) * @radius
+
+    # convert angle in degrees to y coord on unit circle
     _y: (d) -> @cy + Math.sin(deg2rad(-d)) * @radius
 
     moveTo: (deg) -> 
@@ -69,15 +64,15 @@
       super(@_x(deg), @_y(deg), color)
       @
 
+    markPoint: (size=10) -> 
+      draw.circle(size).attr("class", "point").center(@x, @y)
+      @
+
   c = new UnitCircle 150, 150
   c.moveTo(0)
-   .lineTo(90, "orange")
-   .lineTo(180)
-   .lineTo(270)
-   .lineTo(360)
-
-  c = new Cursor 150, 150
-  c.moveTo(150, 150)
-   .lineTo(150, 250, "red")
-
+   .markPoint()
+   .lineTo(120)
+   .markPoint()
+   .lineTo(240)
+   .lineTo(0)
 </script>
