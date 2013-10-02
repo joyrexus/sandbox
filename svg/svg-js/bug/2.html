@@ -34,8 +34,9 @@
   Z = new Vector C, A
 
   draw.vector(X)
-  draw.vector(Y).stroke({color: "orange"})
-  draw.vector(Z).stroke({color: "steelblue"})
+  draw.vector(Y).color("orange")
+  draw.vector(Z).color("steelblue")
+
   bug = draw.bug(A.x, A.y)
   bug.movesTo B, C, A
   draw.rect(300, 300)
