@@ -3,6 +3,12 @@
   var Cursor, extension;
 
   Cursor = (function() {
+    Cursor.prototype.markerStyle = {
+      fill: "#999",
+      stroke: "aliceblue",
+      'stroke-width': 2
+    };
+
     function Cursor(x, y, draw) {
       this.x = x != null ? x : 0;
       this.y = y != null ? y : 0;
@@ -23,6 +29,15 @@
 
     Cursor.prototype.moveTo = function(x, y) {
       return this.lineTo(x, y, "none");
+    };
+
+    Cursor.prototype.markPoint = function(size, style) {
+      if (size == null) {
+        size = 10;
+      }
+      style || (style = this.markerStyle);
+      this.draw.circle(size).attr(style).center(this.x, this.y);
+      return this;
     };
 
     return Cursor;
