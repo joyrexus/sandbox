@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../../lib/svg.js"></script>
+<script src="../../lib/coffee-script.js"></script>
+<script src="svg.unit.js"></script>
+<style>
+  rect {
+    fill: none;
+    stroke: #999;
+    stroke-width: 2;
+  }
+  ellipse, circle {
+    fill: aliceblue;
+    stroke: steelblue;
+    stroke-width: 10;
+  }
+  line {
+    stroke-width: 2;
+    opacity: 0.5;
+  }
+  .point {
+    fill: #777;
+    stroke: aliceblue;
+    stroke-width: 2;
+  }
+</style>
+<body>
+  <div id="canvas"></div>
+
+<script type="text/coffeescript">
+  D2R = Math.PI / 180
+  deg2rad = (d) -> d * D2R
+
+  draw = SVG('canvas').size(300, 300)
+  draw.rect(300, 300)
+  draw.unitCircle(150, 150)
+    .moveTo(0)
+    .markPoint()
+    .lineTo(120)
+    .markPoint()
+    .lineTo(240)
+    .lineTo(0)
+</script>
