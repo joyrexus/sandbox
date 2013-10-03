@@ -2,11 +2,6 @@ D2R = Math.PI / 180
 deg2rad = (d) -> d * D2R
 
 class Cursor
-  markerStyle:
-    fill: "#999"
-    stroke: "aliceblue"
-    'stroke-width': 2
-
   constructor: (@x, @y, @draw) ->
 
   lineTo: (x, y, color="steelblue") -> 
@@ -16,11 +11,6 @@ class Cursor
     @
 
   moveTo: (x, y) -> @lineTo(x, y, "none")
-
-  markPoint: (size=10, style) -> 
-    style or= @markerStyle
-    @draw.circle(size).attr(style).center(@x, @y)
-    @
 
 class UnitCircle extends Cursor
   defaultCircleStyle:
@@ -65,8 +55,7 @@ class UnitCircle extends Cursor
     @
 
 
-extras = 
-  cursor: (x, y) -> new Cursor x, y @
-  unitCircle: (x, y, r, d) -> new UnitCircle x, y, r, d, @
+extension = 
+  unitCircle: (x, y, r, d) -> new  UnitCircle x, y, r, d, @
 
-SVG.extend(SVG.Doc, extras)
+SVG.extend(SVG.Doc, extension)

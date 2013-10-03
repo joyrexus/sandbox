@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="../../lib/svg.js"></script>
-<script src="../../lib/coffee-script.js"></script>
+<script src="http://jashkenas.github.io/coffee-script/extras/coffee-script.js"></script>
+<script src="https://s3-eu-west-1.amazonaws.com/svgjs/svg.js"></script>
 <script src="svg.unit.js"></script>
 <style>
   rect {
@@ -14,9 +14,6 @@
   <div id="canvas"></div>
 
 <script type="text/coffeescript">
-  D2R = Math.PI / 180
-  deg2rad = (d) -> d * D2R
-
   centerStyle = 
     fill: "steelblue"
     stroke: "aliceblue"
@@ -28,12 +25,12 @@
     'stroke-width': 2
 
   w = 960
-  h = 240
+  h = 245
 
   # use default radian units for angles
   draw = SVG('canvas').size(w, h)
   draw.rect(w, h)
-  draw.unitCircle(w/2, h/2, radius=100)
+  draw.unitCircle(w/2, h/2)
     .markPoint(12, centerStyle)
     .lineTo(Math.PI)      # 180°
     .lineTo(Math.PI / 2)  # 90°
