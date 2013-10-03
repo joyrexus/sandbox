@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="lib/svg.js"></script>
+<script src="lib/coffee-script.js"></script>
+<style>
+  rect {
+    fill: none;
+    stroke: #999;
+    stroke-width: 2;
+  }
+  ellipse, circle {
+    fill: aliceblue;
+    stroke: steelblue;
+    stroke-width: 6;
+  }
+  line {
+    stroke-width: 2;
+    opacity: 0.5;
+  }
+</style>
+<body>
+  <div id="canvas"></div>
+
+<script type="text/coffeescript">
+
+  class Cursor
+    constructor: (@x=0, @y=0, @draw) ->
+
+    lineTo: (x, y, color="steelblue") -> 
+      @draw.line(@x,@y, x,y).attr({stroke: color})
+      @x = x
+      @y = y
+      @
+
+    moveTo: (x, y) -> @lineTo(x, y, "none")
+
+  extension = 
+    cursor: (x, y) -> new Cursor x, y, @
+
+  SVG.extend(SVG.Doc, extension)
+
+  w = 300
+  h = 300
+
+  draw = canvas = SVG('canvas').size(300, 300)
+  draw.rect(w, h)
+
+  start =
+    x: w / 2
+    y: h / 2
+
+  draw.circle(200+6)    # diameter + stroke width
+    .center(start.x, start.y)
+
+  c = draw.cursor start.x, start.y
+  c.lineTo(150, 250)
+   .lineTo(250, 150, "orange")
+   .moveTo(150, 50)
+   .lineTo(50, 150, "orange")
+   .lineTo(150, 150)
+
+</script>
