@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="../lib/svg.js"></script>
-<script src="../lib/coffee-script.js"></script>
-<script src="lib/bug.js"></script>
+<script src="http://jashkenas.github.io/coffee-script/extras/coffee-script.js"></script>
+<script src="https://s3-eu-west-1.amazonaws.com/svgjs/svg.js"></script>
+<script src="svg.bug.js"></script>
 <style>
   rect {
     fill: none;
@@ -26,7 +26,6 @@
 <script type="text/coffeescript">
   w = 960
   h = 500
-
   draw = SVG('canvas').size(w, h)
 
   A = new Point 40, 20
@@ -36,11 +35,23 @@
   Y = new Vector B, C
   Z = new Vector C, A
 
-  draw.vector(X)
-  draw.vector(Y).color("orange")
-  draw.vector(Z).color("steelblue")
+  x = draw.vector(X)
+  y = draw.vector(Y)
+  z = draw.vector(Z)
 
-  bug = draw.bug(A.x, A.y)
-  bug.movesTo B, C, A
   draw.rect(w, h)
+  bug = draw.bug(A.x, A.y)
+
+  thenToC = -> 
+    x.color "#555"
+    y.color "orange"
+    bug.moveTo C, thenToA
+
+  thenToA = ->
+    y.color "#555"
+    z.color "orange"
+    bug.moveTo A, -> z.color "#555"
+
+  x.color "orange"
+  bug.moveTo B, thenToC
 </script>

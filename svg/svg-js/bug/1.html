@@ -24,9 +24,11 @@
   <div id="canvas"></div>
 
 <script type="text/coffeescript">
-  draw = SVG('canvas').size(300, 300)
+  w = 960
+  h = 500
+  draw = SVG('canvas').size(w, h)
 
-  A = new Point 40, 0
+  A = new Point 40, 20
   B = new Point 200, 300
   C = new Point 300, 150
   X = new Vector A, B
@@ -37,7 +39,7 @@
   y = draw.vector(Y)
   z = draw.vector(Z)
 
-  draw.rect(300, 300)
+  draw.rect(w, h)
   bug = draw.bug(A.x, A.y)
 
   thenToC = -> 
