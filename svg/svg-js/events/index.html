@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/svg.js"></script>
+<script src="../lib/coffee-script.js"></script>
+<style>
+  line, polyline, circle, ellipse {
+    stroke: steelblue;
+    stroke-width: 10;
+  }
+  polyline {
+    fill: none;
+  }
+  circle, ellipse {
+    fill: aliceblue;
+  }
+  rect {
+    fill: none;
+    stroke: #999;
+    stroke-width: 2;
+  }
+</style>
+<body>
+  <div id="canvas"></div>
+
+<script type="text/coffeescript">
+  w = 960
+  h = 500
+  c = 
+    x: w/2
+    y: h/2
+
+  draw = SVG('canvas').size(w, h)
+  draw.rect(w, h)
+
+  C = draw.circle(300).center(c.x, c.y)
+  L = draw.line(c.x, c.y, c.x+150, c.y).rotate(0, c.x, c.y)
+
+  R2D = 180 / Math.PI
+
+  document.onmousemove = (e) -> 
+    x = e.offsetX - c.x
+    y = e.offsetY - c.y
+    θ = R2D * Math.atan2(y, x)
+    θ = θ - 360 if θ > 0
+    L.rotate(θ, c.x, c.y)
+</script>
