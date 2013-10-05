@@ -1,0 +1,1 @@
+Simple demo of a compound animation controlled by mousemove events.  Here the different coordinates of a mouse move control different elements.  Notice how the y-coordinate delta scales both the circle and radial line and simultaneously rotates the radial line.  The x-coordinate delta merely slides a 20-pixel circle along the horizon.
