@@ -18,13 +18,16 @@
   <div id="canvas"></div>
 
 <script type="text/coffeescript">
-  w = 300
-  h = 300
+  w = 960
+  h = 500
 
-  draw = SVG('canvas').size(300, 300)
+  draw = SVG('canvas')
   draw.rect(w, h)
 
-  start =
+  d = 400     # diameter
+  r = d / 2   # radius
+
+  c =
     x: w / 2
     y: h / 2
 
@@ -33,17 +36,17 @@
     stroke: "steelblue"
     'stroke-width': 10 
 
-  draw.circle(200+2)    # diameter + stroke width of markers
-    .center(start.x, start.y)
+  draw.circle(d+2)    # diameter + stroke width of markers
+    .center(c.x, c.y)
     .attr(style)
 
-  draw.cursor(start.x, start.y)
-    .lineTo(150, 250)
-    .lineTo(250, 150, "orange")
+  draw.cursor(c.x, c.y)
+    .lineTo(c.x, c.y+r)
+    .lineTo(c.x+r, c.y, "orange")
     .markPoint()
-    .moveTo(150, 50)
+    .moveTo(c.x, c.y-r)
     .markPoint()
-    .lineTo(50, 150, "orange")
-    .lineTo(150, 150)
+    .lineTo(c.x-r, c.y, "orange")
+    .lineTo(c.x, c.y)
 
 </script>
