@@ -1,23 +1,23 @@
 fs = require 'fs'
 queue = require 'queue-async'
 
-'''
-render = (error, a, b) -> console.log a, b
+done = (error, results...) -> console.log r.mtime for r in results
 
-queue()
-    .defer(fs.stat, __dirname + "/../mine")
-    .defer(fs.stat, __dirname + "/../misc")
-    .await(render)
-'''
+queue(1)
+    .defer(fs.stat, __dirname + "/../monads")
+    .defer(fs.stat, __dirname + "/../geo")
+    .await(done)
 
-files = ['misc', 'mine']
 
-bar = (f) -> f.length
+names = ['Joe', 'Jack']
 
-foo = (a, b, callback, f, final) -> 
-  final null, callback(f)
+getLength = (name, done) -> 
+  console.log "inspecting #{name}"
+  result = "#{name} is #{name.length} letters long"
+  done(err=null, result)
 
+lastly = (err, results...) -> console.log results
 
 q = queue(1)
-q.defer(foo, 1, 2, bar, f) for f in files
-q.awaitAll (err, results) -> console.log results
+q.defer(getLength, n) for n in names
+q.await(lastly)
