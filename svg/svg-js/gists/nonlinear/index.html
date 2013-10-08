@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="mootools.js"></script>
-<script src="main.js"></script>
 <script src="lib.js"></script>
 <body>
-  <div id="canvas"></div>
-  <canvas class="AnecdoteNonlinear" width="240" height="240"></canvas>
+  <canvas id="Nonlinear" width="240" height="240"></canvas>
+  <script>
+    var canvas = document.getElementById('Nonlinear');
+    viz = new Nonlinear(canvas);
+    setInterval(viz.updateAnimation, 20);
+  </script>
+
