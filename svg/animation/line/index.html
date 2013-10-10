@@ -3,9 +3,8 @@
 <script src="lib/svg.js"></script>
 <script src="lib/coffee-script.js"></script>
 <body>
-   <svg id="canvas" width="960" height="800">
+   <svg width="960" height="500">
     <path 
-      class="line"
       fill="none" 
       stroke="steelblue"
       stroke-width="4"
@@ -19,38 +18,33 @@
     path = document.querySelector('path')
     length = path.getTotalLength()
 
-    # Clear any previous transition
+    # clear any previous transition
     path.style.transition = path.style.WebkitTransition = 'none'
 
-    # Set up the starting positions
-    path.style.strokeDasharray = length + ' ' + length
+    # set starting positions
+    path.style.strokeDasharray = "#{length} #{length}"
     path.style.strokeDashoffset = length
 
-    # Trigger a layout so styles are calculated & the browser
-    # picks up the starting position before animating
+    # trigger a layout so styles are calculated
     path.getBoundingClientRect()
 
-    # Define our transition
     path.style.transition = path.style.WebkitTransition =
       'stroke-dashoffset 2s ease-in-out'
 
-    out = false
+    drawn = false
 
-    drawOut = -> 
-      out = true
+    draw = -> 
+      drawn = true
       path.style.strokeDasharray = length + ' ' + length
       path.style.strokeDashoffset = '0' 
 
-    drawIn = -> 
-      out = false
+    erase = -> 
+      drawn = false
       path.style.strokeDashoffset = length - 20
 
     undo = ->
-      if out then drawIn() else drawOut()
+      if drawn then erase() else draw()
 
-    canvas = document.getElementById("canvas")
-    canvas.addEventListener('click', undo);
-
-    # Go!
-    drawOut()
+    draw()
+    path.addEventListener("webkitTransitionEnd", undo)
   </script>
