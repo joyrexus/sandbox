@@ -2,13 +2,7 @@
 <meta charset="utf-8">
 <script src="../lib/svg.js"></script>
 <script src="../lib/coffee-script.js"></script>
-<script src="lib/svg.bug.js"></script>
 <style>
-  rect {
-    fill: none;
-    stroke: #999;
-    stroke-width: 2;
-  }
   .vector {
     stroke: #555;
     stroke-width: 6;
@@ -17,48 +11,72 @@
   #bug {
     fill: aliceblue;
     stroke: steelblue;
-    stroke-width: 3;
+    stroke-width: 5;
   }
 </style>
 <body>
   <div id="canvas"></div>
 
 <script type="text/coffeescript">
-  w = 300   # canvas width
-  h = 300   # canvas height
-  d = 20    # diameter of bug
+  w = 960   # canvas width
+  h = 500   # canvas height
+  d = 25    # diameter of bug
 
   draw = SVG('canvas').size(w, h)
 
-  A = new Point 40, 20
-  B = new Point 200, 300
-  C = new Point 300, 150
+  border = draw.rect(w, h)
+    .attr
+      fill: "none"
+      stroke: "#999"
+      'stroke-width': 3
 
-  velocity = new Point 2, 2
+  class Point
+    constructor: (@x, @y) ->
 
-  ###
-  X = new Vector A, B
-  Y = new Vector B, C
-  Z = new Vector C, A
+  velocity = new Point 2, 3
+  begin = new Point d/2, d,2
 
-  x = draw.vector(X)
-  y = draw.vector(Y)
-  z = draw.vector(Z)
-  ###
+  bug = draw.circle(d)
+    .attr("id", "bug")
+    .center(begin.x, begin.y)
 
-  bug = draw.circle(d).attr("id", "bug").center(A.x, A.y)
+  borderColor = (color) -> 
+    border.attr 
+      stroke: color
+
+  reverse = ->
+    borderColor "orange"
+    setTimeout (-> borderColor "#999"), 100
+    -1
 
   move = =>
     x = bug.x()
     y = bug.y()
-    
-    velocity.x *= if (x+d > h) or (x+d < 0) then -1 else 1
-    velocity.y *= if (y+d > w) or (y+d < 0) then -1 else 1
+    velocity.x *= reverse() if (x+d > w) or (x < 0)
+    velocity.y *= reverse() if (y+d > h) or (y < 0)
     bug.move(x+velocity.x, y+velocity.y)
 
-  timer = setInterval move, 17
-  stop = -> clearInterval timer
-  setTimeout stop, 8000
-    
+  paused = false
+
+  run = ->
+    move()
+    return if paused
+    requestAnimationFrame(run)
+
+  runFor = (secs=10) ->
+    setTimeout (-> paused = true), secs * 1000
+    run()
+
+  runFor 3
+
+  toggle = ->
+    if paused 
+      paused = false
+      run() 
+    else 
+      paused = true
+
+  canvas = document.getElementById("canvas")
+  canvas.addEventListener('click', toggle);
 
 </script>
