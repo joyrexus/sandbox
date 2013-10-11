@@ -1,0 +1,1 @@
+Demonstrates how to use the [getTotalLength](http://www.w3.org/TR/SVG/paths.html#__svg__SVGPathElement__getTotalLength) and [getPointAtLength](http://www.w3.org/TR/SVG/paths.html#__svg__SVGPathElement__getPointAtLength) methods on SVG path elements to interpolate a point along an existing path. Built with [D3](http://mbostock.github.com/d3/).

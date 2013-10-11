@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.4.6"></script>
+<style>
+  path {
+    fill: #EEE;
+    stroke: #666;
+    stroke-width: 1.5px;
+  }
+  circle, ellipse {
+    fill: steelblue;
+    stroke: white;
+    stroke-width: 1.5px;
+  }
+</style>
+<body>
+<script>
+  var w = 960,
+      h = 500;
+
+  var svg = d3.select("body").append("svg:svg")
+      .attr("width", w)
+      .attr("height", h)
+    .append("svg:g")
+      .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+
+  var path = svg.append("svg:path")
+      .attr("d", d3.svg.arc()
+      .innerRadius(h / 4)
+      .outerRadius(h / 3)
+      .startAngle(0)
+      .endAngle(Math.PI));
+
+  var circle = svg.append("svg:circle")
+      .attr("r", 6.5)
+      .attr("transform", "translate(0," + -h / 3 + ")");
+
+  function transition() {
+    circle.transition()
+        .duration(5000)
+        .attrTween("transform", translateAlong(path.node()))
+        .each("end", transition);
+  }
+
+  transition();
+
+  // Returns an attrTween for translating along the specified path element.
+  function translateAlong(path) {
+    var l = path.getTotalLength();
+    return function(d, i, a) {
+      return function(t) {
+        var p = path.getPointAtLength(t * l);
+        return "translate(" + p.x + "," + p.y + ")";
+      };
+    };
+  }
+</script>
