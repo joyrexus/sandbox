@@ -36,14 +36,6 @@
       .attr("r", 6.5)
       .attr("transform", "translate(0, #{-h / 3})")
 
-  transition = -> 
-    circle.transition()
-        .duration(5000)
-        .attrTween("transform", translateAlong(path.node()))
-        .each("end", transition)
-
-  transition()
-
   #  returns an attrTween for translating along the specified path element.
   translateAlong = (path) ->
     l = path.getTotalLength()
@@ -51,4 +43,12 @@
       (t) ->
         p = path.getPointAtLength t * l
         "translate(#{p.x}, #{p.y})"
+
+  transition = -> 
+    circle.transition()
+        .duration(5000)
+        .attrTween("transform", translateAlong(path.node()))
+        .each("end", transition)
+
+  transition()
 </script>

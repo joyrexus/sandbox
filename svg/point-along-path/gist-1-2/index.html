@@ -3,16 +3,13 @@
 <script src="http://jashkenas.github.io/coffee-script/extras/coffee-script.js"></script>
 <script src="https://s3-eu-west-1.amazonaws.com/svgjs/svg.js"></script>
 <style>
-  body {
-    width: 960;
-    height: 500;
-  }
   path {
     fill: none;
-    stroke: #666;
+    stroke: #999;
     stroke-width: 1.5px;
   }
-  ellipse {
+
+  circle, ellipse {
     fill: steelblue;
     stroke: white;
     stroke-width: 1.5px;
@@ -27,8 +24,6 @@
 
   draw = SVG('canvas').size(w, h)
 
-      # .attr("transform", "translate(#{w / 2}, #{h / 2})")
-
   curveSpec = """
     M192,355
     L224, 365.626
@@ -38,37 +33,21 @@
     L732, 233
     """
 
-  path = draw.path(curveSpec).attr("id", "curve")
-
-  # diameter is 13 and radius is 6.5
-  circle = draw.circle(13)
-    .center(6, 194)
-
-  move = (target, x, y) -> target.center(x, y)
-
+  draw.path(curveSpec, true).attr("id", "curve")
   curve = document.querySelector "#curve"
-  length = curve.getTotalLength()
-  point = curve.getPointAtLength .5 * length
-  console.log point
+  origin = curve.getPointAtLength 0
 
-  move circle, point.x, point.y
+  bug = draw.circle(13).center(origin.x, origin.y)
 
-  ###
+  bug.moveAlong = (path, duration=2000, reverse=false) ->
+    length = path.getTotalLength()
+    timer = draw.circle(0).animate(duration)
+    # t ranges from 0 to 1 over the duration of the timer
+    transition = (t) =>
+      t = 1 - t if reverse
+      point = path.getPointAtLength t * length
+      @center point.x, point.y
+    timer.during(transition)
 
-  transition = -> 
-    circle.transition()
-        .duration(5000)
-        .attrTween("transform", translateAlong(path.node()))
-        .each("end", transition)
-
-  transition()
-
-  #  returns an attrTween for translating along the specified path element.
-  translateAlong = (path) ->
-    l = path.getTotalLength()
-    (d, i, a) ->
-      (t) ->
-        p = path.getPointAtLength t * l
-        "translate(#{p.x}, #{p.y})"
-  ###
+  bug.moveAlong curve
 </script>
