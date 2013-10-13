@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="http://jashkenas.github.io/coffee-script/extras/coffee-script.js"></script>
+<script src="https://s3-eu-west-1.amazonaws.com/svgjs/svg.js"></script>
+<style>
+  path {
+    fill: none;
+    stroke: #999;
+    stroke-width: 1.5px;
+  }
+
+  circle, ellipse {
+    fill: steelblue;
+    stroke: white;
+    stroke-width: 1.5px;
+  }
+</style>
+<body>
+  <div id="canvas"></div>
+
+<script type="text/coffeescript">
+  w = 960
+  h = 500
+
+  draw = SVG('canvas').size(w, h)
+
+  curveSpec = """
+    M192,355
+    L224, 365.626
+    C256, 376.35, 320, 397.8, 384, 359.67
+    C448, 321.54, 512, 223.837, 570, 192.8
+    C628, 161.755, 680, 197.78, 706, 215.19
+    L732, 233
+    """
+
+  draw.path(curveSpec, true).attr("id", "curve")
+  curve = document.querySelector "#curve"
+  length = curve.getTotalLength()
+  origin = curve.getPointAtLength 0
+
+  curve.style.transition = 'none'   # clear any previous transition
+  curve.style.strokeDasharray = "#{length} #{length}"
+  curve.style.strokeDashoffset = length
+  curve.getBoundingClientRect()     # trigger layout to set styles
+
+  bug = draw.circle(13).center(origin.x, origin.y)
+
+  bug.moveAlong = (path, reverse=false, duration=2000) ->
+    timer = draw.circle(0).animate(duration)
+    # t ranges from 0 to 1 over the duration of the timer
+    transition = (t) =>
+      t = 1 - t if reverse
+      curve.style.strokeDashoffset = length - t * length
+      point = path.getPointAtLength t * length
+      @center point.x, point.y
+    timer.during(transition)
+
+  reverse = true
+  run = -> 
+    reverse = not reverse   # reverse direction on next run
+    bug.moveAlong(curve, reverse).after(run)
+
+  run()
+</script>
