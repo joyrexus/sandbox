@@ -10,6 +10,8 @@
   w = 960       # canvas width
   h = 500       # canvas height
   d = 50        # diameter of bug
+  trail = []    # trail of markers
+  trailLength = 50
 
   draw = SVG('canvas').size(w, h)
 
@@ -24,6 +26,12 @@
 
   velocity = new Point 5, 6
   begin = new Point d/2, d,2
+
+  mark = (x, y) ->
+    draw.circle(2)
+      .center(x, y)
+      .back()
+      .attr fill: "#999"
 
   bug = draw.circle(d)
     .center(begin.x, begin.y)
@@ -43,6 +51,8 @@
     -1
 
   move = =>
+    trail.push mark(bug.cx(), bug.cy())
+    trail.shift().remove() if trail.length > trailLength
     x = bug.x()
     y = bug.y()
     velocity.x *= reverse() if (x+d > w) or (x < 0)
@@ -51,7 +61,7 @@
 
   paused = false
 
-# enable toggling of animation with a click
+  # enable toggling of animation with a click
   toggle = ->
     if paused 
       paused = false

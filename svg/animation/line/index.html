@@ -19,7 +19,7 @@
     length = path.getTotalLength()
 
     # clear any previous transition
-    path.style.transition = path.style.WebkitTransition = 'none'
+    path.style.transition = 'none'
 
     # set starting positions
     path.style.strokeDasharray = "#{length} #{length}"
@@ -28,23 +28,17 @@
     # trigger a layout so styles are calculated
     path.getBoundingClientRect()
 
-    path.style.transition = path.style.WebkitTransition =
-      'stroke-dashoffset 2s ease-in-out'
+    path.style.transition = 'stroke-dashoffset 2s ease-in-out'
 
     drawn = false
 
-    draw = -> 
-      drawn = true
-      path.style.strokeDasharray = length + ' ' + length
-      path.style.strokeDashoffset = '0' 
-
-    erase = -> 
-      drawn = false
-      path.style.strokeDashoffset = length - 20
+    drawTo = (distance=0) -> 
+      drawn = distance
+      path.style.strokeDashoffset = length - distance
 
     undo = ->
-      if drawn then erase() else draw()
+      if drawn then drawTo(0) else drawTo(length)
 
-    draw()
+    drawTo length
     path.addEventListener("webkitTransitionEnd", undo)
   </script>

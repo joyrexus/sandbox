@@ -39,7 +39,7 @@
 
   bug = draw.circle(13).center(origin.x, origin.y)
 
-  bug.moveAlong = (path, duration=2000, reverse=false) ->
+  bug.moveAlong = (path, reverse=false, duration=2000) ->
     length = path.getTotalLength()
     timer = draw.circle(0).animate(duration)
     # t ranges from 0 to 1 over the duration of the timer
@@ -49,5 +49,10 @@
       @center point.x, point.y
     timer.during(transition)
 
-  bug.moveAlong curve
+  reverse = true
+  run = -> 
+    reverse = not reverse   # reverse direction on next run
+    bug.moveAlong(curve, reverse).after(run)
+
+  run()
 </script>
