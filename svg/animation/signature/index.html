@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/coffee-script.js"></script>
+<style>
+  body {
+    background: whiteSmoke;
+  }
+  path {
+    fill: none; 
+    stroke: #555;
+    stroke-width: 2;
+  }
+</style>
+<body>
+  <div class="sketch">
+    <svg viewBox="0,120,612,600" width="612" height="600">
+      <path d="M109.7+504.536C98.8411+513.454+87.2021+531.131+74.4016+541.655C50.0432+561.681+22.5464+576.745+35.5362+520.125C49.4565+459.449+89.4627+381.919+145.323+350.131C149.353+347.838+153.248+343.453+157.843+344.071C170.182+345.731+179.868+373.938+180.848+378.885C196.413+457.443+149.213+584.033+116.545+655C115.406+657.475+103.896+691.151+94.0999+692.257C84.3075+693.363+88.7647+672.943+89.2175+663.099C94.334+551.862+146.737+428.304+214.884+341.419" />
+      <path d="M150.064+330.4C186.452+383.109+279.737+393.253+327.332+351.949C373.329+312.032+386.352+213.227+302.435+220.273C268.219+223.146+229.899+235.561+198.296+248.662C185.747+253.864+151.006+275.17+161.998+267.188C181.52+253.014+157.328+272.038+195.328+239.705C235.828+205.246+300.26+150.398+354.105+140.837C372.134+137.635+387.768+145.85+385.734+166.485C381.551+208.909+326.89+312.746+310.333+359.493C304.34+376.416+276.646+425.633+288.488+446.443C292.953+454.29+304.724+437.299+309.977+429.956C348.318+376.369+384.966+285.257+411.568+223.109C417.019+210.375+424.603+191.765+428.176+177.464C429.178+173.449+431.393+163.641+427.509+165.068C404.542+173.509+368.756+223.149+353.003+243.661C352.153+244.767+342.019+256.884+348.151+261.325C362.599+271.789+456.634+186.557+477.024+199.7C508.742+220.145+394.168+421.8+529.403+364.706C549.301+356.306+583.804+335.879+601.888+325.588" />
+    </svg>
+  </div>
+
+<script>
+(function() {
+  function toArray(arr) {
+    return Array.prototype.slice.call(arr);
+  }
+
+  var svg = document.querySelector('.sketch svg');
+  svg.parentNode.style.display = 'block';
+  svg.style.visibility = 'hidden';
+
+  function fullSketch() {
+    svg.style.visibility = '';
+    var paths = toArray(svg.querySelectorAll('path:not(.shade)'));
+    var begin = 0;
+
+    var durations = paths.map(function(path) {
+      var length = path.getTotalLength();
+      var className = path.getAttribute('class') || '';
+
+      path.style.strokeDasharray = length + ' ' + length;
+      path.style.strokeDashoffset = length;
+
+      // no classList on svg elements in Safari :(
+      // if (className.indexOf('shade') != -1) { return 5; }
+      // else 
+      if (className.indexOf('letter') != -1) {
+        return Math.pow(length, 0.5) * 0.02;
+      }
+      else {
+        return Math.pow(length, 0.5) * 0.03;
+      }
+    });
+
+    // triggering a reflow so styles are calculated in their
+    // start position, so they animate from here
+    paths[0].getBoundingClientRect();
+
+    paths.forEach(function(path, i) {
+      path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset ' + durations[i] + 's ' + begin + 's ease-in-out';
+      path.style.strokeDashoffset = '0';
+      begin += durations[i] + 0.1;
+    });
+  }
+
+  window.addEventListener('load', fullSketch);
+}());
+
+</script>
+  <!-- script type="text/coffeescript">
+    path = document.querySelector('path')
+    length = path.getTotalLength()
+
+    # clear any previous transition
+    path.style.transition = 'none'
+
+    # set starting positions
+    path.style.strokeDasharray = "#{length} #{length}"
+    path.style.strokeDashoffset = length
+
+    # trigger a layout so styles are calculated
+    path.getBoundingClientRect()
+
+    path.style.transition = 'stroke-dashoffset 2s ease-in-out'
+
+    drawn = false
+
+    drawTo = (distance=0) -> 
+      drawn = distance
+      path.style.strokeDashoffset = length - distance
+
+    undo = ->
+      if drawn then drawTo(0) else drawTo(length)
+
+    drawTo length
+    path.addEventListener("webkitTransitionEnd", undo)
+  </script -->

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/marked/0.2.9/marked.min.js"></script>
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+<link rel="stylesheet" href="style.css">
+<body>
+  <div id="hi"></div>
+  <div id="markdown"></div>
+<script type="text/coffeescript">
+  i = document.scripts.length - 1
+  markdown.innerHTML = marked document.scripts[i].innerHTML
+  for block in document.querySelectorAll 'code'
+    block.className = "prettyprint lang-coffee"
+</script>
+<script type="text/literate-coffeescript">
+
+  Quick demo of 
+  [Embedded](https://github.com/jashkenas/coffee-script/pull/2718)
+  [Literate CoffeeScript](http://ashkenas.com/literate-coffeescript/)
+
+      hello = (name) -> "hello #{name}!".toUpperCase()
+      hi.innerHTML = "<h1>#{hello 'world'}</h1>"
+
+</script>
