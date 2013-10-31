@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  #{data.style}
+</style>
+<body>
+<script type="text/literate-coffeescript">
+  #{data.script}
+</script>
