@@ -2,26 +2,30 @@
 <meta charset="utf-8">
 <script src="http://jashkenas.github.io/coffee-script/extras/coffee-script.js"></script>
 <style>
-  #target {
+  #file {
     margin-top: 25px;
     margin-left: 50px;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: 100;
-    font-size: 100px;
+    font-size: 75px;
     color: #777;
     -webkit-font-smoothing: antialiased;
   }
 </style>
 <body>
+  <div id="file"></div>
   <img id="image" src=""/>
-  <div id="target"></div>
  
 <script type="text/coffeescript">
-  url = 'http://bl.ocks.org/joyrexus/raw/6294893/thumbnail.png'
-  insert = (data) -> 
-    image.src = "data:image/png;base64," + data
+  url = 'https://api.github.com/gists/7280524'
 
-  load = (url, done) ->
+  insert = (res) -> 
+    gist = JSON.parse res
+    thumb = gist.files['thumbnail.png.B64']
+    file.textContent = thumb.filename
+    image.src = "data:image/png;base64," + thumb.content
+
+  get = (url, done) ->
     xhr = new XMLHttpRequest()
     xhr.onreadystatechange = ->
       if (xhr.readyState is 4) and (xhr.status is 200)
@@ -29,5 +33,5 @@
     xhr.open("GET", url, true)
     xhr.send()
 
-  load url, insert
+  get url, insert
 </script>
