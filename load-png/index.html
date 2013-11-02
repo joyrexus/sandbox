@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="http://jashkenas.github.io/coffee-script/extras/coffee-script.js"></script>
+<style>
+  #choice {
+    margin-top: 25px;
+    margin-left: 50px;
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: 100;
+    font-size: 75px;
+    color: #777;
+    -webkit-font-smoothing: antialiased;
+  }
+  #choice:hover {
+    color: orange;
+    cursor: pointer;
+  }
+  input {
+    display: none;
+  }
+</style>
+<body>
+  <input type="file" id="chooser" />
+  <div id="choice">
+    Click and choose<br>
+    (a <code>Base64</code>-encoded <code>.png</code>)
+  </div>
+  <img id="image" src=""/>
+ 
+<script type="text/coffeescript">
+  load = -> 
+    File = @files[0]
+    choice.textContent = File.name
+    reader = new FileReader()
+    reader.onload = (file) ->
+      data = @result
+      image.src = "data:image/png;base64," + data
+    reader.readAsText File
+ 
+  chooser.addEventListener('change', load)
+  choice.addEventListener('click', -> chooser.click())
+</script>

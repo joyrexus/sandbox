@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="http://jashkenas.github.io/coffee-script/extras/coffee-script.js"></script>
+<style>
+  #target {
+    margin-top: 25px;
+    margin-left: 50px;
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: 100;
+    font-size: 100px;
+    color: #777;
+    -webkit-font-smoothing: antialiased;
+  }
+</style>
+<body>
+  <img id="image" src=""/>
+  <div id="target"></div>
+ 
+<script type="text/coffeescript">
+  url = 'http://bl.ocks.org/joyrexus/raw/6294893/thumbnail.png'
+  insert = (data) -> 
+    image.src = "data:image/png;base64," + data
+
+  load = (url, done) ->
+    xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = ->
+      if (xhr.readyState is 4) and (xhr.status is 200)
+        done xhr.responseText
+    xhr.open("GET", url, true)
+    xhr.send()
+
+  load url, insert
+</script>
