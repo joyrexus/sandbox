@@ -1,35 +1,24 @@
-CSS
-===
-
-
 ## Reference
 
-* [CSS Almanac](http://css-tricks.com/almanac/)
+* [Almanac](http://css-tricks.com/almanac/)
 
-* [CSS3 Please!](http://css3please.com/)
+* [Guide](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS)
 
-* [Flexbox Please!](http://demo.agektmr.com/flexbox/)
+* [Please!](http://css3please.com/)
 
-* [Effeckt.css](http://h5bp.github.io/Effeckt.css/dist/) - performant CSS
-  transitions and animations
+* [Visual Effects](https://gist.github.com/joyrexus/7306126)
 
-
-## Guides
-
-* [MDN Dev Guide](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS)
-
-* [Visual Effects Guide](http://developer.apple.com/library/safari/#documentation/InternetWeb/Conceptual/SafariVisualEffectsProgGuide/Introduction.html)
+* [Positioning & Layouts](https://gist.github.com/joyrexus/7305010)
 
 
 ## Tutorials
 
-* [Getting Started (MDN)](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started)
+* [Basics](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started)
 
-* [Positioning 101](http://alistapart.com/article/css-positioning-101)
+* [Forms](http://alistapart.com/article/forward-thinking-form-validation)
 
-* [Floats 101](http://alistapart.com/article/css-floats-101)
+* [Floats](http://alistapart.com/article/css-floats-101)
 
-* [Forms 101](http://alistapart.com/article/forward-thinking-form-validation)
+* [Positioning](http://alistapart.com/article/css-positioning-101)
 
-* [Transitions 101](http://alistapart.com/article/understanding-css3-transitions)
-
+* [Transitions](http://alistapart.com/article/understanding-css3-transitions)

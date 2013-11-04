@@ -1,4 +1,4 @@
-# CSS Effects
+# CSS Visual Effects
 
 Misc resources on CSS transitions, transforms, and animations demonstrating
 how to create performant visual effects.
@@ -25,15 +25,16 @@ how to create performant visual effects.
 
 * [Transitions 101](http://alistapart.com/article/understanding-css3-transitions)
 
-* [Using CSS Transitions | MDN](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_transitions)
+* MDN overviews
 
-* [Using CSS Transforms | MDN](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_transforms)
+  * [Transitions](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_transitions)
 
-* [Using CSS Animations | MDN](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_animations)
+  * [Transforms](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_transforms)
+
+  * [Animations](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_animations)
 
 * [Intro to 3D Transforms](http://desandro.github.io/3dtransforms/)
 
   * [Article](http://24ways.org/2010/intro-to-css-3d-transforms/)
-
   * [Repo](https://github.com/desandro/3dtransforms)
 
