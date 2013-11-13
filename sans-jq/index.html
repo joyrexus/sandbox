@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="http://jashkenas.github.io/coffee-script/extras/coffee-script.js"></script>
+<script src="sans-jq.js"></script>
+<style>
+  #file {
+    margin-top: 25px;
+    margin-left: 50px;
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: 100;
+    font-size: 75px;
+    color: #777;
+    -webkit-font-smoothing: antialiased;
+  }
+</style>
+<body>
+  <div id="file"></div>
+  <img id="image" src=""/>
+ 
+<script type="text/coffeescript">
+  url = 'https://api.github.com/gists/7280524'
+
+  insert = (res) -> 
+    gist = JSON.parse res.target.responseText
+    thumb = gist.files['thumbnail.png.B64']
+    $('#file').textContent = thumb.filename
+    $('#image').src = "data:image/png;base64," + thumb.content
+
+  $.get url, insert
+</script>

@@ -1,0 +1,12 @@
+{
+  "name": "listen",
+  "version": "0.0.1",
+  "description": "Simple client for twitter user streams",
+  "keywords": [
+    "twitter",
+    "stream"
+  ],
+  "dependencies": {
+    "oauth": "0.9.8"
+  },
+}
