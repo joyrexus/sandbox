@@ -2,7 +2,7 @@ oauth = require 'oauth'
 {EventEmitter} = require 'events'
 
 
-class Stream extends EventEmitter
+class Listener extends EventEmitter
   
   streamUrl: 'https://userstream.twitter.com/1.1/user.json'
   requestUrl: 'https://api.twitter.com/oauth/request_token'
@@ -79,4 +79,4 @@ class Stream extends EventEmitter
     req.end()
            
 
-module.exports = Stream
+module.exports = Listener

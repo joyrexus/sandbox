@@ -1,13 +1,13 @@
-Stream = require './index'
-config = require 'config'
-stream = new Stream config
+Listener = require './index'
+config = require 'private'
+listen = new Listener config
 
-stream.start({with: 'user'})
+listen.start({with: 'user'})
 
 print = (data) -> 
   if data.friends?
     console.log data.friends.length + ' friends!'
   console.log data.text if data.text?
 
-stream.on 'data', print
+listen.on 'data', print
 
