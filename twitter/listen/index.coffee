@@ -24,7 +24,7 @@ class Listener extends EventEmitter
     ]
     @oauth = new oauth.OAuth oauthArgs...
 
-  start: (args) ->
+  start: (args={with: 'user'}) ->
     args = {} if typeof args != 'object'
     args.delimited = 'length'
     args.stall_warnings = 'true'
