@@ -1,182 +1,82 @@
 oauth = require 'oauth'
-events = require 'events'
-util = require 'util'
+{EventEmitter} = require 'events'
 
-user_stream_url = 'https://userstream.twitter.com/1.1/user.json'
-request_token_url = 'https://api.twitter.com/oauth/request_token'
-access_token_url = 'https://api.twitter.com/oauth/access_token'
 
-"""
+class Stream extends EventEmitter
+  
+  streamUrl: 'https://userstream.twitter.com/1.1/user.json'
+  requestUrl: 'https://api.twitter.com/oauth/request_token'
+  accessUrl: 'https://api.twitter.com/oauth/access_token'
 
-Stream = (params) ->
+  constructor: (@args) ->
+    oauthArgs = [
+      @requestUrl,
+      @accessUrl,
+      @args.consumer_key,
+      @args.consumer_secret,
+      '1.0', 
+      null, 
+      'HMAC-SHA1', 
+      null,
+      Accept: '*/*'
+      Connection: 'close'
+      'User-Agent': 'user-stream.js' # 'listen.js'
+    ]
+    @oauth = new oauth.OAuth oauthArgs...
+
+  start: (args) ->
+    args = {} if typeof args != 'object'
+    args.delimited = 'length'
+    args.stall_warnings = 'true'
+    req = @oauth.post(
+      @streamUrl,
+      @args.access_token_key,
+      @args.access_token_secret,
+      args, 
+      null
+    )
     
-    if (!(this instanceof Stream)) {
-        return new Stream(params);  
-    } 
+    @destroy = -> req.abort()
+
+    stream = @
+
+    req.on 'response', (res) ->
+      if res.statusCode > 200
+        stream.emit 'error', {type: 'response', data: {code: res.statusCode}}
+      else
+        buffer = ''
+        next = 0
+        end = '\r\n'
+        stream.emit 'connected'
+        res.setEncoding 'utf8'
+        res.on 'error', (err) -> stream.emit('close', err)
+        res.on 'end', -> stream.emit('close', 'socket end')
+        res.on 'close', -> req.abort()
+        res.on 'data', (data) ->
+          if data is end
+            stream.emit 'heartbeat'
+            return
+          if typeof buffer is 'string'
+            i = data.indexOf(end)
+            next = parseInt(data.slice(0, i))
+            data = data.slice(i + end.length)
+          if buffer.length != next
+            buffer += data.slice(0, data.indexOf(end))  # remove end
+            parsed = false
+            try
+              buffer = JSON.parse(buffer)
+              parsed = true
+            catch err
+              stream.emit 'garbage', buffer
+            if parsed
+              stream.emit 'data', buffer
+            buffer = ''                                 # empty
+          else
+            buffer += data                              # append
     
-    events.EventEmitter.call(this);
-    
-    this.params = params;
-    
-    this.oauth = new oauth.OAuth(
-        request_token_url,
-        access_token_url,
-        this.params.consumer_key,
-        this.params.consumer_secret,
-        '1.0', 
-        null, 
-        'HMAC-SHA1', 
-        null,
-        {
-          'Accept': '*/*',
-          'Connection'
-          : 'close',
-          'User-Agent': 'user-stream.js'
-        }
-    );
-    
+    req.on 'error', (err) -> stream.emit('error', {type: 'req', data: err})
 
-//inherit
-util.inherits(Stream, events.EventEmitter);
-
-###
-Create twitter use stream
-
- * Events:
- * - data
- * - garbage
- * - close
- * - error
- * - connected
- * - heartbeat
- * 
-###
-
-Stream.prototype.stream = function(params) {
-    
-    var stream = this;
-    
-    if (typeof params != 'object') {
-        params = {};
-    }
-    
-    //required params for lib
-    params.delimited = 'length';
-    params.stall_warnings = 'true';
-    
-    var request = this.oauth.post(
-        user_stream_url,
-        this.params.access_token_key,
-        this.params.access_token_secret,
-        params, 
-        null
-    );
-
-    /**
-     * Destroy socket
-     */
-    this.destroy = function() {
-
-        request.abort();
-
-    }
-
-    request.on('response', function(response) {
-        
-        // Any response code greater then 200 from steam API is an error
-        if(response.statusCode > 200) {
-
-            stream.emit('error', {type: 'response', data: {code:response.statusCode}});
-          
-        } else {
-            
-            var buffer = '',
-                next_data_length = 0,
-                end = '\r\n';
-            
-            //emit connected event
-            stream.emit('connected');
-            
-            //set chunk encoding
-            response.setEncoding('utf8');
-            
-            response.on('data', function(chunk) {
-
-                //is heartbeat?
-                if (chunk == end) {
-                    stream.emit('heartbeat');
-                    return;
-                }
-
-                //check whether new incomming data set
-                if (!buffer.length) {
-                    //get length of incomming data
-                    var line_end_pos = chunk.indexOf(end);
-                    next_data_length = parseInt(chunk.slice(0, line_end_pos));
-                    //slice data length string from chunk
-                    chunk = chunk.slice(line_end_pos+end.length);
-                }
-                
-                if (buffer.length != next_data_length) { 
-                    //data set recieved
-                    //first remove end and append to buffer
-                    buffer+= chunk.slice(0, chunk.indexOf(end));
-                    //parse json
-                    var parsed = false;
-                    try {
-                        //try parse & emit
-                        buffer = JSON.parse(buffer);     
-                        parsed = true;
-                    } catch(e) {
-                        stream.emit('garbage', buffer);
-                    }
-                    
-                    //don't emit into "try" and emit only if data formatted
-                    if (parsed) {
-                        stream.emit('data', buffer);
-                    }
-                    
-                    //clean buffer
-                    buffer = '';
-                    
-                } else {
-                    //append to buffer
-                    buffer+=chunk;
-                }
-
-            });
-            
-            response.on('error', function(error) {
-                
-                stream.emit('close', error);
-
-            });
-            
-            response.on('end', function() {
-
-                stream.emit('close', 'socket end');
-    
-            });
-            
-
-            response.on('close', function() {
-
-                request.abort();
-          
-            });
-        }
-
-    });
-    
-    request.on('error', function(error) {
-        
-        stream.emit('error', {type: 'request', data: error});
-        
-    });
-    
-    request.end();
+    req.end()
            
-}
 
 module.exports = Stream
-"""

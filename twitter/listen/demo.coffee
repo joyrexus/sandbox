@@ -1,9 +1,8 @@
-Stream = require 'user-stream'
+Stream = require './index'
 config = require 'config'
-
 stream = new Stream config
 
-stream.stream()
+stream.start({with: 'user'})
 
 print = (data) -> 
   if data.friends?
@@ -11,3 +10,4 @@ print = (data) ->
   console.log data.text if data.text?
 
 stream.on 'data', print
+

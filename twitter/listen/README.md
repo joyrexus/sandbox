@@ -5,4 +5,4 @@ Simple client for listening to a Twitter user stream via version 1.1 of the
 
 ---
 
-Warning: this is pre-alpha work in progress!
+Warning: this is all pre-alpha, work in progress!
