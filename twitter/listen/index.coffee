@@ -9,6 +9,8 @@ class Listener extends EventEmitter
   accessUrl: 'https://api.twitter.com/oauth/access_token'
 
   constructor: (@args) ->
+    @chunkSize = 0    # length of next data chunk for buffer
+    @buffer = ''
     oauthArgs = [
       @requestUrl,
       @accessUrl,
@@ -20,13 +22,13 @@ class Listener extends EventEmitter
       null,
       Accept: '*/*'
       Connection: 'close'
-      'User-Agent': 'user-stream.js' # 'listen.js'
+      'User-Agent': 'listen.js'
     ]
     @oauth = new oauth.OAuth oauthArgs...
 
   start: (args=with:'user') ->
     args = {} if typeof args != 'object'
-    args.delimited = 'length'
+    # args.delimited = 'length'
     args.stall_warnings = 'true'
     req = @oauth.post(
       @streamUrl,
@@ -36,46 +38,27 @@ class Listener extends EventEmitter
     )
     
     @destroy = -> req.abort()
-
     stream = @
-
     req.on 'response', (res) ->
       if res.statusCode > 200
         stream.emit 'error', {type: 'response', data: {code: res.statusCode}}
       else
-        buffer = ''
-        next = 0
-        end = '\r\n'
         stream.emit 'connected'
         res.setEncoding 'utf8'
+        res.on 'data', (data) -> stream.parse data
         res.on 'error', (err) -> stream.emit('close', err)
         res.on 'end', -> stream.emit('close', 'socket end')
         res.on 'close', -> req.abort()
-        res.on 'data', (data) ->
-          if data is end
-            stream.emit 'heartbeat'
-            return
-          if typeof buffer is 'string'
-            i = data.indexOf(end)
-            next = parseInt(data.slice(0, i))
-            data = data.slice(i + end.length)
-          if buffer.length != next
-            buffer += data.slice(0, data.indexOf(end))  # remove end
-            parsed = false
-            try
-              buffer = JSON.parse(buffer)
-              parsed = true
-            catch err
-              stream.emit 'garbage', buffer
-            if parsed
-              stream.emit 'data', buffer
-            buffer = ''                                 # empty
-          else
-            buffer += data                              # append
     
-    req.on 'error', (err) -> stream.emit('error', {type: 'req', data: err})
-
+    req.on 'error', (err) -> stream.emit('error', {type: 'request', data: err})
     req.end()
-           
+
+  parse: (data) ->
+    for t in data.split('\r\n') when t
+      try
+        @emit 'data', JSON.parse(t)
+      catch err
+        @emit 'garbage', t
+
 
 module.exports = Listener
