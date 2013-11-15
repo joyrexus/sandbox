@@ -24,7 +24,7 @@ class Listener extends EventEmitter
     ]
     @oauth = new oauth.OAuth oauthArgs...
 
-  start: (args={with: 'user'}) ->
+  start: (args=with:'user') ->
     args = {} if typeof args != 'object'
     args.delimited = 'length'
     args.stall_warnings = 'true'
@@ -32,8 +32,7 @@ class Listener extends EventEmitter
       @streamUrl,
       @args.access_token_key,
       @args.access_token_secret,
-      args, 
-      null
+      args 
     )
     
     @destroy = -> req.abort()
