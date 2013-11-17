@@ -53,7 +53,10 @@ class Listener extends EventEmitter
     req.on 'error', (err) -> stream.emit('error', {type: 'request', data: err})
     req.end()
 
-  # see https://dev.twitter.com/docs/streaming-apis/processing
+  # See ...
+  # https://dev.twitter.com/docs/streaming-apis/processing
+  # https://github.com/AvianFlu/ntwitter/blob/master/lib/parser.js
+  # https://github.com/aivis/user-stream/blob/master/lib/user-stream.js#L103
   parse: (data) ->
     for t in data.split('\r\n') when t
       try
