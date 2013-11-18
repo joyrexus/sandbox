@@ -3,4 +3,4 @@
 Simple client for listening to a Twitter user stream via version 1.1 of the
 [streaming API](https://dev.twitter.com/docs/streaming-apis/streams/user).
 
-[Create an app](https://dev.twitter.com/apps) to generate some keys and add them to `keys.json`.
+Before running `demo.coffee`, place your [app's](https://dev.twitter.com/apps) [OAuth keys](https://dev.twitter.com/docs/auth/oauth/faq) in `keys.json`

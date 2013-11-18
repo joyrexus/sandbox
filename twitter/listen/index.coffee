@@ -4,18 +4,19 @@ oauth = require 'oauth'
 
 class Listener extends EventEmitter
   
-  streamUrl: 'https://userstream.twitter.com/1.1/user.json'
-  requestUrl: 'https://api.twitter.com/oauth/request_token'
-  accessUrl: 'https://api.twitter.com/oauth/access_token'
+  urls:
+    stream: 'https://userstream.twitter.com/1.1/user.json'
+    request: 'https://api.twitter.com/oauth/request_token'
+    access: 'https://api.twitter.com/oauth/access_token'
 
   constructor: (@args) ->
     @chunkSize = 0    # length of next data chunk for buffer
     @buffer = ''
     oauthArgs = [
-      @requestUrl,
-      @accessUrl,
-      @args.consumer_key,
-      @args.consumer_secret,
+      @urls.request,
+      @urls.access,
+      @args.consumerKey,
+      @args.consumerSecret,
       '1.0', 
       null, 
       'HMAC-SHA1', 
@@ -28,12 +29,11 @@ class Listener extends EventEmitter
 
   start: (args=with:'user') ->
     args = {} if typeof args != 'object'
-    # args.delimited = 'length'
     args.stall_warnings = 'true'
     req = @oauth.post(
-      @streamUrl,
-      @args.access_token_key,
-      @args.access_token_secret,
+      @urls.stream,
+      @args.accessToken,
+      @args.accessTokenSecret,
       args 
     )
     
