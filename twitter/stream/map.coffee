@@ -12,6 +12,7 @@ geojson =
   type: "FeatureCollection"
   features: []
 
+# add your own spots of interest here
 bbox = 
   chicago:
     locations: '-87,41,-86,42'   
