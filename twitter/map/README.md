@@ -6,15 +6,15 @@ Twitter streaming API with the [locations](https://dev.twitter.com/docs/streamin
 
 ### Setup
 
-Before running the `map.coffee` script, place your [app's](https://dev.twitter.com/apps) [OAuth keys](https://dev.twitter.com/docs/auth/oauth/faq) in `keys.json` and run `npm install` to install dependencies (viz., `ntwitter` and `opener`).
+Before running the `index.coffee` script, place your [app's](https://dev.twitter.com/apps) [OAuth keys](https://dev.twitter.com/docs/auth/oauth/faq) in `keys.json` and run `npm install` to install dependencies (viz., `ntwitter` and `opener`).
 
 
 ### Usage
 
 You can optionally specify the `place` from which the tweets should be coming and the `time` to listen in seconds:
 
-    map.coffee [place] [time]
+    index.coffee [place] [time]
 
 For example, to map tweets coming from Chicago within the next 5 seconds:
 
-    map.coffee chicago 5
+    index.coffee chicago 5
