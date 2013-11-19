@@ -1,0 +1,14 @@
+{
+  "name": "tweet-map",
+  "version": "0.0.1",
+  "description": "Map a location-based Twitter stream",
+  "keywords": [
+    "twitter",
+    "stream",
+    "geojson"
+  ],
+  "dependencies": {
+    "opener": "1.3.x",
+    "ntwitter": "0.5.x"
+  }
+}
