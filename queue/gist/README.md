@@ -87,4 +87,6 @@ Mike's ...
 
 * [comment](http://grokbase.com/t/gg/d3-js/13412932vz/queue-js#20130401gzfmvktwsrwry5ozq5xr36klnu)
 
+* [example](http://bl.ocks.org/mbostock/7606141) of an infinite queue
+
 [Analyzing queue.js](http://bsumm.net/2013/03/31/analyzing-mbostocks-queue-js.html)
