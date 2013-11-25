@@ -1,12 +1,9 @@
 fs = require 'fs'
 queue = require 'queue-async'
 
-done = (error, results...) -> console.log r.mtime for r in results
+done = (error, results...) -> console.log r.size for r in results
 
-queue(1)
-  .defer(fs.stat, __dirname + "/../monads")
-  .defer(fs.stat, __dirname + "/../geo")
+queue()
+  .defer(fs.stat, __dirname + "/..")
+  .defer(fs.stat, __dirname + "/../..")
   .await(done)
-
-
-
