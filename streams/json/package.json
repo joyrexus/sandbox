@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "split": "~0.2",
+    "through": ">=2",
+    "event-stream": ">=3"
+  }
+}
