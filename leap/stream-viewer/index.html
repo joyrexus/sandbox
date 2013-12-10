@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js"></script>
+<style>/* CSS */</style>
+<body>
+  <div id="info"></div>
+<script type="text/coffeescript">
+  stream = new WebSocket 'ws://localhost:6437'
+  stream.onmessage = (event) ->
+    if event.data
+      data = JSON.parse event.data
+      if data?.hands?.length
+        pos = data.hands[0].palmPosition
+        [x, y, z] = pos
+        cx = 500 + x
+        cy = 500 - y
+        ###
+        Hand position ranges
+        * x:  -500 to 500
+        * y:  25 to 600
+        * z:  -350 to 350
+        ###
+        info.innerHTML = x
+</script>
+
