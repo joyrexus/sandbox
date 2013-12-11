@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/svg.js"></script>
+<script src="../lib/svg.draggable.js"></script>
+<script src="../lib/coffee-script.js"></script>
+<style>/* CSS */</style>
+<body>
+  <div id="canvas"></div>
+<script type="text/coffeescript">
+  draw = SVG('canvas').size(500, 500)
+  image = draw.image('images/apple.png', 100, 114).move(100, 100)
+  image.draggable()
+</script>

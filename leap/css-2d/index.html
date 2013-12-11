@@ -35,11 +35,13 @@ body {
   var prev = {}
 
   var render = function(frame) {
-      var translation = frame.translation(prev);
+      // var translation = frame.translation(prev);
+      var translation = frame.hands[0].translation(prev);
       var dx = x + 5 * Math.round(translation.x);
       var dy = y - 5 * Math.round(translation.y);
-      block.style["-webkit-transform"] = "translate(" + dx + "px," + dy + "px)";
+      transform = "translate(" + dx + "px," + dy + "px)";
       prev = frame;
+      return ''
     };
 
   Leap.loop(render);
