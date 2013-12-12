@@ -53,13 +53,8 @@
 <script type="text/coffeescript">
   leap = (render) ->
     stream = new WebSocket 'ws://localhost:6437'
-    nextFrame = ->
-      stream.onmessage = (event) -> 
-        if event.data
-          render(JSON.parse(event.data)) 
-          requestAnimationFrame(nextFrame)
-    requestAnimationFrame(nextFrame)
-
+    stream.onmessage = (event) -> 
+      render(JSON.parse(event.data)) if event.data
 
   # Utility methods ...
 
