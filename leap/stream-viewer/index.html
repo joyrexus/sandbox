@@ -1,25 +1,114 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js"></script>
-<style>/* CSS */</style>
+<style>
+  .hand {
+    position: absolute;
+    border-radius: 20px;
+    width: 75px;
+    height: 75px;
+    left: 50%;
+    bottom: 10%;
+  }
+  #first {
+    background-color: steelblue;
+    opacity: .75;
+  }
+  #first .point {
+    background-color: steelblue;
+  }
+  #second {
+    background-color: #777;
+    opacity: 0;
+  }
+  #second .point {
+    background-color: #777
+  }
+  .point {
+    position: absolute;
+    border-radius: 10px;
+    width: 20px;
+    height: 20px;
+    left: 50%;
+    bottom: 10%;
+    opacity: 0;
+  }
+</style>
 <body>
-  <div id="info"></div>
-<script type="text/coffeescript">
-  stream = new WebSocket 'ws://localhost:6437'
-  stream.onmessage = (event) ->
-    if event.data
-      data = JSON.parse event.data
-      if data?.hands?.length
-        pos = data.hands[0].palmPosition
-        [x, y, z] = pos
-        cx = 500 + x
-        cy = 500 - y
-        ###
-        Hand position ranges
-        * x:  -500 to 500
-        * y:  25 to 600
-        * z:  -350 to 350
-        ###
-        info.innerHTML = x
-</script>
+  <div class="hand" id="first">
+    <div class="point" id="AA"></div>
+    <div class="point" id="AB"></div>
+    <div class="point" id="AC"></div>
+    <div class="point" id="AD"></div>
+    <div class="point" id="AE"></div>
+  </div>
 
+  <div class="hand" id="second">
+    <div class="point" id="BA"></div>
+    <div class="point" id="BB"></div>
+    <div class="point" id="BC"></div>
+    <div class="point" id="BD"></div>
+    <div class="point" id="BE"></div>
+  </div>
+<script type="text/coffeescript">
+  leap = (render) ->
+    stream = new WebSocket 'ws://localhost:6437'
+    stream.onmessage = (event) -> 
+      render(JSON.parse(event.data)) if event.data
+
+
+  # Utility methods ...
+
+  R2D = 180 / Math.PI
+
+  pitch = (hand) -> 
+    Math.round(R2D * Math.atan2(hand.direction[1], -hand.direction[2]) - 90)
+
+  yaw = (hand) -> 
+    Math.round(R2D * Math.atan2(hand.direction[0], -hand.direction[2]))
+
+  roll = (hand) ->
+    Math.round(-R2D * Math.atan2(hand.palmNormal[0], -hand.palmNormal[1]))
+
+
+  # Rendering logic ...
+
+  parse = (pos) ->
+    [x, y, z] = (Math.round(x) for x in pos)
+    [x, -y, 350/(350 + z)]
+
+  points = [AA, AB, AC, AD, AE, BA, BB, BC, BD, BE]
+
+  render = (frame) ->
+      if frame?.hands?.length
+        second.style.opacity = 1 if frame.hands.length > 1
+        for i, hand of frame.hands
+          [x, y, z] = parse hand.palmPosition
+          transform = """
+            translate(#{x}px, #{y}px) 
+            rotateX(#{pitch(hand)}deg)
+            rotateZ(#{roll(hand)}deg)
+            scale(#{z})
+          """
+          e = if i is '0' then first else second
+          e.style.webkitTransform = transform
+      if frame?.pointables?.length
+        last = null
+        for i, point of frame.pointables
+          [x, y, z] = parse point.tipPosition
+          transform = "translate(#{x}px, #{y}px) scale(#{z})"
+          opacity = if point.handId is -1 then 0 else 1
+          points[i].style.webkitTransform = transform
+          points[i].style.opacity = opacity
+          last = parseInt(i)
+
+        if last < 9
+          x = last + 1
+          console.log last, [x..4]
+          points[i.toString()].style.opacity = 0 for i in [x..9]
+      else
+          points[i].style.opacity = 0 for i in [1..9]
+
+
+  leap render   # render each data frame
+</script>
