@@ -2,59 +2,48 @@
 <meta charset="utf-8">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js"></script>
 <style>
-  .hand {
+  #palm {
     position: absolute;
-    border-radius: 20px;
-    width: 75px;
-    height: 75px;
+    background-color: steelblue;
+    border-radius: 50px;
+    width: 100px;
+    height: 125px;
     left: 50%;
     bottom: 10%;
-  }
-  #first {
-    background-color: steelblue;
-    opacity: .75;
-  }
-  #first .point {
-    background-color: steelblue;
-  }
-  #second {
-    background-color: #777;
     opacity: 0;
-  }
-  #second .point {
-    background-color: #777
   }
   .point {
     position: absolute;
-    border-radius: 10px;
-    width: 20px;
-    height: 20px;
+    background-color: steelblue;
+    border-radius: 20px;
+    width: 25px;
+    height: 30px;
     left: 50%;
-    bottom: 10%;
+    bottom: 20%;
     opacity: 0;
   }
 </style>
 <body>
-  <div class="hand" id="first">
-    <div class="point" id="AA"></div>
-    <div class="point" id="AB"></div>
-    <div class="point" id="AC"></div>
-    <div class="point" id="AD"></div>
-    <div class="point" id="AE"></div>
+  <div id="palm">
   </div>
+    <div class="point" id="A"></div>
+    <div class="point" id="B"></div>
+    <div class="point" id="C"></div>
+    <div class="point" id="D"></div>
+    <div class="point" id="E"></div>
 
-  <div class="hand" id="second">
-    <div class="point" id="BA"></div>
-    <div class="point" id="BB"></div>
-    <div class="point" id="BC"></div>
-    <div class="point" id="BD"></div>
-    <div class="point" id="BE"></div>
-  </div>
 <script type="text/coffeescript">
+  # See http://bl.ocks.org/7934042
   leap = (render) ->
     stream = new WebSocket 'ws://localhost:6437'
+    stream.drawing = false
     stream.onmessage = (event) -> 
-      render(JSON.parse(event.data)) if event.data
+      if event.data and not stream.drawing
+        requestAnimationFrame ->
+          render(JSON.parse(event.data))
+          stream.drawing = false
+        stream.drawing = true
+
 
   # Utility methods ...
 
@@ -76,38 +65,44 @@
     [x, y, z] = (Math.round(x) for x in pos)
     [x, -y, 350/(350 + z)]
 
-  points = [AA, AB, AC, AD, AE, BA, BB, BC, BD, BE]
+  points = [A, B, C, D, E]
 
   render = (frame) ->
-      if frame?.hands?.length
-        second.style.opacity = 1 if frame.hands.length > 1
-        for i, hand of frame.hands
-          [x, y, z] = parse hand.palmPosition
-          transform = """
-            translate(#{x}px, #{y}px) 
-            rotateX(#{pitch(hand)}deg)
-            rotateZ(#{roll(hand)}deg)
-            scale(#{z})
-          """
-          e = if i is '0' then first else second
-          e.style.webkitTransform = transform
-      if frame?.pointables?.length
-        last = null
-        for i, point of frame.pointables
-          [x, y, z] = parse point.tipPosition
-          transform = "translate(#{x}px, #{y}px) scale(#{z})"
-          opacity = if point.handId is -1 then 0 else 1
-          points[i].style.webkitTransform = transform
-          points[i].style.opacity = opacity
-          last = parseInt(i)
 
-        if last < 9
-          x = last + 1
-          console.log last, [x..4]
-          points[i.toString()].style.opacity = 0 for i in [x..9]
-      else
-          points[i].style.opacity = 0 for i in [1..9]
+    if frame?.hands?.length
+      palm.style.opacity = .75
+      hand = frame.hands[0]
+      [x, y, z] = parse hand.palmPosition
+      transform = """
+        translate(#{x}px, #{y}px) 
+        scale(#{z})
+        rotateX(#{pitch(hand)}deg)
+        rotateZ(#{roll(hand)}deg)
+      """
+      palm.style.webkitTransform = transform
 
+    else
+      palm.style.opacity = 0
+
+    if frame?.pointables?.length
+      last = null
+      for i, point of frame.pointables
+        return if i > 4
+        [x, y, z] = parse point.tipPosition
+        transform = "translate(#{x}px, #{y}px) scale(#{z})"
+        opacity = if point.handId is -1 then 0 else 1
+        points[i].style.webkitTransform = transform
+        points[i].style.opacity = opacity
+        last = parseInt(i)
+
+      if last < 4
+        x = last + 1
+        points[i.toString()].style.opacity = 0 for i in [x..4]
+
+    else
+        points[i.toString()].style.opacity = 0 for i in [0..4]
+
+    ''
 
   leap render   # render each data frame
 </script>
