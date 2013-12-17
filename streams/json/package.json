@@ -2,7 +2,7 @@
   "dependencies": {
     "split": "~0.2",
     "through": ">=2",
-    "event-stream": ">=3"
+    "event-stream": ">=3",
     "request": "~2.28.0"
   }
 }
