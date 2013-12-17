@@ -1,109 +1,54 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js"></script>
 <style>
-  #palm {
-    position: absolute;
-    background-color: steelblue;
-    border-radius: 50px;
-    width: 100px;
-    height: 125px;
-    left: 50%;
-    bottom: 10%;
-    opacity: 0;
+  body {
+    margin-top: 25px;
+    margin-left: 50px;
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: 100;
+    font-size: 75px;
+    color: #777;
+    -webkit-font-smoothing: antialiased;
   }
-  .point {
-    position: absolute;
-    background-color: steelblue;
-    border-radius: 20px;
-    width: 25px;
-    height: 30px;
-    left: 50%;
-    bottom: 20%;
-    opacity: 0;
+  
+  #file {
+    color: steelblue;
+  }
+  
+  #file:hover {
+    color: orange;
+    cursor: pointer;
+  }
+  
+  #info {
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+  }
+  
+  input {
+    display: none;
   }
 </style>
 <body>
-  <div id="palm">
+  <div id="info">
+    <input type="file" id="chooser" />
+    <div id="file">Click and choose sample</div>
   </div>
-    <div class="point" id="A"></div>
-    <div class="point" id="B"></div>
-    <div class="point" id="C"></div>
-    <div class="point" id="D"></div>
-    <div class="point" id="E"></div>
 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js"></script>
 <script type="text/coffeescript">
-  # See http://bl.ocks.org/7934042
-  leap = (render) ->
-    queue = []
-    stream = new WebSocket 'ws://localhost:8081'
-    stream.drawing = false
-    stream.onopen = -> console.log 'connection open'
-    stream.onmessage = (event) -> 
-      queue.push JSON.parse(event.data) if event.data
-      ''
-    stream.onclose = -> 
-      console.log 'connection closed'
+  # load handler invoked on change event
+  load = -> 
+    File = @files[0]
+    return if not File.type.match '\.json$'
+    file.textContent = File.name
+    reader = new FileReader()
+    reader.onload = (file) -> render JSON.parse @result
+    reader.readAsText File
 
+  # click and choose a file to load
+  chooser.addEventListener('change', load)
+  file.addEventListener('click', -> chooser.click())
 
-  # Utility methods ...
-
-  R2D = 180 / Math.PI
-
-  pitch = (hand) -> 
-    Math.round(R2D * Math.atan2(hand.direction[1], -hand.direction[2]) - 90)
-
-  yaw = (hand) -> 
-    Math.round(R2D * Math.atan2(hand.direction[0], -hand.direction[2]))
-
-  roll = (hand) ->
-    Math.round(-R2D * Math.atan2(hand.palmNormal[0], -hand.palmNormal[1]))
-
-
-  # Rendering logic ...
-
-  parse = (pos) ->
-    [x, y, z] = (Math.round(x) for x in pos)
-    [x, -y, 350/(350 + z)]
-
-  points = [A, B, C, D, E]
-
-  render = (frame) ->
-
-    if frame?.hands?.length
-      palm.style.opacity = .75
-      hand = frame.hands[0]
-      [x, y, z] = parse hand.palmPosition
-      transform = """
-        translate(#{x}px, #{y}px) 
-        scale(#{z})
-        rotateX(#{pitch(hand)}deg)
-        rotateZ(#{roll(hand)}deg)
-      """
-      palm.style.webkitTransform = transform
-
-    else
-      palm.style.opacity = 0
-
-    if frame?.pointables?.length
-      last = null
-      for i, point of frame.pointables
-        return if i > 4
-        [x, y, z] = parse point.tipPosition
-        transform = "translate(#{x}px, #{y}px) scale(#{z})"
-        opacity = if point.handId is -1 then 0 else 1
-        points[i].style.webkitTransform = transform
-        points[i].style.opacity = opacity
-        last = parseInt(i)
-
-      if last < 4
-        x = last + 1
-        points[i.toString()].style.opacity = 0 for i in [x..4]
-
-    else
-        points[i.toString()].style.opacity = 0 for i in [0..4]
-
-    ''
-
-  leap render   # render each data frame
+  render = (data) -> console.log data
 </script>
