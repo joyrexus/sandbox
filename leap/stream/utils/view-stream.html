@@ -35,17 +35,16 @@
 <script type="text/coffeescript">
   # See http://bl.ocks.org/7934042
   leap = (render) ->
-    # stream = new WebSocket 'ws://localhost:6437'
-    stream = new WebSocket 'ws://localhost:8081'
+    stream = new WebSocket 'ws://localhost:6437'
     stream.drawing = false
-    stream.onopen = -> console.log 'connected!'
+    stream.onopen = -> console.log 'connection open'
     stream.onmessage = (event) -> 
-      console.log JSON.parse(event.data)
       if event.data and not stream.drawing
         requestAnimationFrame ->
           render(JSON.parse(event.data))
           stream.drawing = false
         stream.drawing = true
+    stream.onclose = -> console.log 'connection closed'
 
 
   # Utility methods ...
