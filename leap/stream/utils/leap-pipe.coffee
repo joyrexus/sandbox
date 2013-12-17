@@ -11,7 +11,6 @@ leap = {}
 leap.pipe = (filter) ->
   trans._transform = (data, encoding, done) ->
     if data
-      console.log typeof data, data
       data = JSON.parse data
       if data?.id
         @push JSON.stringify(filter data) + "\n" 
