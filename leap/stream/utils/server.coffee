@@ -6,15 +6,6 @@ fs = require 'fs'
 
 wss = new WebSocketServer(port: 8081)
 
-###
-delay = require('stream').Transform(decodeStrings: false)
-delay._transform = (data, encoding, done) ->
-  if data
-    console.log data
-    setTimeout (-> delay.push data), 500
-    done()
-###
-
 file = process.argv[2]
 throw 'please specify a leap sample to serve!' if not file?
 

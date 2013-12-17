@@ -44,6 +44,18 @@
       ''
     stream.onclose = -> 
       console.log 'connection closed'
+      last = queue.length - 1
+      end = queue[last].timestamp
+      begin = queue[0].timestamp
+      duration = (last - first)/1000
+      step = duration/data.length
+      i = 0
+      run = ->
+        return if i is last
+        render queue(i)
+        i += 1
+        setTimeout(run, step)
+      run()
 
 
   # Utility methods ...
