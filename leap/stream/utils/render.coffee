@@ -70,7 +70,7 @@ root.render = (queue) ->
   frame = 0
   run = ->
     return if frame is last
-    draw queue[frame]
+    requestAnimationFrame -> draw queue[frame]
     frame += 1
     setTimeout(run, step)
   run()

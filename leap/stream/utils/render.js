@@ -96,7 +96,9 @@
       if (frame === last) {
         return;
       }
-      draw(queue[frame]);
+      requestAnimationFrame(function() {
+        return draw(queue[frame]);
+      });
       frame += 1;
       return setTimeout(run, step);
     };

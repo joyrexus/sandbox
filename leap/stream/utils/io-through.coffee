@@ -6,9 +6,9 @@ trans = require('stream').Transform(decodeStrings: false)
 # when they don't want any more data
 process.stdout.on('error', process.exit)
 
-leap = {}
+io = {}
 
-leap.pipe = (filter) ->
+io.through = (filter) ->
   trans._transform = (data, encoding, done) ->
     if data
       data = JSON.parse data
@@ -21,4 +21,4 @@ leap.pipe = (filter) ->
     .pipe(trans)
     .pipe(stdout)
 
-module.exports = leap
+module.exports = io

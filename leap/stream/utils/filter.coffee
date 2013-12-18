@@ -1,9 +1,9 @@
 #!/usr/bin/env coffee 
-leap = require 'leap-pipe'
+io = require 'io-through'
 
 filter = (data) ->
   id: data.id
   hands: data.hands
   timestamp: data.timestamp
 
-leap.pipe(filter)
+io.through filter
