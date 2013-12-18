@@ -40,7 +40,7 @@
     stream.drawing = false
     stream.onopen = -> console.log 'connection open'
     stream.onmessage = (event) -> 
-      queue.push JSON.parse(event.data) if event.data
+      queue.push JSON.parse(event.data) if event.data?.timestamp
       ''
     stream.onclose = -> 
       console.log 'connection closed'

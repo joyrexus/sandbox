@@ -28,27 +28,61 @@
   input {
     display: none;
   }
+
+  #palm {
+    position: absolute;
+    background-color: steelblue;
+    border-radius: 50px;
+    width: 100px;
+    height: 125px;
+    left: 50%;
+    bottom: 10%;
+    opacity: 0;
+  }
+  .point {
+    position: absolute;
+    background-color: steelblue;
+    border-radius: 20px;
+    width: 25px;
+    height: 30px;
+    left: 50%;
+    bottom: 20%;
+    opacity: 0;
+  }
 </style>
 <body>
   <div id="info">
     <input type="file" id="chooser" />
     <div id="file">Click and choose sample</div>
   </div>
+  <div id="palm">
+  </div>
+    <div class="point" id="A"></div>
+    <div class="point" id="B"></div>
+    <div class="point" id="C"></div>
+    <div class="point" id="D"></div>
+    <div class="point" id="E"></div>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js"></script>
+<script src="render.js"></script>
 <script type="text/coffeescript">
+  queue = []  # queue of frames
+
   # load handler invoked on change event
   load = -> 
     File = @files[0]
-    return if not File.type.match '\.json$'
+    return if not File.name.match '\.json.lsv$'
     file.textContent = File.name
     reader = new FileReader()
-    reader.onload = (file) -> render JSON.parse @result
+    reader.onload = (file) -> 
+      queue.push(JSON.parse row) for row in @result.split('\n') \
+                                 when row.match /timestamp/
+      render queue
+      ''
     reader.readAsText File
 
   # click and choose a file to load
   chooser.addEventListener('change', load)
   file.addEventListener('click', -> chooser.click())
-
-  render = (data) -> console.log data
+  palm.addEventListener('click', -> render queue)
 </script>
