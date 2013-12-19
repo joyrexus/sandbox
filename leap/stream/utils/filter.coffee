@@ -1,9 +1,9 @@
 #!/usr/bin/env coffee 
-io = require 'io-through'
+pipe = require 'ldj-pipe'
 
-filter = (data) ->
-  id: data.id
-  hands: data.hands
-  timestamp: data.timestamp
+filter = (d) ->
+  id:        d.id
+  hands:     d.hands
+  timestamp: d.timestamp
 
-io.through filter
+pipe.through filter
