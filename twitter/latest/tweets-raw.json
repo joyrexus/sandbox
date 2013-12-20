@@ -1,0 +1,652 @@
+[
+  {
+    "lang": "en",
+    "possibly_sensitive": false,
+    "retweeted": false,
+    "favorited": false,
+    "entities": {
+      "user_mentions": [
+        {
+          "indices": [
+            8,
+            20
+          ],
+          "id_str": "349963",
+          "id": 349963,
+          "name": "Jason Davies",
+          "screen_name": "jasondavies"
+        }
+      ],
+      "urls": [
+        {
+          "indices": [
+            38,
+            60
+          ],
+          "display_url": "jasondavies.com/maps/us-rivers",
+          "expanded_url": "http://www.jasondavies.com/maps/us-rivers",
+          "url": "http://t.co/h7LrZwhGuI"
+        }
+      ],
+      "symbols": [],
+      "hashtags": []
+    },
+    "favorite_count": 0,
+    "retweet_count": 0,
+    "in_reply_to_status_id_str": "413372380317106176",
+    "in_reply_to_status_id": 413372380317106200,
+    "truncated": false,
+    "source": "web",
+    "text": "... and @jasondavies zoomable version http://t.co/h7LrZwhGuI",
+    "id_str": "413374438566932480",
+    "id": 413374438566932500,
+    "created_at": "Wed Dec 18 18:25:20 +0000 2013",
+    "in_reply_to_user_id": 23197187,
+    "in_reply_to_user_id_str": "23197187",
+    "in_reply_to_screen_name": "joyrexus",
+    "user": {
+      "notifications": false,
+      "follow_request_sent": false,
+      "following": false,
+      "default_profile_image": false,
+      "default_profile": true,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "time_zone": "Eastern Time (US & Canada)",
+      "utc_offset": -18000,
+      "favourites_count": 6,
+      "created_at": "Sat Mar 07 14:36:42 +0000 2009",
+      "listed_count": 0,
+      "friends_count": 73,
+      "followers_count": 18,
+      "protected": false,
+      "id": 23197187,
+      "id_str": "23197187",
+      "name": "Jason Voigt",
+      "screen_name": "joyrexus",
+      "location": "Chicago, IL | Sewanee, TN",
+      "description": "Gesture Mechanic",
+      "url": "http://t.co/uoBZV22rvP",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {
+          "urls": [
+            {
+              "indices": [
+                0,
+                22
+              ],
+              "display_url": "joyrexus.github.io",
+              "expanded_url": "http://joyrexus.github.io",
+              "url": "http://t.co/uoBZV22rvP"
+            }
+          ]
+        }
+      },
+      "geo_enabled": false,
+      "verified": false,
+      "statuses_count": 122,
+      "lang": "en",
+      "contributors_enabled": false,
+      "is_translator": false,
+      "profile_background_color": "C0DEED",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_tile": false,
+      "profile_image_url": "http://pbs.twimg.com/profile_images/3429375357/5bb25615e6dee07c83ea8b92e628f338_normal.png",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/3429375357/5bb25615e6dee07c83ea8b92e628f338_normal.png",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/23197187/1378312015",
+      "profile_link_color": "0084B4",
+      "profile_sidebar_border_color": "C0DEED",
+      "profile_sidebar_fill_color": "DDEEF6"
+    },
+    "geo": null,
+    "coordinates": null,
+    "place": null,
+    "contributors": null
+  },
+  {
+    "lang": "en",
+    "possibly_sensitive": false,
+    "retweeted": false,
+    "favorited": false,
+    "entities": {
+      "media": [
+        {
+          "sizes": {
+            "large": {
+              "resize": "fit",
+              "h": 585,
+              "w": 947
+            },
+            "thumb": {
+              "resize": "crop",
+              "h": 150,
+              "w": 150
+            },
+            "medium": {
+              "resize": "fit",
+              "h": 371,
+              "w": 600
+            },
+            "small": {
+              "resize": "fit",
+              "h": 210,
+              "w": 340
+            }
+          },
+          "type": "photo",
+          "id": 413374297470558200,
+          "id_str": "413374297470558208",
+          "indices": [
+            67,
+            89
+          ],
+          "media_url": "http://pbs.twimg.com/media/BbyZu8ACYAAPbyH.png",
+          "media_url_https": "https://pbs.twimg.com/media/BbyZu8ACYAAPbyH.png",
+          "url": "http://t.co/ZqYFIAJ8S0",
+          "display_url": "pic.twitter.com/ZqYFIAJ8S0",
+          "expanded_url": "http://twitter.com/joyrexus/status/413374297466363904/photo/1"
+        }
+      ],
+      "user_mentions": [
+        {
+          "indices": [
+            9,
+            18
+          ],
+          "id_str": "43593",
+          "id": 43593,
+          "name": "Mike Bostock",
+          "screen_name": "mbostock"
+        }
+      ],
+      "urls": [
+        {
+          "indices": [
+            44,
+            66
+          ],
+          "display_url": "bl.ocks.org/mbostock/56060…",
+          "expanded_url": "http://bl.ocks.org/mbostock/5606078",
+          "url": "http://t.co/ukP7u82yAH"
+        }
+      ],
+      "symbols": [],
+      "hashtags": []
+    },
+    "favorite_count": 0,
+    "retweet_count": 1,
+    "in_reply_to_status_id_str": "413372380317106176",
+    "in_reply_to_status_id": 413372380317106200,
+    "truncated": false,
+    "source": "web",
+    "text": "See also @mbostock's rendering of US Rivers http://t.co/ukP7u82yAH http://t.co/ZqYFIAJ8S0",
+    "id_str": "413374297466363904",
+    "id": 413374297466363900,
+    "created_at": "Wed Dec 18 18:24:47 +0000 2013",
+    "in_reply_to_user_id": 23197187,
+    "in_reply_to_user_id_str": "23197187",
+    "in_reply_to_screen_name": "joyrexus",
+    "user": {
+      "notifications": false,
+      "follow_request_sent": false,
+      "following": false,
+      "default_profile_image": false,
+      "default_profile": true,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "time_zone": "Eastern Time (US & Canada)",
+      "utc_offset": -18000,
+      "favourites_count": 6,
+      "created_at": "Sat Mar 07 14:36:42 +0000 2009",
+      "listed_count": 0,
+      "friends_count": 73,
+      "followers_count": 18,
+      "protected": false,
+      "id": 23197187,
+      "id_str": "23197187",
+      "name": "Jason Voigt",
+      "screen_name": "joyrexus",
+      "location": "Chicago, IL | Sewanee, TN",
+      "description": "Gesture Mechanic",
+      "url": "http://t.co/uoBZV22rvP",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {
+          "urls": [
+            {
+              "indices": [
+                0,
+                22
+              ],
+              "display_url": "joyrexus.github.io",
+              "expanded_url": "http://joyrexus.github.io",
+              "url": "http://t.co/uoBZV22rvP"
+            }
+          ]
+        }
+      },
+      "geo_enabled": false,
+      "verified": false,
+      "statuses_count": 122,
+      "lang": "en",
+      "contributors_enabled": false,
+      "is_translator": false,
+      "profile_background_color": "C0DEED",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_tile": false,
+      "profile_image_url": "http://pbs.twimg.com/profile_images/3429375357/5bb25615e6dee07c83ea8b92e628f338_normal.png",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/3429375357/5bb25615e6dee07c83ea8b92e628f338_normal.png",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/23197187/1378312015",
+      "profile_link_color": "0084B4",
+      "profile_sidebar_border_color": "C0DEED",
+      "profile_sidebar_fill_color": "DDEEF6"
+    },
+    "geo": null,
+    "coordinates": null,
+    "place": null,
+    "contributors": null
+  },
+  {
+    "lang": "en",
+    "possibly_sensitive": false,
+    "retweeted": false,
+    "favorited": false,
+    "entities": {
+      "media": [
+        {
+          "sizes": {
+            "small": {
+              "resize": "fit",
+              "h": 217,
+              "w": 340
+            },
+            "large": {
+              "resize": "fit",
+              "h": 319,
+              "w": 500
+            },
+            "thumb": {
+              "resize": "crop",
+              "h": 150,
+              "w": 150
+            },
+            "medium": {
+              "resize": "fit",
+              "h": 319,
+              "w": 500
+            }
+          },
+          "type": "photo",
+          "id": 413372380321300500,
+          "id_str": "413372380321300480",
+          "indices": [
+            90,
+            112
+          ],
+          "media_url": "http://pbs.twimg.com/media/BbyX_WECQAABclM.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/BbyX_WECQAABclM.jpg",
+          "url": "http://t.co/LezDcZrshF",
+          "display_url": "pic.twitter.com/LezDcZrshF",
+          "expanded_url": "http://twitter.com/joyrexus/status/413372380317106176/photo/1"
+        }
+      ],
+      "user_mentions": [
+        {
+          "indices": [
+            0,
+            8
+          ],
+          "id_str": "19920203",
+          "id": 19920203,
+          "name": "Fernanda Viégas",
+          "screen_name": "viegasf"
+        },
+        {
+          "indices": [
+            9,
+            20
+          ],
+          "id_str": "15463062",
+          "id": 15463062,
+          "name": "Martin Wattenberg",
+          "screen_name": "wattenberg"
+        }
+      ],
+      "urls": [
+        {
+          "indices": [
+            67,
+            89
+          ],
+          "display_url": "hint.fm/wind",
+          "expanded_url": "http://hint.fm/wind",
+          "url": "http://t.co/VBD7095We2"
+        }
+      ],
+      "symbols": [],
+      "hashtags": []
+    },
+    "favorite_count": 0,
+    "retweet_count": 0,
+    "in_reply_to_status_id_str": null,
+    "in_reply_to_status_id": null,
+    "truncated": false,
+    "source": "web",
+    "text": "@viegasf @wattenberg hint.fm's wind map is beautiful and hypnotic: http://t.co/VBD7095We2 http://t.co/LezDcZrshF",
+    "id_str": "413372380317106176",
+    "id": 413372380317106200,
+    "created_at": "Wed Dec 18 18:17:10 +0000 2013",
+    "in_reply_to_user_id": 19920203,
+    "in_reply_to_user_id_str": "19920203",
+    "in_reply_to_screen_name": "viegasf",
+    "user": {
+      "notifications": false,
+      "follow_request_sent": false,
+      "following": false,
+      "default_profile_image": false,
+      "default_profile": true,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "time_zone": "Eastern Time (US & Canada)",
+      "utc_offset": -18000,
+      "favourites_count": 6,
+      "created_at": "Sat Mar 07 14:36:42 +0000 2009",
+      "listed_count": 0,
+      "friends_count": 73,
+      "followers_count": 18,
+      "protected": false,
+      "id": 23197187,
+      "id_str": "23197187",
+      "name": "Jason Voigt",
+      "screen_name": "joyrexus",
+      "location": "Chicago, IL | Sewanee, TN",
+      "description": "Gesture Mechanic",
+      "url": "http://t.co/uoBZV22rvP",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {
+          "urls": [
+            {
+              "indices": [
+                0,
+                22
+              ],
+              "display_url": "joyrexus.github.io",
+              "expanded_url": "http://joyrexus.github.io",
+              "url": "http://t.co/uoBZV22rvP"
+            }
+          ]
+        }
+      },
+      "geo_enabled": false,
+      "verified": false,
+      "statuses_count": 122,
+      "lang": "en",
+      "contributors_enabled": false,
+      "is_translator": false,
+      "profile_background_color": "C0DEED",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_tile": false,
+      "profile_image_url": "http://pbs.twimg.com/profile_images/3429375357/5bb25615e6dee07c83ea8b92e628f338_normal.png",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/3429375357/5bb25615e6dee07c83ea8b92e628f338_normal.png",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/23197187/1378312015",
+      "profile_link_color": "0084B4",
+      "profile_sidebar_border_color": "C0DEED",
+      "profile_sidebar_fill_color": "DDEEF6"
+    },
+    "geo": null,
+    "coordinates": null,
+    "place": null,
+    "contributors": null
+  },
+  {
+    "lang": "en",
+    "possibly_sensitive": false,
+    "retweeted": false,
+    "favorited": false,
+    "entities": {
+      "user_mentions": [],
+      "urls": [
+        {
+          "indices": [
+            4,
+            26
+          ],
+          "display_url": "hint.fm/projects/dicti…",
+          "expanded_url": "http://hint.fm/projects/dictionary/",
+          "url": "http://t.co/lTWMnzfUSW"
+        }
+      ],
+      "symbols": [],
+      "hashtags": []
+    },
+    "favorite_count": 0,
+    "retweet_count": 0,
+    "in_reply_to_status_id_str": "413370241058500608",
+    "in_reply_to_status_id": 413370241058500600,
+    "truncated": false,
+    "source": "web",
+    "text": "See http://t.co/lTWMnzfUSW for details.",
+    "id_str": "413370944837521409",
+    "id": 413370944837521400,
+    "created_at": "Wed Dec 18 18:11:27 +0000 2013",
+    "in_reply_to_user_id": 23197187,
+    "in_reply_to_user_id_str": "23197187",
+    "in_reply_to_screen_name": "joyrexus",
+    "user": {
+      "notifications": false,
+      "follow_request_sent": false,
+      "following": false,
+      "default_profile_image": false,
+      "default_profile": true,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "time_zone": "Eastern Time (US & Canada)",
+      "utc_offset": -18000,
+      "favourites_count": 6,
+      "created_at": "Sat Mar 07 14:36:42 +0000 2009",
+      "listed_count": 0,
+      "friends_count": 73,
+      "followers_count": 18,
+      "protected": false,
+      "id": 23197187,
+      "id_str": "23197187",
+      "name": "Jason Voigt",
+      "screen_name": "joyrexus",
+      "location": "Chicago, IL | Sewanee, TN",
+      "description": "Gesture Mechanic",
+      "url": "http://t.co/uoBZV22rvP",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {
+          "urls": [
+            {
+              "indices": [
+                0,
+                22
+              ],
+              "display_url": "joyrexus.github.io",
+              "expanded_url": "http://joyrexus.github.io",
+              "url": "http://t.co/uoBZV22rvP"
+            }
+          ]
+        }
+      },
+      "geo_enabled": false,
+      "verified": false,
+      "statuses_count": 122,
+      "lang": "en",
+      "contributors_enabled": false,
+      "is_translator": false,
+      "profile_background_color": "C0DEED",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_tile": false,
+      "profile_image_url": "http://pbs.twimg.com/profile_images/3429375357/5bb25615e6dee07c83ea8b92e628f338_normal.png",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/3429375357/5bb25615e6dee07c83ea8b92e628f338_normal.png",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/23197187/1378312015",
+      "profile_link_color": "0084B4",
+      "profile_sidebar_border_color": "C0DEED",
+      "profile_sidebar_fill_color": "DDEEF6"
+    },
+    "geo": null,
+    "coordinates": null,
+    "place": null,
+    "contributors": null
+  },
+  {
+    "lang": "en",
+    "possibly_sensitive": false,
+    "retweeted": false,
+    "favorited": false,
+    "entities": {
+      "media": [
+        {
+          "sizes": {
+            "small": {
+              "resize": "fit",
+              "h": 330,
+              "w": 340
+            },
+            "large": {
+              "resize": "fit",
+              "h": 350,
+              "w": 361
+            },
+            "medium": {
+              "resize": "fit",
+              "h": 350,
+              "w": 361
+            },
+            "thumb": {
+              "resize": "crop",
+              "h": 150,
+              "w": 150
+            }
+          },
+          "type": "photo",
+          "id": 413370241062694900,
+          "id_str": "413370241062694912",
+          "indices": [
+            71,
+            93
+          ],
+          "media_url": "http://pbs.twimg.com/media/BbyWC0tCcAAn7lA.png",
+          "media_url_https": "https://pbs.twimg.com/media/BbyWC0tCcAAn7lA.png",
+          "url": "http://t.co/PaQaOirJA0",
+          "display_url": "pic.twitter.com/PaQaOirJA0",
+          "expanded_url": "http://twitter.com/joyrexus/status/413370241058500608/photo/1"
+        }
+      ],
+      "user_mentions": [],
+      "urls": [
+        {
+          "indices": [
+            47,
+            70
+          ],
+          "display_url": "google.com/#q=etymology+o…",
+          "expanded_url": "https://www.google.com/#q=etymology+of+mellifluous",
+          "url": "https://t.co/USDsHuxP5m"
+        }
+      ],
+      "symbols": [],
+      "hashtags": [
+        {
+          "indices": [
+            0,
+            9
+          ],
+          "text": "googtips"
+        }
+      ]
+    },
+    "favorite_count": 0,
+    "retweet_count": 0,
+    "in_reply_to_status_id_str": null,
+    "in_reply_to_status_id": null,
+    "truncated": false,
+    "source": "web",
+    "text": "#googtips Didn't know google does etymologies: https://t.co/USDsHuxP5m http://t.co/PaQaOirJA0",
+    "id_str": "413370241058500608",
+    "id": 413370241058500600,
+    "created_at": "Wed Dec 18 18:08:40 +0000 2013",
+    "in_reply_to_user_id": null,
+    "in_reply_to_user_id_str": null,
+    "in_reply_to_screen_name": null,
+    "user": {
+      "notifications": false,
+      "follow_request_sent": false,
+      "following": false,
+      "default_profile_image": false,
+      "default_profile": true,
+      "profile_use_background_image": true,
+      "profile_text_color": "333333",
+      "time_zone": "Eastern Time (US & Canada)",
+      "utc_offset": -18000,
+      "favourites_count": 6,
+      "created_at": "Sat Mar 07 14:36:42 +0000 2009",
+      "listed_count": 0,
+      "friends_count": 73,
+      "followers_count": 18,
+      "protected": false,
+      "id": 23197187,
+      "id_str": "23197187",
+      "name": "Jason Voigt",
+      "screen_name": "joyrexus",
+      "location": "Chicago, IL | Sewanee, TN",
+      "description": "Gesture Mechanic",
+      "url": "http://t.co/uoBZV22rvP",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {
+          "urls": [
+            {
+              "indices": [
+                0,
+                22
+              ],
+              "display_url": "joyrexus.github.io",
+              "expanded_url": "http://joyrexus.github.io",
+              "url": "http://t.co/uoBZV22rvP"
+            }
+          ]
+        }
+      },
+      "geo_enabled": false,
+      "verified": false,
+      "statuses_count": 122,
+      "lang": "en",
+      "contributors_enabled": false,
+      "is_translator": false,
+      "profile_background_color": "C0DEED",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_tile": false,
+      "profile_image_url": "http://pbs.twimg.com/profile_images/3429375357/5bb25615e6dee07c83ea8b92e628f338_normal.png",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/3429375357/5bb25615e6dee07c83ea8b92e628f338_normal.png",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/23197187/1378312015",
+      "profile_link_color": "0084B4",
+      "profile_sidebar_border_color": "C0DEED",
+      "profile_sidebar_fill_color": "DDEEF6"
+    },
+    "geo": null,
+    "coordinates": null,
+    "place": null,
+    "contributors": null
+  }
+]
