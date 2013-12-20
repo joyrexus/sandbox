@@ -6,14 +6,13 @@ trans = require('stream').Transform(decodeStrings: false)
 # when they don't want any more data
 process.stdout.on('error', process.exit)
 
-io = {}
+pipe = {}
 
-io.through = (filter) ->
-  trans._transform = (data, encoding, done) ->
+pipe.through = (filter) ->
+  trans._transform = (data, enc, done) ->
     if data
       data = JSON.parse data
-      if data?.id
-        @push JSON.stringify(filter data) + "\n" 
+      @push JSON.stringify(filter data) + "\n" if data?.id
     done()
 
   stdin
@@ -21,4 +20,4 @@ io.through = (filter) ->
     .pipe(trans)
     .pipe(stdout)
 
-module.exports = io
+module.exports = pipe
