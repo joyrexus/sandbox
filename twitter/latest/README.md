@@ -3,8 +3,9 @@ Get the latest tweets from your account.
 This bash script is courtesy of [@gianu](https://github.com/gianu/latest_tweets).
 
 Note that `tweets-raw.sh` will pipe out the returned string, which is a big
-hairball requiring further parsing.  You can see a pretty-printed sample of
-what you might get back in `tweets-raw.json`.
+hairball requiring further parsing.  You can see a pretty-printed sample of 
+what you might get back in `tweets-raw.json`. ([This map of a tweet
+object](https://github.com/joyrexus/sandbox/blob/master/twitter/latest/tweet-map.png) is outdated but still helpful.)
 
 If you have [jq](http://stedolan.github.io/jq/) installed (`brew install jq`), use the `tweets.sh` script, which extracts out the time and text of each tweet.  You can see sample results in `tweets.json`.
 
