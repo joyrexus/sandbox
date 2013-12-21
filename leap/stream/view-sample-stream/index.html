@@ -40,19 +40,20 @@
     stream.drawing = false
     stream.onopen = -> console.log 'connection open'
     stream.onmessage = (event) -> 
-      queue.push JSON.parse(event.data) if event.data?.timestamp
-      ''
+      if event?.data
+        data = JSON.parse(event.data) 
+        queue.push(data) if data?.timestamp
     stream.onclose = -> 
       console.log 'connection closed'
       last = queue.length - 1
       end = queue[last].timestamp
       begin = queue[0].timestamp
-      duration = (last - first)/1000
-      step = duration/data.length
+      duration = (end - begin)/1000
+      step = duration/(queue.length)
       i = 0
       run = ->
         return if i is last
-        render queue(i)
+        render queue[i]
         i += 1
         setTimeout(run, step)
       run()

@@ -1,0 +1,22 @@
+{
+  "name": "leap-stream-sample",
+  "version": "0.0.1",
+  "description": "'Websocket server for streaming a leap gesture sample'",
+  "main": "index.js",
+  "keywords": [
+    "'json",
+    "ldjson",
+    "websockets",
+    "stream'"
+  ],
+  "scripts": {
+    "server": "coffee server.coffee sample.ldj",
+    "client": "coffee client.coffee",
+    "viewer": "open index.html"
+  },
+  "author": "J. Voigt",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "split": "~0.2.10"
+  }
+}
