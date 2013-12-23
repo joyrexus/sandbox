@@ -88,7 +88,6 @@
     last = queue.length - 1;
     stop = queue[last].timestamp;
     start = queue[0].timestamp;
-    console.log(last, stop, start);
     duration = (stop - start) / 1000;
     step = duration / queue.length;
     frame = 0;
