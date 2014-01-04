@@ -6,7 +6,7 @@
     margin-left: 50px;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: 100;
-    font-size: 75px;
+    font-size: 60px;
     color: #777;
     -webkit-font-smoothing: antialiased;
   }
@@ -31,8 +31,9 @@
   output {
     font-family: 'Helvetica Neue';
     font-weight: 300;
-    font-size: 40px;
+    font-size: 30px;
     color: #777;
+    vertical-align: middle;
   }
   input[type=range] {
     -webkit-appearance: none;
@@ -40,13 +41,14 @@
     background-color: #C8C8C8;
     width: 500px;
     height: 25px;
-    margin: 20px;
+    margin: 0px;
   }
   ::-webkit-slider-thumb {
     -webkit-appearance: none;
     background-color: #777;
     width: 20px;
     height: 25px;
+    cursor: pointer;
   }
 
   #palm {
@@ -58,6 +60,7 @@
     left: 50%;
     bottom: 10%;
     opacity: 0;
+    cursor: pointer;
   }
   .point {
     position: absolute;
@@ -76,8 +79,8 @@
     <input type="file" id="chooser">
   </div>
   <div id="controls">
-    <input type=range id=slider min=1 max=2000 value=1 step=1>
-    <output for=slider id=current>1</output>
+    <input type=range id=slider min=0 max=2000 value=0 step=1>
+    <output for=slider id=sliderOutput>0</output>
   </div>
   <div id="palm">
   </div>
@@ -88,9 +91,94 @@
     <div class="point" id="E"></div>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js"></script>
-<script src="render.js"></script>
 <script type="text/coffeescript">
-  queue = []  # queue of frames
+  @currentFrame = 0    # current frame number
+  @paused = false      # pause status
+  
+  
+  # Utility methods ...
+  
+  R2D = 180 / Math.PI
+  
+  pitch = (hand) -> 
+    Math.round(R2D * Math.atan2(hand.direction[1], -hand.direction[2]) - 90)
+  
+  yaw = (hand) -> 
+    Math.round(R2D * Math.atan2(hand.direction[0], -hand.direction[2]))
+  
+  roll = (hand) ->
+    Math.round(-R2D * Math.atan2(hand.palmNormal[0], -hand.palmNormal[1]))
+  
+  
+  # Rendering logic ...
+  
+  parse = (pos) ->
+    [x, y, z] = (Math.round(x) for x in pos)
+    [x, -y, 350/(350 + z)]
+  
+  points = (window[i] for i in ['A', 'B', 'C', 'D', 'E'])
+  
+  @draw = draw = (frame) ->
+  
+    if frame?.hands?.length
+      window.palm.style.opacity = .75
+      hand = frame.hands[0]
+      [x, y, z] = parse hand.palmPosition
+      transform = """
+        translate(#{x}px, #{y}px) 
+        scale(#{z})
+        rotateX(#{pitch(hand)}deg)
+        rotateZ(#{roll(hand)}deg)
+      """
+      window.palm.style.webkitTransform = transform
+  
+    else
+      window.palm.style.opacity = 0
+  
+    if frame?.pointables?.length
+      last = null
+      for i, point of frame.pointables
+        return if i > 4
+        [x, y, z] = parse point.tipPosition
+        transform = "translate(#{x}px, #{y}px) scale(#{z})"
+        opacity = if point.handId is -1 then 0 else .75
+        points[i].style.webkitTransform = transform
+        points[i].style.opacity = opacity
+        last = parseInt(i)
+  
+      if last < 4
+        x = last + 1
+        points[i.toString()].style.opacity = 0 for i in [x..4]
+  
+    else
+        points[x.toString()].style.opacity = 0 for x in [0..4]
+  
+    ''
+
+  @render = (queue) ->
+    last = queue.length - 1
+    stop = queue[last].timestamp
+    @startTime = start = queue[0].timestamp
+    duration = (stop - start) / 1000
+    step = duration / queue.length
+    run = ->
+      return if @paused
+      frame = @currentFrame
+      requestAnimationFrame -> draw queue[frame]
+      time = (queue[frame].timestamp - start) / 1000000    # in seconds
+      window.sliderOutput.value = time
+      window.slider.value = frame
+      if frame is last
+        @currentFrame = 0 
+        @paused = true
+        return
+      frame += 1
+      @currentFrame = frame
+      setTimeout(run, step)
+    run()
+</script>
+<script type="text/coffeescript">
+  queue = []          # queue of frames
 
   # load handler invoked on change event
   load = -> 
@@ -102,16 +190,45 @@
       queue.push(JSON.parse row) for row in @result.split('\n') \
                                  when row.match /timestamp/
       render queue
+      slider.max = queue.length - 1
       ''
     reader.readAsText File
 
-  # click and choose a file to load
-  chooser.addEventListener('change', load)
-  file.addEventListener('click', -> chooser.click())
-  palm.addEventListener('click', -> render queue)
-  
-  setFrame = -> 
-    current.value = slider.value
+  togglePlayback = (event) ->
+    if window.paused
+      window.paused = false
+      render queue
+    else
+      window.paused = true
 
+  slide = (count) ->
+    slider.value = (slider.valueAsNumber + count).toString()
+    setFrame()
+
+  key =
+    spacebar: 32
+    leftArrow: 37
+    rightArrow: 39
+
+  catchKeyControls = (event) ->
+    switch event.keyCode
+      when key.spacebar then togglePlayback()
+      when key.leftArrow then slide -10
+      when key.rightArrow then slide 10
+
+  setFrame = -> 
+    window.currentFrame = +slider.value
+    frame = queue[window.currentFrame]
+    draw frame
+    secs = (frame.timestamp - startTime) / 1000000    # in seconds
+    sliderOutput.value = secs
+  
   slider.addEventListener('input', setFrame)
+  document.addEventListener('keydown', catchKeyControls)
+  palm.addEventListener('click', togglePlayback)
+
+  # click and choose a file to load
+  chooser.addEventListener('change', load)    
+  file.addEventListener('click', -> chooser.click())
+  
 </script>
