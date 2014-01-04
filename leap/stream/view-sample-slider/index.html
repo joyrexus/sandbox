@@ -166,7 +166,7 @@
       frame = @currentFrame
       requestAnimationFrame -> draw queue[frame]
       time = (queue[frame].timestamp - start) / 1000000    # in seconds
-      window.sliderOutput.value = time
+      window.sliderOutput.value = time.toFixed(2)
       window.slider.value = frame
       if frame is last
         @currentFrame = 0 
@@ -206,22 +206,27 @@
     setFrame()
 
   key =
+    command: 91
     spacebar: 32
     leftArrow: 37
     rightArrow: 39
+    upArrow: 38
+    downArrow: 40
 
   catchKeyControls = (event) ->
     switch event.keyCode
       when key.spacebar then togglePlayback()
       when key.leftArrow then slide -10
       when key.rightArrow then slide 10
+      when key.upArrow then slide 1
+      when key.downArrow then slide -1
 
   setFrame = -> 
     window.currentFrame = +slider.value
     frame = queue[window.currentFrame]
     draw frame
     secs = (frame.timestamp - startTime) / 1000000    # in seconds
-    sliderOutput.value = secs
+    sliderOutput.value = secs.toFixed(2)
   
   slider.addEventListener('input', setFrame)
   document.addEventListener('keydown', catchKeyControls)
