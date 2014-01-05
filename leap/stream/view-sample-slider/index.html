@@ -13,6 +13,7 @@
   
   #file {
     color: steelblue;
+    font-size: 75px;
   }
   
   #file:hover {
@@ -23,21 +24,27 @@
   input {
     visibility: hidden;
   }
+
+  .info {
+    font-size: 60px;
+    width: 160px;
+    height: 71px;
+  }
+  .info:hover {
+    color: orange;
+    cursor: pointer;
+  }
   
-  #info {
+  #fileInfo {
     display: -webkit-box;
     -webkit-box-orient: horizontal;
   }
-  output {
-    font-family: 'Helvetica Neue';
-    font-weight: 300;
-    font-size: 30px;
-    color: #777;
-    vertical-align: middle;
+
+  #controls {
+    visibility: hidden;
   }
   input[type=range] {
     -webkit-appearance: none;
-    visibility: visible;
     background-color: #C8C8C8;
     width: 500px;
     height: 25px;
@@ -48,7 +55,14 @@
     background-color: #777;
     width: 20px;
     height: 25px;
-    cursor: pointer;
+    cursor: ew-resize;
+  }
+  output {
+    font-family: 'Helvetica Neue';
+    font-weight: 300;
+    font-size: 25px;
+    color: #777;
+    vertical-align: middle;
   }
 
   #palm {
@@ -74,7 +88,7 @@
   }
 </style>
 <body>
-  <div id="info">
+  <div id="fileInfo">
     <div id="file">Click and choose sample</div>
     <input type="file" id="chooser">
   </div>
@@ -82,6 +96,8 @@
     <input type=range id=slider min=0 max=2000 value=0 step=1>
     <output for=slider id=sliderOutput>0</output>
   </div>
+  <div class="info" id="startingTime"></div>
+  <div class="info" id="stoppingTime"></div>
   <div id="palm">
   </div>
     <div class="point" id="A"></div>
@@ -163,7 +179,7 @@
     step = duration / queue.length
     run = ->
       return if @paused
-      frame = @currentFrame
+      frame = @currentFrame + 1
       requestAnimationFrame -> draw queue[frame]
       time = (queue[frame].timestamp - start) / 1000000    # in seconds
       window.sliderOutput.value = time.toFixed(2)
@@ -172,7 +188,6 @@
         @currentFrame = 0 
         @paused = true
         return
-      frame += 1
       @currentFrame = frame
       setTimeout(run, step)
     run()
@@ -187,6 +202,8 @@
     file.textContent = File.name
     reader = new FileReader()
     reader.onload = (file) -> 
+      controls.style.visibility = 'visible'
+      slider.style.visibility = 'visible'
       queue.push(JSON.parse row) for row in @result.split('\n') \
                                  when row.match /timestamp/
       render queue
@@ -195,11 +212,11 @@
     reader.readAsText File
 
   togglePlayback = (event) ->
-    if window.paused
-      window.paused = false
+    if @paused
+      @paused = false
       render queue
     else
-      window.paused = true
+      @paused = true
 
   slide = (count) ->
     slider.value = (slider.valueAsNumber + count).toString()
@@ -218,19 +235,33 @@
       when key.spacebar then togglePlayback()
       when key.leftArrow then slide -10
       when key.rightArrow then slide 10
-      when key.upArrow then slide 1
-      when key.downArrow then slide -1
+      when key.upArrow then slide -1
+      when key.downArrow then slide 1
 
+  # callback for the slider control 
   setFrame = -> 
     window.currentFrame = +slider.value
     frame = queue[window.currentFrame]
     draw frame
-    secs = (frame.timestamp - startTime) / 1000000    # in seconds
+    secs = (frame.timestamp - startTime) / 1000000        # in seconds
     sliderOutput.value = secs.toFixed(2)
+    @blur()                                               # remove focus
+
+  # range of frames for playback and export
+  setRange = ->
+    frame = queue[currentFrame]
+    secs = (frame.timestamp - startTime) / 1000000        # in seconds
+    if not startingTime.innerText.toString()
+      startingTime.innerText = sliderOutput.value
+    else
+      stoppingTime.innerText = sliderOutput.value
   
+  palm.addEventListener('click', setRange)
   slider.addEventListener('input', setFrame)
-  document.addEventListener('keydown', catchKeyControls)
-  palm.addEventListener('click', togglePlayback)
+  document.addEventListener('keydown', catchKeyControls)  # enable key controls
+
+  startingTime.addEventListener('click', -> startingTime.innerText = "")
+  stoppingTime.addEventListener('click', -> stoppingTime.innerText = "")
 
   # click and choose a file to load
   chooser.addEventListener('change', load)    
