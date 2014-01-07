@@ -26,13 +26,29 @@
   }
 
   .info {
-    font-size: 60px;
-    width: 160px;
-    height: 71px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 75px;
+    width: 515px;
   }
-  .info:hover {
+  .clickable:hover {
     color: orange;
     cursor: pointer;
+  }
+
+  a {
+    color: #777;
+    text-decoration: none;
+  }
+  a:hover {
+    color: orange;
+  }
+
+  #between {
+    visibility: hidden;
+  }
+  #download {
+    visibility: hidden;
   }
   
   #fileInfo {
@@ -96,8 +112,12 @@
     <input type=range id=slider min=0 max=2000 value=0 step=1>
     <output for=slider id=sliderOutput>0</output>
   </div>
-  <div class="info" id="startingTime"></div>
-  <div class="info" id="stoppingTime"></div>
+  <div class="info">
+    <div class="clickable" id="startingTime"></div>
+    <div id="between">–</div>
+    <div class="clickable" id="stoppingTime"></div>
+    <a href="data:attachment/csv" id="download" download="data.csv">↓</a>
+  </div>
   <div id="palm">
   </div>
     <div class="point" id="A"></div>
@@ -108,10 +128,13 @@
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js"></script>
 <script type="text/coffeescript">
-  @currentFrame = 0    # current frame number
-  @paused = false      # pause status
+  @currentFrame = 0     # current frame number
+  @currentRange =       # current range of selected frames
+    start: null
+    stop:  null
+  @paused = false       # pause status
   
-  
+
   # Utility methods ...
   
   R2D = 180 / Math.PI
@@ -137,7 +160,7 @@
   @draw = draw = (frame) ->
   
     if frame?.hands?.length
-      window.palm.style.opacity = .75
+      palm.style.opacity = .75
       hand = frame.hands[0]
       [x, y, z] = parse hand.palmPosition
       transform = """
@@ -146,10 +169,10 @@
         rotateX(#{pitch(hand)}deg)
         rotateZ(#{roll(hand)}deg)
       """
-      window.palm.style.webkitTransform = transform
+      palm.style.webkitTransform = transform
   
     else
-      window.palm.style.opacity = 0
+      palm.style.opacity = 0
   
     if frame?.pointables?.length
       last = null
@@ -182,8 +205,8 @@
       frame = @currentFrame + 1
       requestAnimationFrame -> draw queue[frame]
       time = (queue[frame].timestamp - start) / 1000000    # in seconds
-      window.sliderOutput.value = time.toFixed(2)
-      window.slider.value = frame
+      sliderOutput.value = time.toFixed(2)
+      slider.value = frame
       if frame is last
         @currentFrame = 0 
         @paused = true
@@ -197,6 +220,14 @@
 
   # load handler invoked on change event
   load = -> 
+    queue = []          # queue of frames
+    window.paused = false
+    startingTime.innerText = ''
+    stoppingTime.innerText = ''
+    between.style.visibility  = 'hidden'
+    download.style.visibility = 'hidden'
+    currentRange.start = null
+    currentRange.stop  = null
     File = @files[0]
     return if not File.name.match '\.ldj$'
     file.textContent = File.name
@@ -249,22 +280,46 @@
 
   # range of frames for playback and export
   setRange = ->
-    frame = queue[currentFrame]
-    secs = (frame.timestamp - startTime) / 1000000        # in seconds
     if not startingTime.innerText.toString()
       startingTime.innerText = sliderOutput.value
+      currentRange.start = currentFrame
     else
       stoppingTime.innerText = sliderOutput.value
+      currentRange.stop = currentFrame
+    if stoppingTime.innerText.toString()
+      download.style.visibility = 'visible'
+      between.style.visibility = 'visible'
+
+  # export a range of frames
+  exportRange = ->
+    [start, stop] = [currentRange.start, currentRange.stop]
+    rows = []
+    if start and stop
+      rows.push 'FRAME_ID,TIME,Y_POS,Y_VEL'
+      for i in [start..stop]
+        frame = queue[i]
+        h = frame.hands[0]
+        secs = (frame.timestamp - startTime) / 1000000    # in seconds
+        row = [frame.id, secs, h.palmPosition[1], h.palmVelocity[1]]
+        rows.push row.join(',')   # join values with comma
+    csv = rows.join('\n')         # join rows with newlines
+    download.href = 'data:attachment/csv,' + encodeURI(csv)
+    download.download = file.innerText.replace('.ldj', '.csv')
   
+  reset = (event) -> 
+    @innerText = ""
+    between.style.visibility = 'hidden'
+    download.style.visibility = 'hidden'
+
   palm.addEventListener('click', setRange)
   slider.addEventListener('input', setFrame)
   document.addEventListener('keydown', catchKeyControls)  # enable key controls
+  download.addEventListener('click', exportRange)
 
-  startingTime.addEventListener('click', -> startingTime.innerText = "")
-  stoppingTime.addEventListener('click', -> stoppingTime.innerText = "")
+  startingTime.addEventListener('click', reset)
+  stoppingTime.addEventListener('click', reset)
 
   # click and choose a file to load
   chooser.addEventListener('change', load)    
   file.addEventListener('click', -> chooser.click())
-  
 </script>
