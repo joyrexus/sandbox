@@ -1,0 +1,21 @@
+{
+  "name": "leap-utils",
+  "version": "0.0.1",
+  "description": "'Basic utilities for the Leap websocket stream'",
+  "scripts": {
+    "stream": "stream.coffee",
+    "record": "record.coffee"
+  },
+  "keywords": [
+    "leap",
+    "websocket",
+    "filter",
+    "ldjson"
+  ],
+  "author": "J. Voigt",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "websocket-stream": "~0.4.0",
+    "ldj-pipe": "~0.0.1"
+  }
+}

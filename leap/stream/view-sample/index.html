@@ -70,8 +70,9 @@
 
   # load handler invoked on change event
   load = -> 
+    queue = []        # empty queue when reloading
     File = @files[0]
-    return if not File.name.match '\.json.lsv$'
+    return if not File.name.match '\.ldj$'
     file.textContent = File.name
     reader = new FileReader()
     reader.onload = (file) -> 

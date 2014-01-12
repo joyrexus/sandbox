@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  body {
+    margin-top: 25px;
+    margin-left: 50px;
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: 100;
+    font-size: 60px;
+    color: #777;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  #file {
+    color: steelblue;
+    font-size: 75px;
+  }
+  
+  #file:hover {
+    color: orange;
+    cursor: pointer;
+  }
+  
+  input {
+    visibility: hidden;
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 75px;
+    width: 515px;
+  }
+  .clickable:hover {
+    color: orange;
+    cursor: pointer;
+  }
+
+  a {
+    color: #777;
+    text-decoration: none;
+  }
+  a:hover {
+    color: orange;
+  }
+
+  #between {
+    visibility: hidden;
+  }
+  #download {
+    visibility: hidden;
+  }
+  
+  #fileInfo {
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+  }
+
+  #controls {
+    visibility: hidden;
+  }
+  input[type=range] {
+    -webkit-appearance: none;
+    background-color: #C8C8C8;
+    width: 500px;
+    height: 25px;
+    margin: 0px;
+  }
+  ::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #777;
+    width: 20px;
+    height: 25px;
+    cursor: ew-resize;
+  }
+  output {
+    font-family: 'Helvetica Neue';
+    font-weight: 300;
+    font-size: 25px;
+    color: #777;
+    vertical-align: middle;
+  }
+
+  #palm {
+    position: absolute;
+    background-color: steelblue;
+    border-radius: 50px;
+    width: 100px;
+    height: 125px;
+    left: 50%;
+    bottom: 10%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .point {
+    position: absolute;
+    background-color: steelblue;
+    border-radius: 20px;
+    width: 25px;
+    height: 30px;
+    left: 50%;
+    bottom: 20%;
+    opacity: 0;
+  }
+</style>
+<body>
+  <div id="fileInfo">
+    <div id="file">Click and choose sample</div>
+    <input type="file" id="chooser">
+  </div>
+  <div id="controls">
+    <input type=range id=slider min=0 max=2000 value=0 step=1>
+    <output for=slider id=sliderOutput>0</output>
+  </div>
+  <div class="info">
+    <div class="clickable" id="startingTime"></div>
+    <div id="between">–</div>
+    <div class="clickable" id="stoppingTime"></div>
+    <a href="data:attachment/csv" id="download" download="data.csv">↓</a>
+  </div>
+  <div id="palm">
+  </div>
+    <div class="point" id="A"></div>
+    <div class="point" id="B"></div>
+    <div class="point" id="C"></div>
+    <div class="point" id="D"></div>
+    <div class="point" id="E"></div>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js"></script>
+<script type="text/coffeescript">
+  @currentFrame = 0     # current frame number
+  @currentRange =       # current range of selected frames
+    start: null
+    stop:  null
+  @paused = false       # pause status
+  
+
+  # Utility methods ...
+  
+  R2D = 180 / Math.PI
+  
+  pitch = (hand) -> 
+    Math.round(R2D * Math.atan2(hand.direction[1], -hand.direction[2]) - 90)
+  
+  yaw = (hand) -> 
+    Math.round(R2D * Math.atan2(hand.direction[0], -hand.direction[2]))
+  
+  roll = (hand) ->
+    Math.round(-R2D * Math.atan2(hand.palmNormal[0], -hand.palmNormal[1]))
+  
+  
+  # Rendering logic ...
+  
+  parse = (pos) ->
+    [x, y, z] = (Math.round(x) for x in pos)
+    [x, -y, 350/(350 + z)]
+  
+  points = (window[i] for i in ['A', 'B', 'C', 'D', 'E'])
+  
+  @draw = draw = (frame) ->
+  
+    if frame?.hands?.length
+      palm.style.opacity = .75
+      hand = frame.hands[0]
+      [x, y, z] = parse hand.palmPosition
+      transform = """
+        translate(#{x}px, #{y}px) 
+        scale(#{z})
+        rotateX(#{pitch(hand)}deg)
+        rotateZ(#{roll(hand)}deg)
+      """
+      palm.style.webkitTransform = transform
+  
+    else
+      palm.style.opacity = 0
+  
+    if frame?.pointables?.length
+      last = null
+      for i, point of frame.pointables
+        return if i > 4
+        [x, y, z] = parse point.tipPosition
+        transform = "translate(#{x}px, #{y}px) scale(#{z})"
+        opacity = if point.handId is -1 then 0 else .75
+        points[i].style.webkitTransform = transform
+        points[i].style.opacity = opacity
+        last = parseInt(i)
+  
+      if last < 4
+        x = last + 1
+        points[i.toString()].style.opacity = 0 for i in [x..4]
+  
+    else
+        points[x.toString()].style.opacity = 0 for x in [0..4]
+  
+    ''
+
+  @render = (queue) ->
+    last = queue.length - 1
+    stop = queue[last].timestamp
+    @startTime = start = queue[0].timestamp
+    duration = (stop - start) / 1000
+    step = duration / queue.length
+    run = ->
+      return if @paused
+      frame = @currentFrame + 1
+      requestAnimationFrame -> draw queue[frame]
+      time = (queue[frame].timestamp - start) / 1000000    # in seconds
+      sliderOutput.value = time.toFixed(2)
+      slider.value = frame
+      if frame is last
+        @currentFrame = 0 
+        @paused = true
+        return
+      @currentFrame = frame
+      setTimeout(run, step)
+    run()
+</script>
+<script type="text/coffeescript">
+  queue = []          # queue of frames
+
+  # load handler invoked on change event
+  load = -> 
+    queue = []          # queue of frames
+    window.paused = false
+    startingTime.innerText = ''
+    stoppingTime.innerText = ''
+    between.style.visibility  = 'hidden'
+    download.style.visibility = 'hidden'
+    currentRange.start = null
+    currentRange.stop  = null
+    File = @files[0]
+    return if not File.name.match '\.ldj$'
+    file.textContent = File.name
+    reader = new FileReader()
+    reader.onload = (file) -> 
+      controls.style.visibility = 'visible'
+      slider.style.visibility = 'visible'
+      queue.push(JSON.parse row) for row in @result.split('\n') \
+                                 when row.match /timestamp/
+      render queue
+      slider.max = queue.length - 1
+      ''
+    reader.readAsText File
+
+  togglePlayback = (event) ->
+    if @paused
+      @paused = false
+      render queue
+    else
+      @paused = true
+
+  slide = (count) ->
+    slider.value = (slider.valueAsNumber + count).toString()
+    setFrame()
+
+  key =
+    command: 91
+    spacebar: 32
+    leftArrow: 37
+    rightArrow: 39
+    upArrow: 38
+    downArrow: 40
+
+  catchKeyControls = (event) ->
+    switch event.keyCode
+      when key.spacebar then togglePlayback()
+      when key.leftArrow then slide -10
+      when key.rightArrow then slide 10
+      when key.upArrow then slide -1
+      when key.downArrow then slide 1
+
+  # callback for the slider control 
+  setFrame = -> 
+    window.currentFrame = +slider.value
+    frame = queue[window.currentFrame]
+    draw frame
+    secs = (frame.timestamp - startTime) / 1000000        # in seconds
+    sliderOutput.value = secs.toFixed(2)
+    @blur()                                               # remove focus
+
+  # range of frames for playback and export
+  setRange = ->
+    if not startingTime.innerText.toString()
+      startingTime.innerText = sliderOutput.value
+      currentRange.start = currentFrame
+    else
+      stoppingTime.innerText = sliderOutput.value
+      currentRange.stop = currentFrame
+    if stoppingTime.innerText.toString()
+      download.style.visibility = 'visible'
+      between.style.visibility = 'visible'
+
+  # export a range of frames
+  exportRange = ->
+    [start, stop] = [currentRange.start, currentRange.stop]
+    rows = []
+    if start and stop
+      rows.push 'FRAME_ID,TIME,Y_POS,Y_VEL'
+      for i in [start..stop]
+        frame = queue[i]
+        h = frame.hands[0]
+        secs = (frame.timestamp - startTime) / 1000000    # in seconds
+        row = [frame.id, secs, h.palmPosition[1], h.palmVelocity[1]]
+        rows.push row.join(',')   # join values with comma
+    csv = rows.join('\n')         # join rows with newlines
+    download.href = 'data:attachment/csv,' + encodeURI(csv)
+    download.download = file.innerText.replace('.ldj', '.csv')
+  
+  reset = (event) -> 
+    @innerText = ""
+    between.style.visibility = 'hidden'
+    download.style.visibility = 'hidden'
+
+  palm.addEventListener('click', setRange)
+  slider.addEventListener('input', setFrame)
+  document.addEventListener('keydown', catchKeyControls)  # enable key controls
+  download.addEventListener('click', exportRange)
+
+  startingTime.addEventListener('click', reset)
+  stoppingTime.addEventListener('click', reset)
+
+  # click and choose a file to load
+  chooser.addEventListener('change', load)    
+  file.addEventListener('click', -> chooser.click())
+</script>
