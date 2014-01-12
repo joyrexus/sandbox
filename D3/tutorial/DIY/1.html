@@ -12,10 +12,9 @@
   }
 </style>
 <body>
-  <script type="text/coffeescript">
-    say = (msg) ->
-      (selection) -> selection.append('div').text(msg)
+<script type="text/coffeescript">
+  say = (msg) ->
+    (selection) -> selection.append('div').text(msg)
 
-    d3.select('body').call(say 'hi!')
-  </script>
-
+  d3.select('body').call(say 'hi!')
+</script>

@@ -13,7 +13,6 @@
 </style>
 <body>
 <script type="text/coffeescript">
-
   say = (msg) ->
     event = d3.dispatch 'click'
     clickable = (selection) -> selection.append('div').text(msg)
@@ -21,6 +20,4 @@
     d3.rebind clickable, event, 'on'
 
   d3.select('body').call say('hi!').on('click', (msg) -> alert msg)
-
 </script>
-
