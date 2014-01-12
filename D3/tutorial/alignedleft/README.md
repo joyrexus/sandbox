@@ -1,5 +1,4 @@
-D3 Tutorial
-===========
+# D3 Tutorial
 
 Contains demo code related to Scott Murray's [tutorial](http://alignedleft.com/tutorials/d3/).
 
