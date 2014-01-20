@@ -16,10 +16,15 @@
 <script>
   var data = [4, 8, 15, 16, 23, 42];
 
-  d3.select(".chart")
-    .selectAll("div")
-      .data(data)
-    .enter().append("div")
-      .style("width", function(d) { return d * 10 + "px"; })
+  // specify a linear mapping from data (domain) to display space (range)
+  var x = d3.scale.linear()
+    .domain([0, d3.max(data)])
+    .range([0, 420]);
+
+  d3.select(".chart")       // select chart
+    .selectAll("div")       // initiate data join
+      .data(data)           // join data to selection, returning *update*
+    .enter().append("div")  // append to *enter* selection
+      .style("width", function(d) { return x(d) + "px"; })
       .text(function(d) { return d; });
 </script>

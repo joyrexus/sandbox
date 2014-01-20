@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../../lib/d3.v3.min.js"></script>
+<script src="../../lib/coffee-script.js"></script>
+<style>
+  .chart div {
+    font: 10px sans-serif;
+    background-color: steelblue;
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    color: white;
+}
+</style>
+<div class="chart"></div>
+<script>
+  var data = [4, 8, 15, 16, 23, 42];
+
+  /* 
+
+  d3.select(".chart")       // select chart
+    .selectAll("div")       // initiate data join
+      .data(data)           // join data to selection, returning *update*
+    .enter().append("div")  // append to *enter* selection
+      .style("width", function(d) { return d * 10 + "px"; })
+      .text(function(d) { return d; });
+
+  */
+
+  /* step-by-step variant of above */
+
+  // select the chart container using a class selector
+  var chart = d3.select(".chart");
+
+  // initiate data join by defining selection to join data
+  var bar = chart.selectAll("div");
+
+  // join data to selection, returning an *update* selection
+  var barUpdate = bar.data(data);
+
+  // append to the *enter* selection any new data
+  var barEnter = barUpdate.enter().append("div");
+
+  // set the width of each new bar as multiple of data value
+  barEnter.style("width", function(d) { return d * 10 + "px"; });
+
+  // set the text content of each bar
+  barEnter.text(function(d) { return d; });
+</script>
