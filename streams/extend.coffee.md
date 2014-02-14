@@ -31,7 +31,7 @@ base class and then define override the method within our class.
 
     process.stdin.pipe(log)
 
-Our program will now print out two copies of whatever it gets on STDIN.
+Our program (viz., this [litcoffee](http://coffeescript.org/#literate) file) will now print out two copies of whatever it gets on STDIN.
 
 ```
 echo 'hi!' | coffee extend.coffee.md
