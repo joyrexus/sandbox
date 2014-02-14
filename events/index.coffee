@@ -1,21 +1,16 @@
-class Pub
+EventEmitter = require('events').EventEmitter
+
+
+class Pub extends EventEmitter
   '''
   Publisher / Observable / Event Emitter
 
   '''
-  subs: []
+  constructor: (@name) -> super()
 
-  constructor: (@name) ->
-
-  emit: (event) ->
+  notify: (event) ->
     console.log "#{@name} notifies its subscribers of #{event}:"
-    sub.notify(event) for sub in @subs when sub.event is event
-    @
-
-  on: (event, listener) ->
-    @subs.push 
-      event: event
-      notify: listener
+    @emit event, event.toUpperCase()
     @
 
 
@@ -26,21 +21,25 @@ class Sub
   '''
   constructor: (@name) ->
 
-  watch: (event) =>
-    console.log " * #{@name} is now watching #{event}"
+  watch: (show) =>
+    console.log " * #{@name} is now watching #{show}"
 
-  read: (event) =>
-    console.log " * #{@name} is now reading #{event}" 
+  read: (magazine) =>
+    console.log " * #{@name} is now reading #{magazine}" 
 
 
 # create instances
-pub = new Pub('Acme Media')   # publisher
-joe = new Sub('Joe')          # subscribers
+#
+# publisher
+acme = new Pub('Acme Media')   
+#
+# subscribers
+joe = new Sub('Joe')
 bob = new Sub('Bob')
 ann = new Sub('Ann')
 
 # set up subscriptions (register callbacks listening for specified events)
-pub
+acme
   .on('glee', ann.watch)
   .on('glee', bob.watch)
   .on('vogue', ann.read)
@@ -50,10 +49,5 @@ pub
   .on('sons of anarchy', joe.watch)
 
 # notify subscribers
-pub
-  .emit('vogue')
-  .emit('gun & garden')
-
-pub
-  .emit('glee')
-  .emit('sons of anarchy')
+events = ['vogue', 'gun & garden', 'glee', 'sons of anarchy']
+acme.notify(event) for event in events
