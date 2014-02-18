@@ -1,13 +1,15 @@
 ###
 Demonstrate how to extend stream's Transform base class 
-to create filters for streamed objects.
+to create a mapper for streamed objects.
 
-evens = new Filter((d) -> not(d % 2))
+inc = new Map((d) -> d + 1)   # increment each value by one
 
 count
-  .upto(11)
-  .pipe(evens)
+  .upto(3)
+  .pipe(inc)
   .pipe(log)
+
+Output: 2, 3, 4
  
 ###
 Read = require('stream').Readable
@@ -33,13 +35,13 @@ class Counter extends Read
       @push @i
  
 
-class Filter extends Transform
+class Map extends Transform
 
-  constructor: (@condition) -> 
+  constructor: (@transform) -> 
     super(objectMode: true)
 
   _transform: (data, enc, next) ->
-    @push data if @condition(data)
+    @push @transform(data)
     next()
 
  
@@ -55,23 +57,21 @@ class Log extends Write
 # create instances of each stream
  
 count = new Counter
+inc = new Map((d) -> d + 1)
 log = new Log
  
-odd = (d) -> d % 2
-evens = new Filter((d) -> not odd(d))
 
 count
-  .upto(11)
-  .pipe(evens)
+  .upto(5)
+  .pipe(inc)
   .pipe(log)
  
 ###
 should produce the following output:
 
   2
+  3
   4
-  6
-  8
-  10
+  5
 
 ### 
