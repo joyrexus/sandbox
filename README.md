@@ -13,6 +13,9 @@ Skim ...
 
 Try ...
 
+* [git-spatial](http://gitspatial.com/) - spatial API for your github-hosted
+  geojson
+
 * [search-index](https://github.com/fergiemcdowall/search-index) - Lucene for
   node, but simpler
 
