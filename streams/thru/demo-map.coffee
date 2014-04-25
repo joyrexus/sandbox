@@ -2,22 +2,25 @@ fs = require 'fs'
 csv = require 'csv2'
 map = require 'through2-map'
 
-columns = []
-result = {}
-
-iter = (data, i) ->
-  if i is 0
-    columns = data
-    result[k] = [] for k in columns
-  else
-    console.log result
-    result[k].push(data[i]) for k, i in columns
-
-finish = -> console.log('???')
-
-filter = map(objectMode: true, iter, finish)
+# extract first column of each row
+filter = map(objectMode: true, (row) -> row[0] + '\n')
 
 fs.createReadStream('data.csv')
   .pipe(csv())
   .pipe(filter)
-  .on('end', -> console.log '???')
+  .pipe(process.stdout)
+
+
+
+{Readable} = require 'stream'
+
+# a simple transform stream
+tx = map((d) -> d.toString().toUpperCase())
+ 
+# a simple source stream
+rs = new Readable
+rs.push 'the quick brown fox jumps over the lazy dog!\n'
+rs.push null 
+ 
+rs.pipe(tx)
+  .pipe(process.stdout)   # THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG!
