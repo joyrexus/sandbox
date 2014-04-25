@@ -24,3 +24,11 @@ stability by the criteria indicated above.
 We're also asked to perturb the resulting matching (swapping the spouses of two
 couples) and re-test for stability.  The perturbed matching should be found to
 be unstable.
+
+
+## See Also
+
+* [Chapter 1](https://github.com/joyrexus/algo-design/tree/master/ch-01) of
+  *Algorithm Design* by Kleinberg and Tardos.
+
+* [Minor variant](https://github.com/joyrexus/algo-design/tree/master/ch-01/solved/ex-2) where certain marriages are forbidden.
