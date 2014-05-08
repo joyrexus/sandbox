@@ -1,0 +1,14 @@
+{
+  "name": "thru-demo",
+  "version": "0.0.1",
+  "description": "'through2-* demo'",
+  "main": "index.js",
+  "dependencies": {
+    "through2-map": "~1.2.1",
+    "through2-filter": "~1.3.1",
+    "stream-spigot": "~3.0.3",
+    "concat-stream": "~1.4.5"
+  },
+  "author": "J. Voigt",
+  "license": "BSD-2-Clause"
+}
