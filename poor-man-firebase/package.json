@@ -1,0 +1,20 @@
+{
+  "name": "poor-man-firebase",
+  "version": "0.0.0",
+  "description": "a quick-and-dirty attempt to emulate firebase",
+  "main": "main.js",
+  "dependencies": {
+    "coffeeify": "~0.6.0",
+    "xhr": "~1.7.0",
+    "httpify": "~0.4.1",
+    "multilevel-http": "~0.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "browserify -t coffeeify main.coffee > bundle.js"
+  },
+  "author": "J. Voigt",
+  "license": "BSD-2-Clause"
+}

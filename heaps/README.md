@@ -21,3 +21,9 @@ assert q == [a, b, d, c]
 assert q.top is a
 assert q.top.msg is 'boom!'
 ```
+
+#### See Also
+
+* [priority queues with binary heaps](http://interactivepython.org/runestone/static/pythonds/Trees/heap.html) - nice tutorial and walkthrough of a python implementation
+
+* [pqdict](https://github.com/nvictus/priority-queue-dictionary) - an indexed priority queue with a dictionary interface

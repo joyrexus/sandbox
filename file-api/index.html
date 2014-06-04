@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  body {
+    margin-top: 25px;
+    margin-left: 50px;
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: 100;
+    font-size: 60px;
+    color: #777;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  #file {
+    color: steelblue;
+    font-size: 60px;
+  }
+  
+  #file:hover {
+    color: orange;
+    cursor: pointer;
+  }
+
+  input {
+    visibility: hidden;
+  }
+
+  .info {
+    display: flex;
+    font-size: 25px;
+    width: 515px;
+  }
+</style>
+<body>
+  <div id="fileInfo">
+    <div id="file">Click and choose a file</div>
+    <input type="file" id="chooser">
+  </div>
+  <div id="data"></div>
+<script src="main.js"></script>
