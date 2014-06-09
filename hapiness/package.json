@@ -1,0 +1,15 @@
+{
+  "name": "hello",
+  "version": "0.0.0",
+  "description": "hello world for hapi.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "J. Voigt",
+  "license": "ISC",
+  "dependencies": {
+    "hapi": "^5.1.0",
+    "joi": "^4.6.0"
+  }
+}
