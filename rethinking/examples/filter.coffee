@@ -6,6 +6,7 @@ params =
   host: 'localhost'
   port: 28015
 
+
 db = r.db('test')
 
 log = (err, result, pretty=true) ->
@@ -24,11 +25,10 @@ byMinPosts = (min) -> r.row('posts').count().gt(min)
 byMaxPosts = (max) -> r.row('posts').count().lt(max)
   
 r.connect params, (err, cx) ->
-  authors = db.table('authors')
-  authors
+  db.table('authors')
     .filter(byMinPosts 2)         
     .filter(byName "William Adama")
     .run cx, (err, cursor) ->
       throw err if err
-      cursor.toArray log
+      cursor.toArray summary
   cx.close()

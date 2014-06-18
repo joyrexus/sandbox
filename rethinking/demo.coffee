@@ -2,12 +2,6 @@
 
 r = require 'rethinkdb'
 
-params =
-  host: 'localhost'
-  port: 28015
-
-db = r.db('test')
-
 log = (err, result, pretty=true) ->
   throw err if err
   if pretty
@@ -23,12 +17,30 @@ byName = (name) -> r.row('name').eq(name)
 byMinPosts = (min) -> r.row('posts').count().gt(min)
 byMaxPosts = (max) -> r.row('posts').count().lt(max)
   
+params =
+  host: 'localhost'
+  port: 28015
+  db: 'test'
+
+'''
 r.connect params, (err, cx) ->
-  authors = db.table('authors')
-  authors
-    .filter(byMinPosts 2)         
-    .filter(byName "William Adama")
-    .run cx, (err, cursor) ->
-      throw err if err
-      cursor.toArray log
+  r.table('authors')
+    .get('fbf82665-be5b-4c3e-80c3-89773df77dc6')
+    .run(cx, log)
   cx.close()
+'''
+
+connect = r.connect
+
+r.connect = (config) ->
+  (callback) -> connect.call(r, config, callback)
+
+query = (err, cx) ->
+  r.table('authors')
+    .get('fbf82665-be5b-4c3e-80c3-89773df77dc6')
+    .run(cx, log)
+  cx.close()
+
+run = r.connect(params) 
+
+run query
