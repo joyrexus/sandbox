@@ -1,10 +1,8 @@
 A simple [priority queue](http://en.wikipedia.org/wiki/Priority_queue) implementation with *O*(*n* log *n*) sorting. The underlying data structure is a [binary heap](http://en.wikipedia.org/wiki/Binary_heap).
 
-A priority queue of elements/nodes ordered by comparative value.
+This implementation uses a binary heap where each node is less than or equal to its children.  Nodes can be anything as long as they're comparable.
 
-This implementation uses a binary heap where each node is less 
-than or equal to its children.  Nodes can be anything as long 
-as they're comparable.
+Like all priority queues, this implementation efficiently retrieves the minimum element (by comparative value) in the queue.  You can also insert elements and delete elements if they are "labeled". (See examples below.)
 
 
 #### Usage
@@ -41,8 +39,7 @@ d = Node(label='d', msg="oh", priority=4)
 assert a < b < c < d
 ```
 
-If you initialize your queue with **Node** objects containing
-`node.label` attributes, you can then delete nodes by label:
+If you initialize your queue with **Node** objects containing `node.label` attributes, you can then delete nodes by label:
 
 ```python
 q = PriorityQueue([b, c, d])
