@@ -37,6 +37,7 @@ def test_relations():
     assert q.parent(l) == p
     assert q.parent(r) == p
     assert q.children(p) == [l, r]
+    assert q.children(p) == [l, r]
 
 def test_shift():
     '''
@@ -55,6 +56,20 @@ def test_shift():
     assert p == {'index': 2, 'value': 3}
     assert q.children(p) == [c]
 
+<<<<<<< HEAD
+=======
+def test_pop():
+    '''
+    Testing the `pop` method, which pops off nodes at a 
+    specified index and rearranges the underlying MinHeap 
+    if necessary to preserve the min-heap property.
+    
+    '''
+    assert q == [2, 3, 5, 4]
+    assert q.pop(2)
+    assert q == [2, 4, 5]
+
+>>>>>>> 050df83e8c38a66cea36cdc54c0c59fc34b546fa
 def test_sort():
     '''
     Test sorting (heap sort) of priority queues.
@@ -82,21 +97,26 @@ def test_nodes():
     assert b == c
     assert a.msg is 'hi'
 
+    x = Node(label='x', msg="boom!", priority=1)
+    assert x.label == 'x'
+
 def test_node_heaping():
     '''
     Test priority queues with nodes as elements.
     
     '''
-    a = Node(msg="boom!", priority=1)
-    b = Node(msg="hi", priority=2)
-    c = Node(msg="ok", priority=3)
-    d = Node(msg="oh", priority=4)
+    a = Node(label='a', msg="boom!", priority=1)
+    b = Node(label='b', msg="hi", priority=2)
+    c = Node(label='c', msg="ok", priority=3)
+    d = Node(label='d', msg="oh", priority=4)
 
     q = PriorityQueue(b, c, d)
     assert q.top == b
     assert q.top.msg == 'hi'
+    assert q.top.label == 'b'
     assert q == [b, c, d]
-    assert q.node(1) == {'index': 1, 'value': {'priority': 2, 'msg': 'hi'}}
+    expected = {'label': 'b', 'priority': 2, 'msg': 'hi'}
+    assert q.node(1) == {'index': 1, 'value': expected}
 
     q.insert(a)
     assert q.top == a
