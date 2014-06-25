@@ -1,7 +1,9 @@
 # Getters and Setters
 
+* http://stackoverflow.com/questions/11587231/coffeescript-getter-setter-in-object-initializers
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/get
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/set
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects
 
 There's been plenty of discussion about the value and viability of adding getter and setter syntax to CoffeeScript.  See issues [#64](https://github.com/jashkenas/coffee-script/issues/64), [#451](https://github.com/jashkenas/coffee-script/issues/451), and [#1165](https://github.com/jashkenas/coffee-script/issues/1165/).
 
