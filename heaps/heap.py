@@ -227,6 +227,14 @@ class Node(dict):
 
 if __name__ == '__main__':
 
+    q = PriorityQueue([3, 1, 2, 4])
+    assert q.min == 1
+    assert q.sort() == [1, 2, 3, 4]
+    
+    x = q.shift()
+    assert x == 1
+    assert q.sort() == [2, 3, 4]
+
     a = Node(label='a', msg="boom!", priority=1)
     b = Node(label='b', msg="hi", priority=2)
     c = Node(label='c', msg="ok", priority=3)
