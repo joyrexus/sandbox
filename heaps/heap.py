@@ -14,6 +14,10 @@ class MinHeap:
         max = (self.size // 2) + 1  # indices > max are leaf nodes
         for i in range(1, max):     # iterate over parent node indices
             self.percDown(i)
+        '''
+        self.position = {node.label: i for i, node in enumerate(self.heap)
+                                            if node and 'label' in node}
+        '''
 
     def __str__(self):
         return str(list(self.heap)[1:])
@@ -108,16 +112,31 @@ class PriorityQueue(MinHeap):
 
     def shift(self):
         '''
-        Shift off top/minimum element in heap.
+        Shift off top/minimum node in heap.
+
+        '''
+        return self.pop(1)
+
+    def pop(self, i):
+        '''
+        Pop off node at index `i` in heap.
 
         '''
         if self.size == 0: return None
-        v = self.heap[1]                # return top value
-        self.heap[1] = self.heap[-1]    # move last element to top
+        v = self.heap[i]                # return specified node
+        self.heap[i] = self.heap[-1]    # move last element to top
         self.heap.pop()                 # delete last element
         self.size -= 1                  # decrement size
-        self.percDown(1)                # percolate top value down if necessary
+        self.percDown(i)                # percolate top value down if necessary
         return v
+
+    def delete(self, label): 
+        '''
+        Delete node with specified label.
+
+        '''
+        i = self.position[label]
+        return self.pop(i)
 
     def insert(self, v):
         '''
@@ -143,6 +162,12 @@ class Node(dict):
     '''
     Nodes are just dicts comparable by their `priority` key.
 
+    Your nodes should contain `label` attributes when you're 
+    inserting into a PriorityQueue and you'd like to delete 
+    a node by its label from the underlying heap.
+
+        >>> a = Node(dict(label='a', priority=5, msg='hi!'))
+
     '''
     def __cmp__(self, other):
         '''
@@ -162,3 +187,19 @@ class Node(dict):
 
     def __getattr__(self, attr):
         return self.get(attr, None)
+
+
+if __name__ == '__main__':
+
+    a = Node(label='a', msg="boom!", priority=1)
+    b = Node(label='b', msg="hi", priority=2)
+    c = Node(label='c', msg="ok", priority=3)
+    d = Node(label='d', msg="oh", priority=4)
+
+    q = PriorityQueue(b, c, d)
+    assert q.top == b
+    assert q.top.msg == 'hi'
+    assert q == [b, c, d]
+
+    # print q.position
+    # print q.heap
