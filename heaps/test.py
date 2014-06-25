@@ -55,7 +55,6 @@ def test_shift():
     assert p == {'index': 2, 'value': 3}
     assert q.children(p) == [c]
 
-
 def test_sort():
     '''
     Test sorting (heap sort) of priority queues.
@@ -64,7 +63,6 @@ def test_sort():
     q = PriorityQueue(5, 1, 2, 4, 6, 3)
     assert q == [1, 4, 2, 5, 6, 3]
     assert q.sort() == [1, 2, 3, 4, 5, 6]
-
 
 def test_nodes():
     '''

@@ -7,6 +7,8 @@ class MinHeap:
     or equal to its children.  We use it as the basis for our
     priority queue, defined below.
 
+    Note that nodes can be anything as long as they're comparable.
+
     '''
     def __init__(self, *args):
         self.heap = deque([None] + list(args))
