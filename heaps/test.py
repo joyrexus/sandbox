@@ -1,11 +1,11 @@
 from heap import Node, PriorityQueue
 
-q = PriorityQueue(5, 4, 3)
+q = PriorityQueue([5, 4, 3])
 
 def test_basic():
-    assert q.top == 3
+    assert q.min == 3
     assert q.size == 3
-    assert q == [3, 4, 5]
+    assert q == [3, 5, 4]
 
 def test_insert():
     '''
@@ -14,14 +14,14 @@ def test_insert():
 
     '''
     q.insert(2)
-    assert q.top == 2
+    assert q.min == 2
     assert q.size == 4
-    assert q == [2, 3, 5, 4]
+    assert q == [2, 3, 4, 5]
 
     q.insert(1)
-    assert q.top == 1
+    assert q.min == 1
     assert q.size == 5
-    assert q == [1, 2, 5, 4, 3]
+    assert q == [1, 2, 4, 5, 3]
 
 def test_relations():
     '''
@@ -31,7 +31,7 @@ def test_relations():
     l = q.node(4)   # node at index 4
     r = q.node(5)   # node at index 5
     p = q.node(2)   # parent of child nodes l and r
-    assert l == {'index': 4, 'value': 4}
+    assert l == {'index': 4, 'value': 5}
     assert r == {'index': 5, 'value': 3}
     assert p == {'index': 2, 'value': 2}
     assert q.parent(l) == p
@@ -41,23 +41,21 @@ def test_relations():
 
 def test_shift():
     '''
-    Testing the `shift` method, which shifts off top 
+    Testing the `shift` method, which shifts off min 
     element and rearranges the underlying MinHeap if 
     necessary to preserve the min-heap property.
     
     '''
     assert q.shift() == 1
-    assert q == [2, 3, 5, 4]
+    assert q == [2, 3, 4, 5]
 
     c = q.node(4)
-    assert c == {'index': 4, 'value': 4}
+    assert c == {'index': 4, 'value': 5}
 
     p = q.parent(c)
     assert p == {'index': 2, 'value': 3}
     assert q.children(p) == [c]
 
-<<<<<<< HEAD
-=======
 def test_pop():
     '''
     Testing the `pop` method, which pops off nodes at a 
@@ -65,17 +63,16 @@ def test_pop():
     if necessary to preserve the min-heap property.
     
     '''
-    assert q == [2, 3, 5, 4]
+    assert q == [2, 3, 4, 5]
     assert q.pop(2)
-    assert q == [2, 4, 5]
+    assert q == [2, 5, 4]
 
->>>>>>> 050df83e8c38a66cea36cdc54c0c59fc34b546fa
 def test_sort():
     '''
     Test sorting (heap sort) of priority queues.
     
     '''
-    q = PriorityQueue(5, 1, 2, 4, 6, 3)
+    q = PriorityQueue([5, 1, 2, 4, 6, 3])
     assert q == [1, 4, 2, 5, 6, 3]
     assert q.sort() == [1, 2, 3, 4, 5, 6]
 
@@ -110,15 +107,41 @@ def test_node_heaping():
     c = Node(label='c', msg="ok", priority=3)
     d = Node(label='d', msg="oh", priority=4)
 
-    q = PriorityQueue(b, c, d)
-    assert q.top == b
-    assert q.top.msg == 'hi'
-    assert q.top.label == 'b'
+    q = PriorityQueue([b, c, d])
+    assert q.min == b
+    assert q.min.msg == 'hi'
+    assert q.min.label == 'b'
     assert q == [b, c, d]
-    expected = {'label': 'b', 'priority': 2, 'msg': 'hi'}
-    assert q.node(1) == {'index': 1, 'value': expected}
 
     q.insert(a)
-    assert q.top == a
-    assert q.top.msg is 'boom!'
+    assert q.min == a
+    assert q.min.msg is 'boom!'
+    assert q.min.label == 'a'
     assert q == [a, b, d, c]
+
+    assert q.delete('c') == c
+    assert q.sort() == [a, b, d]
+    assert q.min == a
+    assert q.min.label == 'a'
+
+    min = q.shift()
+    assert min == a
+    assert min.label == 'a'
+    assert q.sort() == [b, d]
+    assert q.min == b
+    assert q.min.label == 'b'
+
+    q = PriorityQueue([d, c, b, a])
+    assert [a, b, c, d] == q.sort()
+    assert [a, b, c, d] == [q.shift() for x in range(q.size)]
+    assert q.size == 0
+    assert q == []
+
+    from itertools import permutations
+    nodes = [a, b, c, d]
+    for perm in permutations(nodes):
+        q = PriorityQueue(perm)
+        assert [a, b, c, d] == q.sort()
+        assert [a, b, c, d] == [q.shift() for x in range(q.size)]
+        assert q.size == 0
+        assert q == []

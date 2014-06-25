@@ -3,23 +3,41 @@ A simple [priority queue](http://en.wikipedia.org/wiki/Priority_queue) implement
 
 #### Usage
 
+Nodes are just python **dicts** comparable by their `priority` key:
+
 ```python
 from heap import Node, PriorityQueue
 
-a = Node(msg="boom!", priority=1)
-b = Node(msg="hi", priority=2)
-c = Node(msg="ok", priority=3)
-d = Node(msg="no", priority=4)
+a = Node(label='a', msg="boom!", priority=1)
+b = Node(label='b', msg="hi", priority=2)
+c = Node(label='c', msg="ok", priority=3)
+d = Node(label='d', msg="oh", priority=4)
 
-q = PriorityQueue(b, c, d)
+assert a < b < c < d
+```
+
+```python
+q = PriorityQueue([b, c, d])
+
+assert q.min == b
+assert q.min.msg == 'hi'
+assert q.min.label == 'b'
 assert q == [b, c, d]
-assert q.top == b
-assert q.top.msg is 'hi'
 
 q.insert(a)
-assert q == [a, b, d, c]
-assert q.top is a
-assert q.top.msg is 'boom!'
+assert q.min == a
+assert q.min.msg is 'boom!'
+assert q.min.label is 'a'
+assert q.sort() == [a, b, c, d]   # get sorted list of elements
+
+min = q.shift()                   # shift off minimum element
+assert min == a
+assert min.label == 'a'
+assert q.sort() == [b, c, d]
+
+assert q.delete('c') == c         # delete a node by `node.label`
+assert q.sort() == [b, d]
+assert q.min == b
 ```
 
 #### See Also

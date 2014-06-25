@@ -1,25 +1,43 @@
 from collections import deque
 
 
-class MinHeap:
-    '''
-    Implementation of a binary heap where each node is less than
-    or equal to its children.  We use it as the basis for our
-    priority queue, defined below.
+def is_iterable(obj):
+    '''Test if `obj` is iterable.'''
+    try: iter(obj)
+    except TypeError: return False
+    return True
 
-    Note that nodes can be anything as long as they're comparable.
+def has_label(obj):
+    '''Test if `obj` has a "label" attribute.'''
+    try: return obj.label
+    except AttributeError: return False
+
+def are_labeled(objs):
+    '''Test if `objs` all have "label" attributes.'''
+    return all(is_iterable(obj) and has_label(obj) for obj in objs)
+
+
+class PriorityQueue:
+    '''
+    Queue of elements/nodes ordered by priority.
+
+    Implementation uses a binary heap where each node is less than
+    or equal to its children.  Note that nodes can be anything as 
+    long as they're comparable.
+
+    If you initialize your queue with node elements that contain
+    `node.label` attributes, you can then delete nodes by label.
 
     '''
-    def __init__(self, *args):
-        self.heap = deque([None] + list(args))
-        self.size = len(args) 
-        max = (self.size // 2) + 1  # indices > max are leaf nodes
-        for i in range(1, max):     # iterate over parent node indices
-            self.percDown(i)
-        '''
-        self.position = {node.label: i for i, node in enumerate(self.heap)
-                                            if node and 'label' in node}
-        '''
+    def __init__(self, nodes):
+        self.size = 0
+        self.heap = deque([None])
+        self.labeled = False
+        for n in nodes: self.insert(n)
+        if are_labeled(nodes):
+            self.labeled = True
+            self.position = {node.label: i+1 for i, node in enumerate(self.heap)
+                                                         if i > 0}
 
     def __str__(self):
         return str(list(self.heap)[1:])
@@ -31,6 +49,8 @@ class MinHeap:
         '''
         Return {index, value} of node at index i.
 
+        This is used for testing parent/child relations.
+        
         '''
         return dict(index=i, value=self.heap[i])
 
@@ -61,8 +81,12 @@ class MinHeap:
 
         '''
         self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+        if self.labeled:
+            I, J = self.heap[i], self.heap[j]
+            self.position[I.label] = i
+            self.position[J.label] = j
 
-    def percUp(self, i):
+    def shift_up(self, i):
         '''
         Percolate upward the value at index i to restore heap property.
 
@@ -74,7 +98,7 @@ class MinHeap:
             i = p                   # new index after swapping with parent
             p = p // 2              # new parent index
 
-    def percDown(self, i):
+    def shift_down(self, i):
         '''
         Percolate downward the value at index i to restore heap property.
 
@@ -98,19 +122,21 @@ class MinHeap:
         else:
             return l if self.heap[l] < self.heap[r] else r
 
+    @property
+    def min(self):
+        '''
+        Return minimum node in heap.
 
-class PriorityQueue(MinHeap):
-    '''
-    Queue of elements ordered by priority.
+        '''
+        return self.heap[1]
 
-    '''
     @property
     def top(self):
         '''
         Return top/minimum element in heap.
 
         '''
-        return self.heap[1]
+        return self.min
 
     def shift(self):
         '''
@@ -126,29 +152,36 @@ class PriorityQueue(MinHeap):
         '''
         if self.size == 0: return None
         v = self.heap[i]                # return specified node
-        self.heap[i] = self.heap[-1]    # move last element to top
+        self.swap(self.size, i)         # move last element to i
         self.heap.pop()                 # delete last element
         self.size -= 1                  # decrement size
-        self.percDown(i)                # percolate top value down if necessary
+        self.shift_down(i)              # percolate top value down if necessary
         return v
 
     def delete(self, label): 
         '''
-        Delete node with specified label.
+        Pop off node with specified label attribute.
 
         '''
-        i = self.position[label]
+        try:
+            i = self.position[label]
+            self.position[label] = None
+        except KeyValueError:
+            print 'node with label "{}" does not exist'.format(label)
+            return None
         return self.pop(i)
 
-    def insert(self, v):
+    def insert(self, node):
         '''
-        Append the value v to the heap and percolate up
+        Append `node` to the heap and percolate up
         if necessary to maintain heap property.
 
         '''
-        self.heap.append(v)
+        if has_label(node) and self.labeled:
+            self.position[node.label] = self.size
+        self.heap.append(node)
         self.size += 1
-        self.percUp(self.size)
+        self.shift_up(self.size)
 
     def sort(self):
         '''
@@ -157,6 +190,7 @@ class PriorityQueue(MinHeap):
         '''
         sorted = [self.shift() for i in range(self.size)]
         self.heap = deque([None] + sorted)
+        self.size = len(self.heap) - 1
         return sorted
 
 
@@ -197,11 +231,14 @@ if __name__ == '__main__':
     b = Node(label='b', msg="hi", priority=2)
     c = Node(label='c', msg="ok", priority=3)
     d = Node(label='d', msg="oh", priority=4)
+    e = Node(msg="no", priority=5)
 
-    q = PriorityQueue(b, c, d)
+    assert a < b < c < d
+
+    q = PriorityQueue([b, c, d])
     assert q.top == b
     assert q.top.msg == 'hi'
     assert q == [b, c, d]
 
-    # print q.position
-    # print q.heap
+    q.insert(a)
+    assert q.sort() == [a, b, c, d]
