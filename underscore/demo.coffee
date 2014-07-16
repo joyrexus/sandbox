@@ -13,3 +13,11 @@ ok _(x).contains 'c'
 ok _(x).contains('d') == false
 ok _(y).contains 'd'
 ok _(y).contains('g') == false
+
+
+# altering the prototype
+Array::contains = (x) ->
+  @indexOf(x) != -1
+
+ok x.contains('c')
+ok x.contains('d') == false
