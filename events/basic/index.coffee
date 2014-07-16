@@ -26,5 +26,5 @@ bob.on 'move', -> console.log "#{@name} falls down!"
 ann.on 'move', log
 ann.on 'walk', -> console.log "#{@name} walks gracefully!"
 
-bob.move(5)
+# bob.move(5)
 ann.walk(8)
