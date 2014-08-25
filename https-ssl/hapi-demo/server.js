@@ -1,15 +1,14 @@
 var fs = require('fs');
 var Hapi = require('hapi');
-var path = require('path');
 
 var options = {
   tls: {
-    key: fs.readFileSync(path.join(__dirname, "private/key.pem"), 'utf8'),
-    cert: fs.readFileSync(path.join(__dirname, "private/cert.pem"), 'utf8')
+    key: fs.readFileSync("private/key.pem"),
+    cert: fs.readFileSync("private/cert.pem")
   }
 };
 
-var server = new Hapi.Server("localhost", 443, options);
+var server = new Hapi.Server("localhost", 8080, options);
 
 server.route({
     method: 'GET',
