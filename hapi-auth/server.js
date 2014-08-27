@@ -29,7 +29,7 @@ server.pack.register(Basic, function (err) {
     server.auth.strategy('simple', 'basic', { validateFunc: validate });
     server.route({ 
         method: 'GET', 
-        path: '/test', 
+        path: '/login', 
         config: { auth: 'simple' },
         handler: function (request, reply) { reply('ok!'); }
     });
