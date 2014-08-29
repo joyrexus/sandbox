@@ -2,7 +2,7 @@
   "name": "cnet-auth",
   "version": "0.0.0",
   "description": "CNet authentication check with ldapjs",
-  "main": "cnet.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
