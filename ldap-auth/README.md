@@ -6,8 +6,8 @@ See [these IT Services docs](https://answers.uchicago.edu/search.php?q=ldap+auth
 ## Usage
 
     npm install
-    bin/cnet --username CNET_ID --password CNET_PASS
+    bin/cnet.js --username CNET_ID --password CNET_PASS
 
 ... or ...
 
-    bin/cnet -u CNET_ID -p CNET_PASS
+    bin/cnet.js -u CNET_ID -p CNET_PASS
