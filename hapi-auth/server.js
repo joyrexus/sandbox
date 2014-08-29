@@ -35,6 +35,6 @@ server.pack.register(Basic, function (err) {
     });
     server.start(function () {
       console.log('info', 'Server running at: ' + server.info.uri);
-      console.log('curl ' + server.info.uri + '/test -H "Authorization: Basic ' + (new Buffer('john:123', 'utf8')).toString('base64') + '"');
+      console.log('curl ' + server.info.uri + '/login -H "Authorization: Basic ' + (new Buffer('john:123', 'utf8')).toString('base64') + '"');
     });
 });

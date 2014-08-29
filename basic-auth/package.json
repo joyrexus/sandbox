@@ -12,11 +12,5 @@
     "demo"
   ],
   "author": "J. Voigt",
-  "license": "BSD-2-Clause",
-  "dependencies": {
-    "basic": "0.0.3"
-  },
-  "devDependencies": {
-    "passport": "~0.2.0"
-  }
+  "license": "BSD-2-Clause"
 }

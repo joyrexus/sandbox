@@ -1,4 +1,4 @@
-Quick demo of [HTTP Basic Auth](http://en.wikipedia.org/wiki/Basic_access_authentication) with [`basic`](https://github.com/thisandagain/basic).
+Quick demo of [HTTP Basic Auth](http://en.wikipedia.org/wiki/Basic_access_authentication).
 
 
 ## Usage
@@ -8,7 +8,7 @@ Quick demo of [HTTP Basic Auth](http://en.wikipedia.org/wiki/Basic_access_authen
 
 Then try ...
 
-    curl --head -H "Authorization: Basic am9uZXM6MTIz" http://localhost:9000
+    curl --head -H "Authorization: Basic am9uZXM6MTIz" http://localhost:5000
 
 ... which should return:
 
