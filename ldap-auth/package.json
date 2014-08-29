@@ -15,5 +15,6 @@
   "dependencies": {
     "ldapjs": "~0.7.1",
     "minimist": "~1.1.0"
-  }
+  },
+  { "bin" : { "cnet" : "bin/cnet.js" } }
 }
