@@ -1,5 +1,6 @@
 *.db
 *.swp
 *.pyc
+*.pdf
 .DS_Store
 node_modules
