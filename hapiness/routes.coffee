@@ -1,13 +1,16 @@
 names = [
-  ['jason', 'voigt']
-  ['robin', 'weiss']
+  first: 'jason'
+  last: 'voigt'
+ ,
+  first: 'robin'
+  last: 'weiss'
 ]
 
 routes = [
   method: 'GET'
   path: '/hello/names'
   handler: (req, reply) -> 
-    reply JSON.stringify(names)
+    reply JSON.stringify(names) + "\n"
  ,
   method: 'GET'
   path: '/hello/{first}/{last?}'
@@ -25,7 +28,7 @@ routes = [
       first: req.payload.first
       last: req.payload.last
     names.push(name)
-    reply "added #{name}!\n"
+    reply "added #{JSON.stringify name}!\n"
  ,
   method: 'DELETE'
   path: '/hello/{index}'
@@ -35,7 +38,7 @@ routes = [
       return reply('No name found!\n').code(404)
     name = names[i]
     names.splice(i, 1)
-    reply "deleted #{name}!\n"
+    reply "deleted #{JSON.stringify name}!\n"
 ]
 
 module.exports = routes
