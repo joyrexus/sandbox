@@ -1,0 +1,19 @@
+{
+  "name": "hapi-tutorial",
+  "version": "0.0.0",
+  "description": "Working through the Pursuit of Hapiness tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hapi",
+    "tutorial"
+  ],
+  "author": "J. Voigt",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "hapi": "~6.7.1",
+    "joi": "~4.6.2"
+  }
+}
