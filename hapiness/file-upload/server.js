@@ -20,7 +20,6 @@ server.route({
                 var name = data.file.hapi.filename;
                 var path = __dirname + "/uploads/" + name;
                 var file = fs.createWriteStream(path);
-                var body = '';
 
                 file.on('error', function (err) { 
                     console.error(err) 
@@ -28,18 +27,10 @@ server.route({
 
                 data.file.pipe(file);
 
-                data.file.on('data', function (data) {
-                    body += data
-                })
-
                 data.file.on('end', function (err) { 
                     var ret = {
-                        description: data.file.description,
-                        file: {
-                            data: body,
-                            filename: data.file.hapi.filename,
-                            headers: data.file.hapi.headers
-                        }
+                        filename: data.file.hapi.filename,
+                        headers: data.file.hapi.headers
                     }
                     reply(JSON.stringify(ret));
                 })

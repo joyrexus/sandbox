@@ -4,6 +4,7 @@ Demo of multipart form/file uploading with `hapi.js`.
 ## Usage
 
     npm install
+    npm run setup
     npm run server
 
 Then ...
