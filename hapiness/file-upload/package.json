@@ -1,0 +1,21 @@
+{
+  "name": "file-upload",
+  "version": "0.0.0",
+  "description": "multipart file upload demo",
+  "main": "server.js",
+  "scripts": {
+    "test": "curl --form file=@data.csv --form user=Jones http://localhost:8080/submit",
+    "server": "node server.js"
+  },
+  "keywords": [
+    "multipart",
+    "upload",
+    "file",
+    "demo"
+  ],
+  "author": "J. Voigt",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "hapi": "~6.8.0"
+  }
+}
