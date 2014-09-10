@@ -6,8 +6,9 @@ server.route({
     method: 'GET',
     path: '/upload',
     handler: function (request, reply) {
-        reply.file('clients/html-form/index.html');
+        // reply.file('clients/html-form/index.html');
         // reply.file('clients/xhr-send/index.html');
+        reply.file('clients/xhr-bootstrap/index.html');
     },
 });
 

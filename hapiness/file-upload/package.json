@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "setup": "[ -d uploads ] || mkdir uploads",
-    "test": "curl --form file=@data.csv --form user=Jones http://localhost:8080/submit",
-    "server": "node server.js"
+    "server": "node server.js",
+    "test": "curl --form file=@data.csv --form user=Jones http://localhost:8080/submit"
   },
   "keywords": [
     "multipart",
