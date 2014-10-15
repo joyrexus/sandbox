@@ -1,0 +1,21 @@
+{
+  "name": "hapi-testing",
+  "version": "0.0.0",
+  "description": "'demo of lab testing'",
+  "main": "server.js",
+  "scripts": {
+    "test": "./node_modules/lab/bin/lab -c"
+  },
+  "keywords": [
+    "hapi",
+    "lab",
+    "testing"
+  ],
+  "author": "J. Voigt",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "hapi": "~6.8.1",
+    "joi": "~4.6.2",
+    "lab": "~4.4.3"
+  }
+}
