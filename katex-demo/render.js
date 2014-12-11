@@ -3,7 +3,7 @@ var fs = require('fs');
 var mustache = require('mustache');
 var katex = require('katex');
 
-var formula = "c = \\pm\\sqrt{a^2 + b^2}";
+var formula = '\\color{#9C0}c = \\pm\\sqrt{a^2 + \\color{#F44}{b^2} }';
 var view = { 
     insert: katex.renderToString(formula)
 };

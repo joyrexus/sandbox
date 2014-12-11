@@ -1,7 +1,7 @@
 #!/usr/bin/env coffee 
 Twitter = require 'ntwitter'
 open = require 'opener'
-keys = require 'keys'
+keys = require 'private'
 
 spot = process.argv[2] or 'chicago' # tweets from which spot?
 time = process.argv[3] or 10        # listen for how many secs?
