@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/d3.v3.min.js"></script>
+<style>
+</style>
+<body>
+  <svg width="720" height="120">
+    <circle cx="40" cy="60" r="10"></circle>
+    <circle cx="80" cy="60" r="10"></circle>
+    <circle cx="120" cy="60" r="10"></circle>
+  </svg>
+
+<script>
+  var data = [50, 100, 150];
+
+  var circle = d3.selectAll("circle")
+    .data(data)
+    .style("fill", "steelblue")
+    .attr("r", 30)
+    .attr("cx", function(d, i) { return i * 100 + 60 });
+
+</script>

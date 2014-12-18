@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+@import url(http://fonts.googleapis.com/css?family=PT+Serif|PT+Serif:b|PT+Serif:i|PT+Sans|PT+Sans:b);
+
+html {
+  min-width: 1040px;
+}
+
+body {
+  background: #fcfcfa;
+  color: #333;
+  font-family: "PT Serif", serif;
+  margin: 1em auto 4em auto;
+  position: relative;
+  width: 960px;
+}
+
+header,
+footer,
+aside,
+h1,
+h2,
+h3,
+h4 {
+  font-family: "PT Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #000;
+}
+
+header,
+footer {
+  color: #636363;
+}
+
+h1 {
+  font-size: 64px;
+  font-weight: 300;
+  letter-spacing: -2px;
+  margin: .3em 0 .1em 0;
+}
+
+h2 {
+  margin-top: 2em;
+}
+
+h1, h2 {
+  text-rendering: optimizeLegibility;
+}
+
+h2 a[name],
+h2 a[id] {
+  color: #ccc;
+  right: 100%;
+  padding: 0 .3em;
+  position: absolute;
+}
+
+header,
+footer {
+  font-size: small;
+}
+
+header aside,
+footer aside {
+  float: left;
+  margin-right: .5em;
+}
+
+header aside:after,
+footer aside:after {
+  padding-left: .5em;
+  content: "/";
+}
+
+footer {
+  margin-top: 8em;
+}
+
+h1 ~ aside {
+  font-size: small;
+  right: 0;
+  position: absolute;
+  width: 180px;
+}
+
+.attribution {
+  font-size: small;
+  margin-bottom: 2em;
+}
+
+body > p, li > p {
+  line-height: 1.5em;
+}
+
+body > p {
+  width: 720px;
+}
+
+body > blockquote {
+  width: 640px;
+}
+
+blockquote q {
+  display: block;
+  font-style: oblique;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  width: 690px;
+  margin-left: 30px;
+}
+
+a {
+  color: steelblue;
+}
+
+a:not(:hover) {
+  text-decoration: none;
+}
+
+pre, code, textarea {
+  font-family: "Menlo", monospace;
+}
+
+code {
+  line-height: 1em;
+}
+
+textarea {
+  font-size: 100%;
+}
+
+body > pre {
+  border-left: solid 2px #ccc;
+  padding-left: 18px;
+  margin: 2em 0 2em -20px;
+}
+
+svg {
+  font: 10px sans-serif;
+}
+
+sup, sub {
+  line-height: 0;
+}
+
+q:before {
+  content: "â€œ";
+}
+
+q:after {
+  content: "â€";
+}
+
+blockquote q {
+  line-height: 1.5em;
+  display: inline;
+}
+
+blockquote q:before,
+blockquote q:after {
+  content: "";
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.html .value,
+.javascript .string,
+.javascript .regexp {
+  color: #756bb1;
+}
+
+.html .tag,
+.css .tag,
+.javascript .keyword {
+  color: #3182bd;
+}
+
+.comment {
+  color: #636363;
+}
+
+.html .doctype,
+.javascript .number {
+  color: #31a354;
+}
+
+.html .attribute,
+.css .attribute,
+.javascript .class,
+.javascript .special {
+  color: #e6550d;
+}
+
+</style>
+<body>
+<script src="js/d3.v3.min.js"></script>
+
+<header>
+  2014-12-18 / <a href="jvoigt@uchicago.edu">Jason Voigt</a>
+</header>
+
+
+<h1>Hello World!</h1>
+<p>Once upon a time, there were three little circles.</p>
+<svg width="720" height="120">
+  <circle cx="40" cy="60" r="10"></circle>
+  <circle cx="80" cy="60" r="10"></circle>
+  <circle cx="120" cy="60" r="10"></circle>
+</svg>
+
+<aside style="margin-top:2em;">
+We&#39;re using SVG (Scalable Vector Graphics) here, an HTML5 standard
+</aside>
+
+<pre><code class="html">&lt;svg width=&quot;720&quot; height=&quot;120&quot;&gt;
+  &lt;circle cx=&quot;40&quot; cy=&quot;60&quot; r=&quot;10&quot;&gt;&lt;/circle&gt;
+  &lt;circle cx=&quot;80&quot; cy=&quot;60&quot; r=&quot;10&quot;&gt;&lt;/circle&gt;
+  &lt;circle cx=&quot;120&quot; cy=&quot;60&quot; r=&quot;10&quot;&gt;&lt;/circle&gt;
+&lt;/svg&gt;</code></pre>
+<p>This tutorial shows you how to manipulate them using selections.</p>
+<h2>Selecting Elements</h2>
+<p>The <a href="https://github.com/mbostock/d3/wiki/Selections#selectAll">d3.selectAll</a> method takes a <a href="http://www.w3.org/TR/CSS2/selector.html">selector</a> string, such as <code>&quot;circle&quot;</code>, and returns a selection representing all elements that match the selector:</p>
+<pre><code>var circle = d3.selectAll(&quot;circle&quot;);</code></pre>
+<p>The above code sets styles and attributes for all selected elements to the same values.</p>
+<svg width="720" height="120">
+  <circle cx="40" cy="60" r="30" style="fill:steelblue;"></circle>
+  <circle cx="80" cy="60" r="30" style="fill:steelblue;"></circle>
+  <circle cx="120" cy="60" r="30" style="fill:steelblue;"></circle>
+</svg>
+
+<pre><code class="html">&lt;svg width=&quot;720&quot; height=&quot;120&quot;&gt;
+  &lt;circle cx=&quot;40&quot; cy=&quot;60&quot; r=&quot;30&quot; style=&quot;fill:steelblue;&quot;&gt;&lt;/circle&gt;
+  &lt;circle cx=&quot;80&quot; cy=&quot;60&quot; r=&quot;30&quot; style=&quot;fill:steelblue;&quot;&gt;&lt;/circle&gt;
+  &lt;circle cx=&quot;120&quot; cy=&quot;60&quot; r=&quot;30&quot; style=&quot;fill:steelblue;&quot;&gt;&lt;/circle&gt;
+&lt;/svg&gt;</code></pre>
+<footer>
+  2014-12-18 / <a href="jvoigt@uchicago.edu">Jason Voigt</a>
+</footer>
+
+<script src="js/highlight.min.js"></script>
+
